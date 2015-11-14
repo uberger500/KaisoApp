@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:weightSum="6">
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_search"
+        android:id="@+id/button_search"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_browse"
+        android:text="@string/button_browse"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_new_releases"
+        android:text="@string/button_new_releases"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_discussions"
+        android:text="@string/button_discussions"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_submit"
+        android:id="@+id/button_submit"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_contact"
+        android:id="@+id/button_contact"
+        android:layout_weight="1"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:padding="16dp"
+        android:layout_gravity="center_horizontal"/>
+</TableLayout>
+
