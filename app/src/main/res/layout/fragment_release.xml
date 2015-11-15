@@ -52,4 +52,11 @@
         android:layout_height="wrap_content"
         android:text="track_text"
         android:id="@+id/track_text"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="genre_text"
+        android:id="@+id/genre_text"
+        android:layout_weight="1"/>
 </LinearLayout>

@@ -26,6 +26,7 @@ public class ReleaseFragment extends Fragment {
     private TextView mYear;
     private TextView mTrack;
     private TextView mArranger;
+    private TextView mGenre;
 
 
 //    private EditText mTitleField;
@@ -56,6 +57,7 @@ public class ReleaseFragment extends Fragment {
 
         mArtist = (TextView) v.findViewById(R.id.artist_text);
         mArtist.setText(mRelease.getArtist());
+
         mYear = (TextView) v.findViewById(R.id.year_text);
 
         mTitle = (TextView) v.findViewById(R.id.release_title);
@@ -64,6 +66,7 @@ public class ReleaseFragment extends Fragment {
 
         mArranger = (TextView) v.findViewById(R.id.arranger_text);
 
+        mGenre = (TextView) v.findViewById(R.id.genre_text);
 
         return v;
     }

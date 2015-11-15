@@ -14,6 +14,7 @@ public class Release {
     private String mNumTracks;
     private String[] mTracks;
     private String mLink;
+    private String mGenre;
 
     public Release() {
         this(UUID.randomUUID());
@@ -85,5 +86,13 @@ public class Release {
 
     public void setLink(String link) {
         mLink = link;
+    }
+
+    public String getGenre() {
+        return mGenre;
+    }
+
+    public void setGenre(String genre) {
+        mGenre = genre;
     }
 }

@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 
 
 import java.util.UUID;
-
+/*
 public class ReleaseActivity extends SingleFragmentActivity {
 
     private static final String EXTRA_RELEASE_ID =
@@ -24,3 +24,4 @@ public class ReleaseActivity extends SingleFragmentActivity {
         return ReleaseFragment.newInstance(releaseId);
     }
 }
+*/

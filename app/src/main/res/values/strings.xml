@@ -18,4 +18,6 @@
     <string name="subtitle_format">%1$s releases</string>
     <string name="disclaimer">This is a long disclaimer, this is a long disclaimer</string>
 
+    <string name="submit_button_info">Submit</string>
+
 </resources>

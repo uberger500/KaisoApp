@@ -78,7 +78,9 @@ public class StartViewActivity extends AppCompatActivity {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(StartViewActivity.this,R.string.button_test, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(StartViewActivity.this, SubmitActivity.class);
+                startActivity(i);
+
             }
         });
 

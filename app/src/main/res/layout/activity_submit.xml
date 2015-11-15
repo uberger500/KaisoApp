@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Submit New Release Info"
+        android:id="@+id/submit_info_view"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/artist_edit_text"
+        android:text="artist_edit_text"
+        android:editable="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/year_edit_text"
+        android:text="year_edit_text"
+        android:editable="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title_edit_text"
+        android:text="title_edit_text"
+        android:editable="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/num_tracks_edit_text"
+        android:text="num_tracks_edit_text"
+        android:editable="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/track_edit_text"
+        android:text="track_edit_text"
+        android:editable="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/arranger_edit_text"
+        android:text="arranger_edit_text"
+        android:editable="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/genre_edit_text"
+        android:text="genre_edit_text"
+        android:editable="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/link_edit_text"
+        android:text="link_edit_text"
+        android:editable="true"/>
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/submit_button"
+        android:layout_gravity="center_horizontal"/>
+
+
+</LinearLayout>
