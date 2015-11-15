@@ -12,24 +12,24 @@ import android.widget.Toast;
 /**
  * Created by ursberger1 on 11/15/15.
  */
-public class SubmitActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private Release mRelease;
 
     private EditText mArtist;
     private EditText mYear;
     private EditText mTitle;
-    private EditText mNumTracks;
+
     private EditText mTrack;
     private EditText mArranger;
     private EditText mGenre;
-    private EditText mLink;
-    private Button mSubmitButton;
+
+    private Button mSearchSubmitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_submit);
+        setContentView(R.layout.activity_search);
 
         mArtist = (EditText) findViewById(R.id.artist_edit_text);
         mArtist.addTextChangedListener(new TextWatcher() {
@@ -85,23 +85,6 @@ public class SubmitActivity extends AppCompatActivity {
             }
         });
 
-        mNumTracks = (EditText) findViewById(R.id.num_tracks_edit_text);
-        mNumTracks.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRelease.setNumTracks(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         mTrack = (EditText) findViewById(R.id.track_edit_text);
         mTrack.addTextChangedListener(new TextWatcher() {
@@ -112,7 +95,7 @@ public class SubmitActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-      //          mRelease.setTracks(s.toString());
+                //          mRelease.setTracks(s.toString());
             }
 
             @Override
@@ -157,31 +140,13 @@ public class SubmitActivity extends AppCompatActivity {
             }
         });
 
-        mLink = (EditText) findViewById(R.id.link_edit_text);
-        mLink.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRelease.setLink(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
 
-
-        mSubmitButton = (Button) findViewById(R.id.submit_button);
-        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+        mSearchSubmitButton = (Button) findViewById(R.id.search_submit_button);
+        mSearchSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
+                Toast.makeText(SearchActivity.this, R.string.search_submit_button_info, Toast.LENGTH_SHORT).show();
             }
         });
 

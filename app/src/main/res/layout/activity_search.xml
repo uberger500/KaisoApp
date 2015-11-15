@@ -9,11 +9,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="Submit New Release Info"
-        android:text="@string/submit_info_view_text"
-        android:id="@+id/submit_info_view"
+        tools:text="Search Archive"
+        android:id="@+id/search_view"
+        android:text="@string/search_view_text"
         android:textAlignment="center"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/subtitle_search_info"
+        android:id="@+id/subtitle_search_info"
+        android:textAlignment="center"
+        tools:text="Search subtitle"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -42,14 +50,6 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/num_tracks_edit_text"
-        tools:text="num_tracks_edit_text"
-        android:editable="true"
-        android:hint="Number of tracks"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/track_edit_text"
         tools:text="track_edit_text"
         android:editable="true"
@@ -71,22 +71,11 @@
         android:editable="true"
         android:hint="Genre"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/link_edit_text"
-        tools:text="link_edit_text"
-        android:editable="true"
-        android:hint="Link"/>
-
-
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/search_submit_button_info"
-        android:id="@+id/submit_button"
+        android:text="Search"
+        android:id="@+id/search_submit_button"
         android:layout_gravity="center_horizontal"/>
-
-
 </LinearLayout>

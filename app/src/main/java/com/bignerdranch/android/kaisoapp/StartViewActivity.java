@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,8 @@ public class StartViewActivity extends AppCompatActivity {
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(StartViewActivity.this, R.string.button_test, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(StartViewActivity.this, SearchActivity.class);
+                startActivity(i);
             }
         });
 
@@ -62,7 +64,8 @@ public class StartViewActivity extends AppCompatActivity {
         mDiscussionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(StartViewActivity.this,R.string.button_test, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(StartViewActivity.this, DiscussionListActivity.class);
+                startActivity(i);
             }
         });
 
@@ -70,7 +73,8 @@ public class StartViewActivity extends AppCompatActivity {
         mContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(StartViewActivity.this,R.string.button_test, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(StartViewActivity.this, UserListActivity.class);
+                startActivity(i);
             }
         });
 
@@ -89,10 +93,29 @@ public class StartViewActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_album_view, menu);
+        getMenuInflater().inflate(R.menu.fragment_release_list, menu);
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_new_user:
+//                createUser();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+/*
+    private void createUser() {
+        User user = new User();
+        UserArchive.get(getActivity()).addUser(user);
+        Intent intent = UserCreateActivity.newIntent(getActivity(), user.getId());
+        startActivity(intent);
+    }*/
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -107,4 +130,6 @@ public class StartViewActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    */
 }

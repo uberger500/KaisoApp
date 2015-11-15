@@ -40,12 +40,6 @@ public class ReleaseListFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_release_list, menu);
-    }
-
     private void updateUI() {
         ReleaseArchive releaseArchive = ReleaseArchive.get(getActivity());
         List<Release> releases = releaseArchive.getReleases();
