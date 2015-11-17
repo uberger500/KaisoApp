@@ -18,7 +18,9 @@ public class UserFragment extends Fragment {
 
     private User mUser;
 
-    private TextView mTitle;
+    private TextView mName;
+    private TextView mEmail;
+    private TextView mPhone;
 
     public static UserFragment newInstance(UUID userId) {
         Bundle args = new Bundle();
@@ -44,8 +46,14 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_user, container, false);
 
-        mTitle = (TextView) v.findViewById(R.id.user_text);
-        mTitle.setText(mUser.getName());
+        mName = (TextView) v.findViewById(R.id.user_name);
+        mName.setText(mUser.getName());
+
+        mEmail = (TextView) v.findViewById(R.id.user_email);
+        mEmail.setText(mUser.getEmail());
+
+        mPhone = (TextView) v.findViewById(R.id.user_phone);
+        mPhone.setText(mUser.getPhone());
 
         return v;
     }

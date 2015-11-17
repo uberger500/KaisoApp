@@ -22,11 +22,11 @@ public class ReleaseArchive {
     }
     private ReleaseArchive(Context context) {
        mReleases = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+   /*     for (int i = 0; i < 100; i++) {
             Release release = new Release();
             release.setTitle("Release #" + i);
             mReleases.add(release);
-        }
+        }*/
     }
 
     public List<Release> getReleases() {
@@ -42,4 +42,7 @@ public class ReleaseArchive {
         return null;
     }
 
+    public void addRelease(Release r) {
+        mReleases.add(r);
+    }
 }

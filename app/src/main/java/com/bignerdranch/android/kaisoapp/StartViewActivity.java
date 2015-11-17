@@ -52,6 +52,9 @@ public class StartViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+         //       Release release = new Release();
+           //     ReleaseArchive.get(this).addRelease(release);
+             //   Intent intent = CrimePagerActivity.newIntent(getActivity(), release.getId());
          //       String buttonPressed = EXTRA_NEW_RELEASES;
              //   Intent i = ReleaseListActivity.newIntent(getActivity()); //, buttonPressed);
                 Intent i = new Intent(StartViewActivity.this, ReleaseListActivity.class);
@@ -82,8 +85,12 @@ public class StartViewActivity extends AppCompatActivity {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(StartViewActivity.this, SubmitActivity.class);
-                startActivity(i);
+                Release release = new Release();
+                ReleaseArchive.get(StartViewActivity.this).addRelease(release);
+                Intent intent = SubmitActivity.newIntent(StartViewActivity.this, release.getId());
+                startActivity(intent);
+         //       Intent i = new Intent(StartViewActivity.this, SubmitActivity.class);
+          //      startActivity(i);
 
             }
         });
@@ -101,20 +108,20 @@ public class StartViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_user:
-//                createUser();
+                createUser();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-/*
+
     private void createUser() {
         User user = new User();
-        UserArchive.get(getActivity()).addUser(user);
-        Intent intent = UserCreateActivity.newIntent(getActivity(), user.getId());
+        UserArchive.get(this).addUser(user);
+        Intent intent = UserCreateActivity.newIntent(this, user.getId());
         startActivity(intent);
-    }*/
+    }
 /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

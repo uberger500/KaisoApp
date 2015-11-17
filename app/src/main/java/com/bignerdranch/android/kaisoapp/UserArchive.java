@@ -23,11 +23,11 @@ public class UserArchive {
     }
     private UserArchive(Context context) {
         mUsers = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+   /*     for (int i = 0; i < 100; i++) {
             User user = new User();
             user.setName("User #" + i);
             mUsers.add(user);
-        }
+        }*/
     }
 
     public List<User> getUsers() {
@@ -43,4 +43,7 @@ public class UserArchive {
         return null;
     }
 
+    public void addUser(User c) {
+        mUsers.add(c);
+    }
 }

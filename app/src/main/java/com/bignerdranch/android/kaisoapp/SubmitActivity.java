@@ -1,5 +1,7 @@
 package com.bignerdranch.android.kaisoapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -9,10 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.UUID;
+
 /**
  * Created by ursberger1 on 11/15/15.
  */
 public class SubmitActivity extends AppCompatActivity {
+
+    private static final String EXTRA_NEW_RELEASE = "com.bignerdranch.android.kaisoapp.new_release";
 
     private Release mRelease;
 
@@ -26,9 +32,18 @@ public class SubmitActivity extends AppCompatActivity {
     private EditText mLink;
     private Button mSubmitButton;
 
+
+    public static Intent newIntent(Context packageContext, UUID releaseId) {
+        Intent i = new Intent(packageContext, SubmitActivity.class);
+        i.putExtra(EXTRA_NEW_RELEASE, releaseId);
+        return i;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UUID releaseId = (UUID) getIntent().getSerializableExtra(EXTRA_NEW_RELEASE);
+        mRelease = ReleaseArchive.get(this).getRelease(releaseId);
         setContentView(R.layout.activity_submit);
 
         mArtist = (EditText) findViewById(R.id.artist_edit_text);
@@ -182,6 +197,7 @@ public class SubmitActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 

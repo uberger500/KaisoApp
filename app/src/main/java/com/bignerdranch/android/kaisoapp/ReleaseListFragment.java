@@ -74,8 +74,6 @@ public class ReleaseListFragment extends Fragment {
             Intent intent = ReleasePagerActivity.newIntent(getActivity(), mRelease.getId());
             startActivity(intent);
         }
-
-
     }
 
         private class ReleaseAdapter extends RecyclerView.Adapter<ReleaseHolder> {
