@@ -24,12 +24,10 @@ public class ReleaseFragment extends Fragment {
     private TextView mArtist;
     private TextView mTitle;
     private TextView mYear;
+    private Integer mNumTracks;
     private TextView mTrack;
     private TextView mArranger;
     private TextView mGenre;
-
-
-//    private EditText mTitleField;
 
     public static ReleaseFragment newInstance(UUID releaseId) {
         Bundle args = new Bundle();
@@ -39,7 +37,6 @@ public class ReleaseFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,14 +56,22 @@ public class ReleaseFragment extends Fragment {
         mArtist.setText(mRelease.getArtist());
 
         mYear = (TextView) v.findViewById(R.id.year_text);
+        mYear.setText(mRelease.getYear());
 
         mTitle = (TextView) v.findViewById(R.id.release_title);
+        mTitle.setText(mRelease.getTitle());
 
-        mTrack = (TextView) v.findViewById(R.id.track_text);
+        mNumTracks = Integer.valueOf((mRelease.getNumTracks()));
+    //    for (int i = 0; i < mNumTracks; i++){
+            mTrack = (TextView) v.findViewById(R.id.track_text);
+                 mTrack.setText(mRelease.getTracks()[1]);
+      //  }
 
         mArranger = (TextView) v.findViewById(R.id.arranger_text);
+        mArranger.setText(mRelease.getArranger());
 
         mGenre = (TextView) v.findViewById(R.id.genre_text);
+        mGenre.setText(mRelease.getGenre());
 
         return v;
     }

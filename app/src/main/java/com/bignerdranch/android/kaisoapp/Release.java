@@ -23,6 +23,34 @@ public class Release {
         mId = id;
 
     }
+/*
+    public Release releaseSetAttr(Release release, String title, String artist, String year,
+                                  String arranger, String numTracks, String[] tracks,
+                                  String link, String genre) {
+        release.setTitle(title);
+        release.setArtist(artist);
+        release.setYear(year);
+        release.setArranger(arranger);
+        release.setNumTracks(numTracks);
+        release.setTracks(tracks);
+        release.setLink(link);
+        release.setGenre(genre);
+        return release;
+    }
+*/
+
+    public Release(UUID id, String title, String artist, String year, String arranger,
+                   String numTracks, String[] tracks, String link, String genre) {
+        mId = id;
+        mTitle = title;
+        mArtist = artist;
+        mYear = year;
+        mArranger = arranger;
+        mNumTracks = numTracks;
+        mTracks = tracks;
+        mLink = link;
+        mGenre = genre;
+    }
 
     public UUID getId() {
         return mId;

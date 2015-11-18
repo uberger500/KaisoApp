@@ -13,7 +13,11 @@ public class ReleaseArchive {
     private static ReleaseArchive sReleaseArchive;
 
     private List<Release> mReleases;
-
+/*
+    public ReleaseArchive(List<Release> releases) {
+        mReleases = releases;
+    }
+*/
     public static ReleaseArchive get(Context context) {
         if (sReleaseArchive == null) {
             sReleaseArchive = new ReleaseArchive(context);

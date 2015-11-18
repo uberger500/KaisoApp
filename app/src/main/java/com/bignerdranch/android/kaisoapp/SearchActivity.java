@@ -48,7 +48,7 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
-
+/*
         mYear = (EditText) findViewById(R.id.year_edit_text);
         mYear.addTextChangedListener(new TextWatcher() {
             @Override
@@ -140,7 +140,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
+*/
 
         mSearchSubmitButton = (Button) findViewById(R.id.search_submit_button);
         mSearchSubmitButton.setOnClickListener(new View.OnClickListener() {

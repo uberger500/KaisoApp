@@ -30,15 +30,16 @@ public class ReleaseListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_release_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
-        mReleaseRecyclerView = (RecyclerView) view.findViewById(R.id.release_recycler_view);
+        mReleaseRecyclerView = (RecyclerView) view.findViewById(R.id.item_recycler_view);
         mReleaseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
 
         return view;
     }
+
 
     private void updateUI() {
         ReleaseArchive releaseArchive = ReleaseArchive.get(getActivity());
@@ -75,6 +76,7 @@ public class ReleaseListFragment extends Fragment {
             startActivity(intent);
         }
     }
+
 
         private class ReleaseAdapter extends RecyclerView.Adapter<ReleaseHolder> {
 

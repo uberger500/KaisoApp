@@ -28,6 +28,22 @@ public class StartViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_view);
 
+        Release mRelease1 = new Release();
+        String[] mDum1Tracks = new String[] {"track1","track2","track3"};
+        Release mDummyRelease1 = new Release(mRelease1.getId(),"title1","artist1","year1","arranger1",
+                "3",mDum1Tracks,"link1","genre1");
+        ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease1);
+        Release mRelease2 = new Release();
+        String[] mDum2Tracks = new String[] {"track1","track2","track3"};
+        Release mDummyRelease2 = new Release(mRelease2.getId(),"title2","artist2","year2","arranger2",
+                "3",mDum2Tracks,"link2","genre2");
+        ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease2);
+        Release mRelease3 = new Release();
+        String[] mDum3Tracks = new String[] {"track1","track2","track3"};
+        Release mDummyRelease3 = new Release(mRelease3.getId(),"title3","artist1","year1","arranger1",
+                "3",mDum3Tracks,"link3","genre1");
+        ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease3);
+
 
         mSearchButton = (Button) findViewById(R.id.button_search);
         mSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +71,7 @@ public class StartViewActivity extends AppCompatActivity {
          //       Release release = new Release();
            //     ReleaseArchive.get(this).addRelease(release);
              //   Intent intent = CrimePagerActivity.newIntent(getActivity(), release.getId());
-         //       String buttonPressed = EXTRA_NEW_RELEASES;
+
              //   Intent i = ReleaseListActivity.newIntent(getActivity()); //, buttonPressed);
                 Intent i = new Intent(StartViewActivity.this, ReleaseListActivity.class);
                 startActivity(i);
@@ -85,12 +101,12 @@ public class StartViewActivity extends AppCompatActivity {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Release release = new Release();
                 ReleaseArchive.get(StartViewActivity.this).addRelease(release);
                 Intent intent = SubmitActivity.newIntent(StartViewActivity.this, release.getId());
                 startActivity(intent);
-         //       Intent i = new Intent(StartViewActivity.this, SubmitActivity.class);
-          //      startActivity(i);
 
             }
         });
@@ -122,6 +138,8 @@ public class StartViewActivity extends AppCompatActivity {
         Intent intent = UserCreateActivity.newIntent(this, user.getId());
         startActivity(intent);
     }
+
+
 /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
