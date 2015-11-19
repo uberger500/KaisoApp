@@ -3,6 +3,7 @@ package com.bignerdranch.android.kaisoapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -10,12 +11,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Created by ursberger1 on 11/13/15.
  */
 public class StartViewActivity extends AppCompatActivity {
-    private static final String EXTRA_NEW_RELEASES = "new_releases";
 
+    private static final String EXTRA_NEW_RELEASES = "new_releases";
+    private static final String TAG = "StartViewActivity";
     private Button mSearchButton;
     private Button mBrowseButton;
     private Button mNewReleasesButton;
@@ -29,20 +34,28 @@ public class StartViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_view);
 
         Release mRelease1 = new Release();
-        String[] mDum1Tracks = new String[] {"track1","track2","track3"};
+        ArrayList<String> mDum1Tracks = new ArrayList<String>(Arrays.asList("track1","track2","track3"));
         Release mDummyRelease1 = new Release(mRelease1.getId(),"title1","artist1","year1","arranger1",
                 "3",mDum1Tracks,"link1","genre1");
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease1);
         Release mRelease2 = new Release();
-        String[] mDum2Tracks = new String[] {"track1","track2","track3"};
-        Release mDummyRelease2 = new Release(mRelease2.getId(),"title2","artist2","year2","arranger2",
+        ArrayList<String> mDum2Tracks = new ArrayList<String>(Arrays.asList("track1", "track2", "track3", "track4", "track5"));
+        Release mDummyRelease2 = new Release(mRelease2.getId(),"title1","artist2","year2","arranger2",
                 "3",mDum2Tracks,"link2","genre2");
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease2);
         Release mRelease3 = new Release();
-        String[] mDum3Tracks = new String[] {"track1","track2","track3"};
-        Release mDummyRelease3 = new Release(mRelease3.getId(),"title3","artist1","year1","arranger1",
+        ArrayList<String> mDum3Tracks = new ArrayList<String>(Arrays.asList("track1", "track2", "track3", "track4"));
+        Release mDummyRelease3 = new Release(mRelease3.getId(),"title2","artist1","year1","arranger1",
                 "3",mDum3Tracks,"link3","genre1");
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease3);
+        ArrayList<String> mDum4Tracks = new ArrayList<String>(Arrays.asList("track1","track2","track3"));
+        Release mDummyRelease4 = new Release(mRelease1.getId(),"title3","artist1","year2","arranger1",
+                "3",mDum4Tracks,"link1","genre1");
+        ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease4);
+        ArrayList<String> mDum5Tracks = new ArrayList<String>(Arrays.asList("track1","track2"));
+        Release mDummyRelease5 = new Release(mRelease1.getId(),"title2","artist2","year1","arranger1",
+                "3",mDum5Tracks,"link1","genre1");
+        ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease5);
 
 
         mSearchButton = (Button) findViewById(R.id.button_search);
@@ -59,7 +72,9 @@ public class StartViewActivity extends AppCompatActivity {
         mBrowseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(StartViewActivity.this,R.string.button_test, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "BrowseButtonPUshed");
+                Intent intent = BrowseActivity.newIntent(StartViewActivity.this);
+                startActivity(intent);
             }
         });
 
@@ -102,11 +117,11 @@ public class StartViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                Release release = new Release();
-                ReleaseArchive.get(StartViewActivity.this).addRelease(release);
-                Intent intent = SubmitActivity.newIntent(StartViewActivity.this, release.getId());
-                startActivity(intent);
+              //  Release release = new Release();
+              //  ReleaseArchive.get(StartViewActivity.this).addRelease(release);
+          //      Intent intent = SubmitActivity.newIntent(StartViewActivity.this, release.getId());
+                Intent i = new Intent(StartViewActivity.this, SubmitActivity.class);
+                startActivity(i);
 
             }
         });

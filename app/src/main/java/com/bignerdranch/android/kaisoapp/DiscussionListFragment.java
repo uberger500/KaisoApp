@@ -81,8 +81,6 @@ public class DiscussionListFragment extends Fragment {
             Intent intent = DiscussionPagerActivity.newIntent(getActivity(), mDiscussion.getId());
             startActivity(intent);
         }
-
-
     }
 
     private class DiscussionAdapter extends RecyclerView.Adapter<DiscussionHolder> {

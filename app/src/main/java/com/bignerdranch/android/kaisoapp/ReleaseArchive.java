@@ -45,7 +45,13 @@ public class ReleaseArchive {
         }
         return null;
     }
+/*
+    public int getSize(ReleaseArchive releaseArchive) {
 
+        int size = releaseArchive.size();
+
+    }
+*/
     public void addRelease(Release r) {
         mReleases.add(r);
     }

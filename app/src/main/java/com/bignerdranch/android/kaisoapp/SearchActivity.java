@@ -1,5 +1,6 @@
 package com.bignerdranch.android.kaisoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -24,12 +25,14 @@ public class SearchActivity extends AppCompatActivity {
     private EditText mArranger;
     private EditText mGenre;
 
+    private String mArtistSearch;
+
     private Button mSearchSubmitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_search2);
 
         mArtist = (EditText) findViewById(R.id.artist_edit_text);
         mArtist.addTextChangedListener(new TextWatcher() {
@@ -40,7 +43,8 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRelease.setArtist(s.toString());
+              //  mRelease.setArtist(s.toString());
+                mArtistSearch = s.toString();
             }
 
             @Override
@@ -147,6 +151,9 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SearchActivity.this, R.string.search_submit_button_info, Toast.LENGTH_SHORT).show();
+
+                Intent intent = SearchResultListActivity.newIntent(SearchActivity.this, mArtistSearch);
+                startActivity(intent);
             }
         });
 

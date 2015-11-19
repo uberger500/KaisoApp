@@ -54,6 +54,18 @@
             android:name=".UserCreateActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".BrowseActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".BrowseRelPagerActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".SearchResultListActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

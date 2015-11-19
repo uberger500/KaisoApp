@@ -7,27 +7,36 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
- * Created by ursberger1 on 11/13/15.
+ * Created by ursberger1 on 11/18/15.
  */
-public class ReleaseListFragment extends Fragment {
-    private static final String TAG = "ReleaseLisActivity";
+public class SearchResultListFragment extends Fragment {
+
+    private static final String EXTRA_ARTIST_SEARCH =
+            "com.bignerdranch.android.kaisoapp.artist_search";
+    private static final String TAG = "SearchResultActivity";
     private RecyclerView mReleaseRecyclerView;
     private ReleaseAdapter mAdapter;
+    private String mArtistSearch;
+
+    private List<Release> mArtistList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mArtistSearch = getActivity().getIntent().getStringExtra(EXTRA_ARTIST_SEARCH);
+
         setHasOptionsMenu(true);
-        Log.d(TAG, "creating release List view");
+        Log.d(TAG, "creating search List view");
     }
 
     @Override
@@ -48,12 +57,19 @@ public class ReleaseListFragment extends Fragment {
         ReleaseArchive releaseArchive = ReleaseArchive.get(getActivity());
         List<Release> releases = releaseArchive.getReleases();
 
-        mAdapter = new ReleaseAdapter(releases);
+        for (Release release : releases)  {
+            if (release.getArtist().equals(mArtistSearch)) {
+                mArtistList.add(release);
+            }
+        }
+
+        mAdapter = new ReleaseAdapter(mArtistList);
         mReleaseRecyclerView.setAdapter(mAdapter);
     }
 
+
     private class ReleaseHolder extends RecyclerView.ViewHolder
-           implements View.OnClickListener {
+            implements View.OnClickListener {
 
 
         private TextView mReleaseTitleTextView;
@@ -81,39 +97,30 @@ public class ReleaseListFragment extends Fragment {
     }
 
 
-        private class ReleaseAdapter extends RecyclerView.Adapter<ReleaseHolder> {
+    private class ReleaseAdapter extends RecyclerView.Adapter<ReleaseHolder> {
 
-            private List<Release> mReleases;
+        private List<Release> mReleases;
 
-            public ReleaseAdapter(List<Release> releases) {
-                mReleases = releases;
-            }
-
-            @Override
-            public ReleaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-                View view = layoutInflater.inflate(R.layout.list_item_release, parent, false);
-                return new ReleaseHolder(view);
-            }
-
-            @Override
-            public void onBindViewHolder(ReleaseHolder holder, int position) {
-                Release release = mReleases.get(position);
-                holder.bindRelease(release);
-            }
-
-            @Override
-            public int getItemCount() {
-                return mReleases.size();
-            }
-/*
-            public void setReleases(List<Release> Releases) {
-                mReleases = Releases;
-            }
-*/
+        public ReleaseAdapter(List<Release> releases) {
+            mReleases = releases;
         }
 
+        @Override
+        public ReleaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            View view = layoutInflater.inflate(R.layout.list_item_release, parent, false);
+            return new ReleaseHolder(view);
+        }
 
+        @Override
+        public void onBindViewHolder(ReleaseHolder holder, int position) {
+            Release release = mReleases.get(position);
+            holder.bindRelease(release);
+        }
 
+        @Override
+        public int getItemCount() {
+            return mReleases.size();
+        }
+    }
 }
-

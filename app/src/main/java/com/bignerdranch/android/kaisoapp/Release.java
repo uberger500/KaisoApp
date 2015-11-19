@@ -1,5 +1,6 @@
 package com.bignerdranch.android.kaisoapp;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -12,7 +13,7 @@ public class Release {
     private String mYear;
     private String mArranger;
     private String mNumTracks;
-    private String[] mTracks;
+    private ArrayList<String> mTracks;
     private String mLink;
     private String mGenre;
 
@@ -40,7 +41,7 @@ public class Release {
 */
 
     public Release(UUID id, String title, String artist, String year, String arranger,
-                   String numTracks, String[] tracks, String link, String genre) {
+                   String numTracks, ArrayList<String> tracks, String link, String genre) {
         mId = id;
         mTitle = title;
         mArtist = artist;
@@ -100,11 +101,11 @@ public class Release {
         mNumTracks = numTracks;
     }
 
-    public String[] getTracks() {
+    public ArrayList<String> getTracks() {
         return mTracks;
     }
 
-    public void setTracks(String[] tracks) {
+    public void setTracks(ArrayList<String> tracks) {
         mTracks = tracks;
     }
 

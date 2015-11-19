@@ -97,29 +97,6 @@ public class UserCreateActivity extends AppCompatActivity {
                 finish();
             }
         });
-/*
-        mViewPager = (ViewPager) findViewById(R.id.activity_crime_pager_view_pager);
 
-        mCrimes = CrimeLab.get(this).getCrimes();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        mViewPager.setAdapter(new FragmentPagerAdapter(fragmentManager) {
-
-            @Override
-            public Fragment getItem(int position) {
-                Crime crime = mCrimes.get(position);
-                return CrimeFragment.newInstance(crime.getId());
-            }
-
-            @Override
-            public int getCount() {
-                return mCrimes.size();
-            }
-        });
-        for (int i = 0; i < mCrimes.size(); i++) {
-            if (mCrimes.get(i).getId().equals(crimeId)) {
-                mViewPager.setCurrentItem(i);
-                break;
-            }
-        }*/
     }
 }

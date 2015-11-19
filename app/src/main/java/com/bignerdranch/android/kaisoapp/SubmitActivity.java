@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -21,6 +22,7 @@ public class SubmitActivity extends AppCompatActivity {
     private static final String EXTRA_NEW_RELEASE = "com.bignerdranch.android.kaisoapp.new_release";
 
     private Release mRelease;
+    private ArrayList<String> mTracks;
 
     private EditText mArtist;
     private EditText mYear;
@@ -32,18 +34,31 @@ public class SubmitActivity extends AppCompatActivity {
     private EditText mLink;
     private Button mSubmitButton;
 
-
+/*
     public static Intent newIntent(Context packageContext, UUID releaseId) {
         Intent i = new Intent(packageContext, SubmitActivity.class);
         i.putExtra(EXTRA_NEW_RELEASE, releaseId);
+        return i;
+    }
+*/
+    public static Intent newIntent(Context packageContext) {
+        Intent i = new Intent(packageContext, SubmitActivity.class);
+    //    i.putExtra(EXTRA_NEW_RELEASE, releaseId);
         return i;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID releaseId = (UUID) getIntent().getSerializableExtra(EXTRA_NEW_RELEASE);
-        mRelease = ReleaseArchive.get(this).getRelease(releaseId);
+   //     UUID releaseId = (UUID) getIntent().getSerializableExtra(EXTRA_NEW_RELEASE);
+   //     mRelease = ReleaseArchive.get(this).getRelease(releaseId);
+        final Release mRelease = new Release();
+
+        mTracks = new ArrayList<>();
+        mRelease.setTracks(mTracks);
+        ReleaseArchive.get(this).addRelease(mRelease);
+     //   mTracks = mRelease.getTracks();
+
         setContentView(R.layout.activity_submit);
 
         mArtist = (EditText) findViewById(R.id.artist_edit_text);
@@ -127,7 +142,9 @@ public class SubmitActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-      //          mRelease.setTracks(s.toString());
+                mTracks.add(s.toString());
+      //          mRelease.addTrack(s.toString());
+                mRelease.setTracks(mTracks);
             }
 
             @Override

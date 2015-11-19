@@ -9,11 +9,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/discussion_title"
-        android:id="@+id/discussion_title"/>
+        android:id="@+id/discussion_title"
+        android:padding="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/discussion"
-        android:id="@+id/discussion"/>
+        android:id="@+id/discussion"
+        android:padding="16dp"/>
 </LinearLayout>
