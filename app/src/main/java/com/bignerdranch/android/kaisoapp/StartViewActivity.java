@@ -139,21 +139,23 @@ public class StartViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_user:
-                createUser();
+              //  createUser();
+                Intent intent = UserCreateActivity.newIntent(this);
+                startActivity(intent);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
+/*
     private void createUser() {
         User user = new User();
         UserArchive.get(this).addUser(user);
         Intent intent = UserCreateActivity.newIntent(this, user.getId());
         startActivity(intent);
     }
-
+*/
 
 /*
     @Override

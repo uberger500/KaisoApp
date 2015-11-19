@@ -10,6 +10,7 @@ public class Discussion {
     private UUID mId;
     private String mTitle;
     private Date mDate;
+    private String mDiscussionPoint;
 
 
     public Discussion() {
@@ -42,5 +43,13 @@ public class Discussion {
 
     public void setTitle(String title) {
         mTitle = title;
+    }
+
+    public String getDiscussionPoint() {
+        return mDiscussionPoint;
+    }
+
+    public void setDiscussionPoint(String discussionPoint) {
+        mDiscussionPoint = discussionPoint;
     }
 }

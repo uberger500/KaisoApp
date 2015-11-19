@@ -7,11 +7,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -19,27 +23,36 @@ import java.util.UUID;
  */
 public class UserCreateActivity extends AppCompatActivity {
 
+    private static final String TAG = "UserCreateActivity";
     private static final String EXTRA_NEW_USER = "com.bignerdranch.android.kaisoapp.new_user";
 
-    private User mUser;
+ //   private User mUser;
     private EditText mName;
     private EditText mEmail;
     private EditText mPhone;
     private Button mSubmitbtn;
+    private List<User>  mUsers = UserArchive.get(this).getUsers();
+    private User mUser = new User();
 
 
-    public static Intent newIntent(Context packageContext, UUID userId) {
+  /*  public static Intent newIntent(Context packageContext, UUID userId) {
         Intent i = new Intent(packageContext, UserCreateActivity.class);
         i.putExtra(EXTRA_NEW_USER, userId);
         return i;
     }
-
+*/
+  public static Intent newIntent(Context packageContext) {
+      Intent i = new Intent(packageContext, UserCreateActivity.class);
+   //   i.putExtra(EXTRA_NEW_USER, userId);
+      return i;
+  }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID userId = (UUID) getIntent().getSerializableExtra(EXTRA_NEW_USER);
-        mUser = UserArchive.get(this).getUser(userId);
+    //    UUID userId = (UUID) getIntent().getSerializableExtra(EXTRA_NEW_USER);
+     //   mUser = UserArchive.get(this).getUser(userId);
         setContentView(R.layout.activity_new_user);
+
 
         mName = (EditText) findViewById(R.id.editText_name);
         mName.setText(mUser.getName());
@@ -50,7 +63,9 @@ public class UserCreateActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                 mUser.setName(s.toString());
+
             }
 
             @Override
@@ -94,6 +109,26 @@ public class UserCreateActivity extends AppCompatActivity {
         mSubmitbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mUsers.size() == 0 ) {
+                    UserArchive.get(UserCreateActivity.this).addUser(mUser);
+
+                    Log.d(TAG, "first user");
+                } else {
+                    boolean flag = false;
+                    Log.d(TAG, "mUsers bigger than null");
+                    for (User user : mUsers) {
+                        if (user.getName().equals(mUser.getName())) {
+                        Toast.makeText(UserCreateActivity.this, R.string.duplicate_user, Toast.LENGTH_SHORT).show();
+                        flag = true;
+                            break;
+                        }
+                    }
+                    if (flag == false) {
+                        UserArchive.get(UserCreateActivity.this).addUser(mUser);
+                    }
+                }
+
+
                 finish();
             }
         });

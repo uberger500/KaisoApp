@@ -36,6 +36,7 @@
     <string name="new_user">Sign-up</string>
     <string name="artists_browse_view_text">Choose an artist</string>
 
+    <string name="duplicate_user">User already exists</string>
 
 
 </resources>

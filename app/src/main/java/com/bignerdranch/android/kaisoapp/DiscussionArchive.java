@@ -43,4 +43,7 @@ public class DiscussionArchive {
         return null;
     }
 
+    public void addDiscussion(Discussion d) {
+        mDiscussions.add(d);
+    }
 }
