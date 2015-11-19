@@ -52,7 +52,6 @@ public class ReleaseFragment extends Fragment {
         Log.d(TAG, "onCreate called");
         mRelease = ReleaseArchive.get(getActivity()).getRelease(releaseId);
 
-
         setHasOptionsMenu(true);
     }
 
@@ -60,7 +59,6 @@ public class ReleaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_release, container, false);
 
-        listView = (ListView) v.findViewById(R.id.list);
 
         mArtist = (TextView) v.findViewById(R.id.artist_text);
         mArtist.setText(mRelease.getArtist());
@@ -78,7 +76,7 @@ public class ReleaseFragment extends Fragment {
       //  }
 
         mTracks = mRelease.getTracks();
-
+        listView = (ListView) v.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
         listView.setAdapter(adapter);

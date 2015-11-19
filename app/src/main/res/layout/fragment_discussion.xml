@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -12,10 +12,25 @@
         android:id="@+id/discussion_title"
         android:padding="16dp"/>
 
-    <TextView
+    <ListView
+        android:id="@+id/listViewDiscussion"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:padding="16dp">
+    </ListView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/discussion_editText"
+        android:layout_gravity="left"
+        android:padding="16dp"/>
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/discussion"
-        android:id="@+id/discussion"
-        android:padding="16dp"/>
+        android:text="@string/submit_disc_btn"
+        android:id="@+id/submit_disc_btn"
+        android:layout_gravity="center_horizontal"/>
+
 </LinearLayout>

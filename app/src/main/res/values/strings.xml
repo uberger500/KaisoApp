@@ -38,5 +38,6 @@
 
     <string name="duplicate_user">User already exists</string>
 
+    <string name="submit_disc_btn">Submit</string>
 
 </resources>

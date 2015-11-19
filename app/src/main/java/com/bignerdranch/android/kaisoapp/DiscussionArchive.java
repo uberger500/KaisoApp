@@ -23,7 +23,7 @@ public class DiscussionArchive {
     }
     private DiscussionArchive(Context context) {
         mDiscussions = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5; i++) {
             Discussion discussion = new Discussion();
             discussion.setTitle("Discussion #" + i);
             mDiscussions.add(discussion);
