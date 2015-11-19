@@ -73,8 +73,8 @@ public class BrowseActivity extends AppCompatActivity {
     protected void createArtistList(ReleaseArchive releaseArchive, ArrayList<String> artistList) {
 
         List<Release> mReleases = releaseArchive.getReleases();
-        Release mRelease = mReleases.get(0);
-        artistList.add(mRelease.getArtist());
+//        Release mRelease = mReleases.get(0);
+//        artistList.add(mRelease.getArtist());
 
         for (Release release : mReleases)  {
             if (!artistList.contains(release.getArtist())) {

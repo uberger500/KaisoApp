@@ -53,7 +53,7 @@ public class StartViewActivity extends AppCompatActivity {
                 "3",mDum4Tracks,"link1","genre1");
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease4);
         ArrayList<String> mDum5Tracks = new ArrayList<String>(Arrays.asList("track1","track2"));
-        Release mDummyRelease5 = new Release(mRelease1.getId(),"title2","artist2","year1","arranger1",
+        Release mDummyRelease5 = new Release(mRelease1.getId(),"title2","artist3","year1","arranger1",
                 "3",mDum5Tracks,"link1","genre1");
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease5);
 
