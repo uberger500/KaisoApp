@@ -60,7 +60,6 @@ public class DiscussionFragment extends Fragment {
                 mDiscussionThread.add(discussion.getDiscussionPoint());
             }
         }
-
         setHasOptionsMenu(true);
     }
 
@@ -72,6 +71,22 @@ public class DiscussionFragment extends Fragment {
 
         mTitle = (TextView) v.findViewById(R.id.discussion_title);
         mTitle.setText(mDiscussionTitle);
+        mTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mDiscussion.setTitle(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
      /*   if(mDiscussionThread != null) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
@@ -102,8 +117,9 @@ public class DiscussionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), R.string.submit_button_info, Toast.LENGTH_SHORT).show();
+                DiscussionArchive.get(getActivity()).addDiscussion(mDiscussion);
 
-
+                getActivity().finish();
             }
         });
         return v;

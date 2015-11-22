@@ -13,11 +13,47 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
+import com.amazonaws.mobileconnectors.cognito.Dataset;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.dynamodbv2.*;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
+
 
 /**
  * Created by ursberger1 on 11/13/15.
  */
 public class StartViewActivity extends AppCompatActivity {
+
+    // Initialize the Amazon Cognito credentials provider
+    CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+            getApplicationContext(),
+            "us-east-1:4ef84c86-7004-4422-823e-29d4ea617323", // Identity Pool ID
+            Regions.US_EAST_1 // Region
+    );
+
+    AmazonDynamoDBClient ddbClient = new AmazonDynamoDBClient(credentialsProvider);
+
+    // Initialize the Cognito Sync client
+    CognitoSyncManager syncClient = new CognitoSyncManager(
+            getApplicationContext(),
+            Regions.US_EAST_1, // Region
+            credentialsProvider);
+
+    DynamoDBMapper mapper = new DynamoDBMapper(ddbClient);
+
+    // Create a record in a dataset and synchronize with the server
+    Dataset dataset = syncClient.openOrCreateDataset("KaisoArchive");
+    dataset.put("myKey", "myValue");
+    dataset.synchronize(new DefaultSyncCallback() {
+        @Override
+        public void onSuccess(Dataset dataset, List<> newRecords) {
+            //Your handler code here
+        }
+    });
 
     private static final String EXTRA_NEW_RELEASES = "new_releases";
     private static final String TAG = "StartViewActivity";
@@ -40,21 +76,21 @@ public class StartViewActivity extends AppCompatActivity {
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease1);
         Release mRelease2 = new Release();
         ArrayList<String> mDum2Tracks = new ArrayList<String>(Arrays.asList("track1", "track2", "track3", "track4", "track5"));
-        Release mDummyRelease2 = new Release(mRelease2.getId(),"title1","artist2","year2","arranger2",
-                "3",mDum2Tracks,"link2","genre2");
+        Release mDummyRelease2 = new Release(mRelease2.getId(),"title2","artist2","year2","arranger2",
+                "5",mDum2Tracks,"link2","genre2");
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease2);
         Release mRelease3 = new Release();
         ArrayList<String> mDum3Tracks = new ArrayList<String>(Arrays.asList("track1", "track2", "track3", "track4"));
-        Release mDummyRelease3 = new Release(mRelease3.getId(),"title2","artist1","year1","arranger1",
-                "3",mDum3Tracks,"link3","genre1");
+        Release mDummyRelease3 = new Release(mRelease3.getId(),"title2","artist1","year2","arranger1",
+                "4",mDum3Tracks,"link3","genre1");
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease3);
         ArrayList<String> mDum4Tracks = new ArrayList<String>(Arrays.asList("track1","track2","track3"));
         Release mDummyRelease4 = new Release(mRelease1.getId(),"title3","artist1","year2","arranger1",
-                "3",mDum4Tracks,"link1","genre1");
+                "3",mDum4Tracks,"link4","genre1");
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease4);
         ArrayList<String> mDum5Tracks = new ArrayList<String>(Arrays.asList("track1","track2"));
-        Release mDummyRelease5 = new Release(mRelease1.getId(),"title2","artist3","year1","arranger1",
-                "3",mDum5Tracks,"link1","genre1");
+        Release mDummyRelease5 = new Release(mRelease1.getId(),"title5","artist3","year1","arranger1",
+                "2",mDum5Tracks,"link5","genre1");
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease5);
 
 
@@ -67,12 +103,10 @@ public class StartViewActivity extends AppCompatActivity {
             }
         });
 
-
         mBrowseButton = (Button) findViewById(R.id.button_browse);
         mBrowseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "BrowseButtonPUshed");
                 Intent intent = BrowseActivity.newIntent(StartViewActivity.this);
                 startActivity(intent);
             }
@@ -82,15 +116,8 @@ public class StartViewActivity extends AppCompatActivity {
         mNewReleasesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-         //       Release release = new Release();
-           //     ReleaseArchive.get(this).addRelease(release);
-             //   Intent intent = CrimePagerActivity.newIntent(getActivity(), release.getId());
-
-             //   Intent i = ReleaseListActivity.newIntent(getActivity()); //, buttonPressed);
                 Intent i = new Intent(StartViewActivity.this, ReleaseListActivity.class);
                 startActivity(i);
-
             }
         });
 
@@ -116,16 +143,10 @@ public class StartViewActivity extends AppCompatActivity {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-              //  Release release = new Release();
-              //  ReleaseArchive.get(StartViewActivity.this).addRelease(release);
-          //      Intent intent = SubmitActivity.newIntent(StartViewActivity.this, release.getId());
                 Intent i = new Intent(StartViewActivity.this, SubmitActivity.class);
                 startActivity(i);
-
             }
         });
-
     }
 
     @Override
@@ -147,22 +168,4 @@ public class StartViewActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    */
 }

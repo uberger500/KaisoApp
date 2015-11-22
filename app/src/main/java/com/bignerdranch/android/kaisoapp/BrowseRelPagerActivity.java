@@ -21,6 +21,7 @@ public class BrowseRelPagerActivity extends AppCompatActivity {
 
     private static final String TAG = "BrowseReleaseActivity";
 
+
     private static final String EXTRA_ARTIST_NAME = "com.bignerdranch.android.kaisoapp.artist_name";
     private ViewPager mViewPager;
     private List<Release> mReleases;
@@ -77,6 +78,7 @@ public class BrowseRelPagerActivity extends AppCompatActivity {
         List<Release> mSubList = new ArrayList<>();
         for(Release release : mReleases) {
             if (release.getArtist().equals(artistName)) {
+                Log.d(TAG, "found unique artist");
                 mSubList.add(release);
             }
         }
