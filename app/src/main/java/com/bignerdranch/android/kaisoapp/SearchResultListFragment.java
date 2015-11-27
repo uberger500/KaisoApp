@@ -22,7 +22,9 @@ public class SearchResultListFragment extends Fragment {
 
     private static final String EXTRA_ARTIST_SEARCH =
             "com.bignerdranch.android.kaisoapp.artist_search";
+
     private static final String TAG = "SearchResultActivity";
+
     private RecyclerView mReleaseRecyclerView;
     private ReleaseAdapter mAdapter;
     private String mArtistSearch;
@@ -91,7 +93,7 @@ public class SearchResultListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent = ReleasePagerActivity.newIntent(getActivity(), mRelease.getId());
+            Intent intent = SearchPagerActivity.newIntent(getActivity(), mRelease.getId());
             startActivity(intent);
         }
     }

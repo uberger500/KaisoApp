@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -21,8 +22,9 @@ public class SubmitActivity extends AppCompatActivity {
 
     private static final String EXTRA_NEW_RELEASE = "com.bignerdranch.android.kaisoapp.new_release";
 
-    private Release mRelease;
-    private ArrayList<String> mTracks;
+    private Release mRelease = new Release();
+    private String mTempTrack;
+    private ArrayList<String> mTracks = new ArrayList<>();
 
     private EditText mArtist;
     private EditText mYear;
@@ -34,13 +36,6 @@ public class SubmitActivity extends AppCompatActivity {
     private EditText mLink;
     private Button mSubmitButton;
 
-/*
-    public static Intent newIntent(Context packageContext, UUID releaseId) {
-        Intent i = new Intent(packageContext, SubmitActivity.class);
-        i.putExtra(EXTRA_NEW_RELEASE, releaseId);
-        return i;
-    }
-*/
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, SubmitActivity.class);
     //    i.putExtra(EXTRA_NEW_RELEASE, releaseId);
@@ -52,9 +47,7 @@ public class SubmitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
    //     UUID releaseId = (UUID) getIntent().getSerializableExtra(EXTRA_NEW_RELEASE);
    //     mRelease = ReleaseArchive.get(this).getRelease(releaseId);
-        final Release mRelease = new Release();
 
-        mTracks = new ArrayList<>();
         mRelease.setTracks(mTracks);
         ReleaseArchive.get(this).addRelease(mRelease);
      //   mTracks = mRelease.getTracks();
@@ -142,8 +135,9 @@ public class SubmitActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mTracks.add(s.toString());
+                mTempTrack = s.toString();
       //          mRelease.addTrack(s.toString());
+                mTracks.add(mTempTrack);
                 mRelease.setTracks(mTracks);
             }
 

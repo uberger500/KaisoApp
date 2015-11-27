@@ -14,20 +14,20 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+/*
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
 import com.amazonaws.mobileconnectors.cognito.Dataset;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.*;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
-
+*/
 
 /**
  * Created by ursberger1 on 11/13/15.
  */
 public class StartViewActivity extends AppCompatActivity {
-
+/*
     // Initialize the Amazon Cognito credentials provider
     CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
             getApplicationContext(),
@@ -54,7 +54,7 @@ public class StartViewActivity extends AppCompatActivity {
             //Your handler code here
         }
     });
-
+*/
     private static final String EXTRA_NEW_RELEASES = "new_releases";
     private static final String TAG = "StartViewActivity";
     private Button mSearchButton;

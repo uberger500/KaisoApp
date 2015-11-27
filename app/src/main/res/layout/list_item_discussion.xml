@@ -10,5 +10,6 @@
         android:text="New Text"
         android:id="@+id/list_item_discussion_title_text_view"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:padding="16dp"/>
 </RelativeLayout>

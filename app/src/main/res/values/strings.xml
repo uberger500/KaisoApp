@@ -36,8 +36,19 @@
     <string name="new_user">Sign-up</string>
     <string name="artists_browse_view_text">Choose an artist</string>
 
+    <string name="discussion_recycler_submit">Go</string>
+    <string name="no_discussions">Start a discussion</string>
+
     <string name="duplicate_user">User already exists</string>
 
     <string name="submit_disc_btn">Submit</string>
+
+    <string name="discussion_point_hint">Enter a discussion point</string>
+    <string name="discussion_point1">Enter a discussion point</string>
+    <string name="discussion_point2">Continue discussion</string>
+
+    <string name="new_discussion">New Discussion</string>
+
+
 
 </resources>

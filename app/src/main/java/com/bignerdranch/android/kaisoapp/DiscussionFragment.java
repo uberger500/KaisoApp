@@ -69,7 +69,7 @@ public class DiscussionFragment extends Fragment {
 
         listView = (ListView) v.findViewById(R.id.listViewDiscussion);
 
-        mTitle = (TextView) v.findViewById(R.id.discussion_title);
+        mTitle = (TextView) v.findViewById(R.id.discussion_title1);
         mTitle.setText(mDiscussionTitle);
         mTitle.addTextChangedListener(new TextWatcher() {
             @Override
@@ -94,7 +94,7 @@ public class DiscussionFragment extends Fragment {
             listView.setAdapter(adapter);
 
         }*/
-        mDiscussionEditText = (EditText) v.findViewById(R.id.discussion_editText);
+        mDiscussionEditText = (EditText) v.findViewById(R.id.discussion_point1);
         mDiscussionEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -10,7 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,6 +24,11 @@ public class DiscussionListFragment extends Fragment {
 
     private RecyclerView mDiscussionRecyclerView;
     private DiscussionAdapter mAdapter;
+    private Discussion mDiscussion;
+
+    LinearLayout mNoDiscussionLayout;
+ //   private TextView mNoDiscussion;
+    private Button mOkButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,8 +39,21 @@ public class DiscussionListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_discussion_list, container, false);
 
+        mNoDiscussionLayout = (LinearLayout) view.findViewById(R.id.discussion_recycler_view_empty);
+   //     mNoDiscussion = (TextView) view.findViewById(R.id.discussion_recycler_view_empty_text);
+        mOkButton = (Button) view.findViewById(R.id.discussion_recycler_view_empty_button_text);
+        mOkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), R.string.submit_button_info, Toast.LENGTH_SHORT).show();
+             //   Intent i = new Intent(DiscussionListFragment.this, DiscussionCreateActivity.class);
+             //   startActivity(i);
+                Intent intent = DiscussionCreateActivity.newIntent(getActivity());
+                startActivity(intent);
+            }
+        });
         mDiscussionRecyclerView = (RecyclerView) view.findViewById(R.id.item_recycler_view);
         mDiscussionRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -40,19 +61,41 @@ public class DiscussionListFragment extends Fragment {
 
         return view;
     }
-/*
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_discussion_list, menu);
     }
-*/
+
     private void updateUI() {
         DiscussionArchive discussionArchive = DiscussionArchive.get(getActivity());
         List<Discussion> discussions = discussionArchive.getDiscussions();
 
         mAdapter = new DiscussionAdapter(discussions);
         mDiscussionRecyclerView.setAdapter(mAdapter);
+
+
+  /*      if (mAdapter == null) {
+            mAdapter = new CrimeAdapter(crimes);
+            mCrimeRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.setCrimes(crimes);
+            mAdapter.notifyDataSetChanged();
+        }
+
+        updateSubtitle();
+*/
+        if(discussions.size() != 0) {
+            mNoDiscussionLayout.setVisibility(View.GONE);
+        } else {
+            mNoDiscussionLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     private class DiscussionHolder extends RecyclerView.ViewHolder

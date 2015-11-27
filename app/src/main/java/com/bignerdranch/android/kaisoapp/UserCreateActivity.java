@@ -26,7 +26,6 @@ public class UserCreateActivity extends AppCompatActivity {
     private static final String TAG = "UserCreateActivity";
     private static final String EXTRA_NEW_USER = "com.bignerdranch.android.kaisoapp.new_user";
 
- //   private User mUser;
     private EditText mName;
     private EditText mEmail;
     private EditText mPhone;
@@ -63,9 +62,7 @@ public class UserCreateActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 mUser.setName(s.toString());
-
             }
 
             @Override
@@ -111,11 +108,8 @@ public class UserCreateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (mUsers.size() == 0 ) {
                     UserArchive.get(UserCreateActivity.this).addUser(mUser);
-
-                    Log.d(TAG, "first user");
                 } else {
                     boolean flag = false;
-                    Log.d(TAG, "mUsers bigger than null");
                     for (User user : mUsers) {
                         if (user.getName().equals(mUser.getName())) {
                         Toast.makeText(UserCreateActivity.this, R.string.duplicate_user, Toast.LENGTH_SHORT).show();
