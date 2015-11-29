@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -32,7 +33,7 @@ public class ReleaseFragment extends Fragment {
     private TextView mYear;
     private Integer mNumTracks;
     private TextView mTrack;
-    private ArrayList<String> mTracks;
+    private List<String> mTracks;
     private TextView mArranger;
     private TextView mGenre;
 
@@ -69,7 +70,7 @@ public class ReleaseFragment extends Fragment {
         mTitle = (TextView) v.findViewById(R.id.release_title);
         mTitle.setText(mRelease.getTitle());
 
-        mNumTracks = Integer.valueOf((mRelease.getNumTracks()));
+//        mNumTracks = Integer.valueOf((mRelease.getNumTracks()));
     //    for (int i = 0; i < mNumTracks; i++){
 //            mTrack = (TextView) v.findViewById(R.id.track_text);
   //               mTrack.setText(mRelease.getTracks()[1]);

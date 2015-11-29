@@ -150,12 +150,34 @@ public class SearchActivity extends AppCompatActivity {
         mSearchSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SearchActivity.this, R.string.search_submit_button_info, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(SearchActivity.this, R.string.search_submit_button_info, Toast.LENGTH_SHORT).show();
 
-                Intent intent = SearchResultListActivity.newIntent(SearchActivity.this, mArtistSearch);
-                startActivity(intent);
+                search();
+
             }
         });
 
+    }
+
+    public void search() {
+        String searchArtist = mArtist.getText().toString().trim();
+        boolean validationError = false;
+        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        if (searchArtist.length() == 0) {
+            validationError = true;
+            validationErrorMessage.append(getString(R.string.error_blank_artist));
+        }
+
+        validationErrorMessage.append(getString(R.string.error_end));
+
+        if (validationError) {
+            Toast.makeText(SearchActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+
+
+        Intent intent = SearchResultListActivity.newIntent(SearchActivity.this, mArtistSearch);
+        startActivity(intent);
     }
 }

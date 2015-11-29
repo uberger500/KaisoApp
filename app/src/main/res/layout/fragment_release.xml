@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="artist_text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/artist_text"
             android:layout_weight="1"/>
 
@@ -22,8 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="year_text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/year_text"
-            android:layout_weight="1"/>
+            />
 
     </LinearLayout>
 
@@ -37,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="release_title"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/release_title"
             android:layout_weight="1"/>
 
@@ -44,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="arranger_text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/arranger_text"
             android:layout_weight="1"/>
     </LinearLayout>
@@ -58,6 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="track_text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/track_text"/>
 
     <TextView
@@ -65,5 +70,6 @@
         android:layout_height="wrap_content"
         android:text="genre_text"
         android:id="@+id/genre_text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_weight="1"/>
 </LinearLayout>

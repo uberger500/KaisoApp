@@ -1,6 +1,7 @@
 package com.bignerdranch.android.kaisoapp;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -13,7 +14,7 @@ public class Release {
     private String mYear;
     private String mArranger;
     private String mNumTracks;
-    private ArrayList<String> mTracks;
+    private List<String> mTracks;
     private String mLink;
     private String mGenre;
 
@@ -24,24 +25,9 @@ public class Release {
         mId = id;
 
     }
-/*
-    public Release releaseSetAttr(Release release, String title, String artist, String year,
-                                  String arranger, String numTracks, String[] tracks,
-                                  String link, String genre) {
-        release.setTitle(title);
-        release.setArtist(artist);
-        release.setYear(year);
-        release.setArranger(arranger);
-        release.setNumTracks(numTracks);
-        release.setTracks(tracks);
-        release.setLink(link);
-        release.setGenre(genre);
-        return release;
-    }
-*/
 
     public Release(UUID id, String title, String artist, String year, String arranger,
-                   String numTracks, ArrayList<String> tracks, String link, String genre) {
+                   String numTracks, List<String> tracks, String link, String genre) {
         mId = id;
         mTitle = title;
         mArtist = artist;
@@ -101,11 +87,11 @@ public class Release {
         mNumTracks = numTracks;
     }
 
-    public ArrayList<String> getTracks() {
+    public List<String> getTracks() {
         return mTracks;
     }
 
-    public void setTracks(ArrayList<String> tracks) {
+    public void setTracks(List<String> tracks) {
         mTracks = tracks;
     }
 

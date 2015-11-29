@@ -53,7 +53,7 @@ public class UserFragment extends Fragment {
         mEmail.setText(mUser.getEmail());
 
         mPhone = (TextView) v.findViewById(R.id.user_phone);
-        mPhone.setText(mUser.getPhone());
+        mPhone.setText(mUser.getPhone().toString());
 
         return v;
     }

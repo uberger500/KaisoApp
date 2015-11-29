@@ -30,7 +30,7 @@ public class BrowseFragment extends Fragment {
     private TextView mYear;
     private Integer mNumTracks;
     private TextView mTrack;
-    private ArrayList<String> mTracks;
+    private List<String> mTracks;
     private TextView mArranger;
     private TextView mGenre;
 

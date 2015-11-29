@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class DiscussionCreateActivity extends AppCompatActivity {
 
-    private static final String TAG = "DActivityCreateActivity";
+    private static final String TAG = "DiscCreateActivity";
     private static final String EXTRA_NEW_DISCUSSION = "com.bignerdranch.android.kaisoapp.new_discussion";
 
     private Discussion mDiscussion;
@@ -27,28 +28,69 @@ public class DiscussionCreateActivity extends AppCompatActivity {
     private EditText mDiscussionPoint;
     private Button mSubmitbtn;
     private List<Discussion> mDiscussions = DiscussionArchive.get(this).getDiscussions();
-    private Boolean flag1 = false;
-    private Boolean flag2 = false;
-
+    private List<String> mDiscussionPoints = new ArrayList<>();
 
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, DiscussionCreateActivity.class);
-        Log.d(TAG, "increateintent");
         return i;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //    UUID userId = (UUID) getIntent().getSerializableExtra(EXTRA_NEW_USER);
-        //   mUser = UserArchive.get(this).getUser(userId);
-        Log.d(TAG, "in discreate");
         setContentView(R.layout.activity_new_discussion);
 
-        mDiscussion = new Discussion();
-   //     DiscussionArchive discussionArchive =  DiscussionArchive.get(DiscussionCreateActivity.this);
-
         mDiscussionTitle = (EditText) findViewById(R.id.discussion_title1);
-        mDiscussionTitle.setText(mDiscussion.getTitle());
+        mDiscussionPoint = (EditText) findViewById(R.id.discussion_point1);
+
+        mSubmitbtn = (Button) findViewById(R.id.submit_disc_btn);
+        mSubmitbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDiscussion();
+            }
+        });
+
+    }
+    private void createDiscussion() {
+            String discussionTitle = mDiscussionTitle.getText().toString().trim();
+            String discussionPoint = mDiscussionPoint.getText().toString().trim();
+
+            boolean validationError = false;
+            StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+            if (discussionTitle.length() == 0) {
+                validationError = true;
+                validationErrorMessage.append(getString(R.string.error_blank_title));
+            }
+            if (discussionPoint.length() == 0) {
+                if (validationError) {
+                    validationErrorMessage.append(getString(R.string.error_join));
+                }
+                validationError = true;
+                validationErrorMessage.append(getString(R.string.error_blank_discussion_point));
+            }
+
+            validationErrorMessage.append(getString(R.string.error_end));
+
+            if (validationError) {
+                Toast.makeText(DiscussionCreateActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+
+            // Set up and start a progress dialog
+
+            // Set up a new Discussion
+        mDiscussion = new Discussion();
+        mDiscussion.setTitle(discussionTitle);
+        mDiscussionPoints.add(discussionPoint);
+        mDiscussion.setDiscussionPoints(mDiscussionPoints);
+        mDiscussions.add(mDiscussion);
+
+        finish();
+    }
+}
+
+      /*  mDiscussionTitle.setText(mDiscussion.getTitle());
         mDiscussionTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -57,7 +99,7 @@ public class DiscussionCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mDiscussion.setTitle(s.toString());
-                if(s.toString() != null && s.toString().length() > 0) {
+                if (s.toString() != null && s.toString().length() > 0) {
                     flag1 = true;
                 }
             }
@@ -66,10 +108,9 @@ public class DiscussionCreateActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-
-        mDiscussionPoint = (EditText) findViewById(R.id.discussion_point1);
-
-                                                    mDiscussionPoint.setText(mDiscussion.getDiscussionPoint());
+*/
+/*
+        mDiscussionPoint.setText(mDiscussion.getDiscussionPoint());
         mDiscussionPoint.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -78,7 +119,7 @@ public class DiscussionCreateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mDiscussion.setDiscussionPoint(s.toString());
-                if(s.toString() != null && s.toString().length() > 0) {
+                if (s.toString() != null && s.toString().length() > 0) {
                     flag2 = true;
                 }
             }
@@ -87,25 +128,17 @@ public class DiscussionCreateActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-
-
-        mSubmitbtn = (Button) findViewById(R.id.submit_disc_btn);
-        mSubmitbtn.setText(R.string.submit_disc_btn);
-        if(flag1 && flag2) {
-            mSubmitbtn.setEnabled(true);
-        } else {
-            mSubmitbtn.setEnabled(false);
-        }
-        mSubmitbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-             //   Toast.makeText(this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
-
-                mDiscussions.add(mDiscussion);
-                finish();
-            }
-        });
-
+*/
+ //            ParseUser user = new ParseUser();
+//          user.setUsername(username);
+//        user.setPassword(password);
+// Call the Parse signup method
+//      user.signUpInBackground(new SignUpCallback() {
+//        @Override
+//      public void done(ParseException e) {
+// Handle the response
+//    }
+//   });
         /*
         mEmail = (EditText) findViewById(R.id.editText_email);
         mEmail.setText(mUser.getEmail());
@@ -150,5 +183,5 @@ public class DiscussionCreateActivity extends AppCompatActivity {
             }
         });
 */
-    }
-}
+
+

@@ -60,3 +60,29 @@ public class DiscussionPagerActivity extends AppCompatActivity {
         }
     }
 }
+
+/*
+  <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_discussion_view">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:hint="@string/discussion_title"
+            android:layout_gravity="left"
+            android:id="@+id/discussion_title1"
+            android:padding="16dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/discussion_point1"
+            android:hint="@string/discussion_point1"
+            android:padding="16dp"/>
+
+    </LinearLayout>
+ */

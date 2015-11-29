@@ -54,7 +54,7 @@ public class UserCreateActivity extends AppCompatActivity {
 
 
         mName = (EditText) findViewById(R.id.editText_name);
-        mName.setText(mUser.getName());
+     /*   mName.setText(mUser.getName());
         mName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -69,8 +69,9 @@ public class UserCreateActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+        */
         mEmail = (EditText) findViewById(R.id.editText_email);
-        mEmail.setText(mUser.getEmail());
+   /*     mEmail.setText(mUser.getEmail());
         mEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -85,8 +86,10 @@ public class UserCreateActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+
+        */
         mPhone = (EditText) findViewById(R.id.editText_phone);
-        mPhone.setText(mUser.getPhone());
+    /*    mPhone.setText(mUser.getPhone());
         mPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -101,12 +104,14 @@ public class UserCreateActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-
+*/
         mSubmitbtn = (Button) findViewById(R.id.button_submit);
         mSubmitbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUsers.size() == 0 ) {
+
+                addUser();
+         /*       if (mUsers.size() == 0 ) {
                     UserArchive.get(UserCreateActivity.this).addUser(mUser);
                 } else {
                     boolean flag = false;
@@ -124,8 +129,71 @@ public class UserCreateActivity extends AppCompatActivity {
 
 
                 finish();
+                */
             }
         });
 
+    }
+
+    public void addUser() {
+        String name = mName.getText().toString().trim();
+        String email = mEmail.getText().toString().trim();
+        String number = mPhone.getText().toString().trim();
+        Integer phoneNumber = 0;
+
+        boolean validationError = false;
+        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        if (name.length() == 0) {
+            validationError = true;
+            validationErrorMessage.append(getString(R.string.error_blank_name));
+        }
+        if (email.length() == 0) {
+            if (validationError) {
+                validationErrorMessage.append(getString(R.string.error_join));
+            }
+            validationError = true;
+            validationErrorMessage.append(getString(R.string.error_blank_email));
+        }
+
+        if (number.isEmpty() == true) {
+            if (validationError) {
+                validationErrorMessage.append(getString(R.string.error_join));
+            }
+            validationError = true;
+            validationErrorMessage.append(getString(R.string.error_blank_phone_number));
+        } else {
+            phoneNumber = Integer.parseInt(number);
+        }
+
+        validationErrorMessage.append(getString(R.string.error_end));
+
+        if (validationError) {
+            Toast.makeText(UserCreateActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+
+        mUser.setName(name);
+        mUser.setEmail(email);
+        mUser.setPhone(phoneNumber);
+
+        if (mUsers.size() == 0 ) {
+            UserArchive.get(UserCreateActivity.this).addUser(mUser);
+        } else {
+            boolean flag = false;
+            for (User user : mUsers) {
+                if (user.getName().equals(mUser.getName())) {
+                    Toast.makeText(UserCreateActivity.this, R.string.duplicate_user, Toast.LENGTH_SHORT).show();
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag == false) {
+                UserArchive.get(UserCreateActivity.this).addUser(mUser);
+            }
+        }
+
+
+        finish();
     }
 }

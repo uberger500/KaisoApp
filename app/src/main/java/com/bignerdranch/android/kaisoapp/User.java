@@ -10,7 +10,7 @@ public class User {
     private UUID mId;
     private String mName;
     private String mEmail;
-    private String mPhone;
+    private Integer mPhone;
 
 
     public User() {
@@ -44,11 +44,11 @@ public class User {
         mEmail = email;
     }
 
-    public String getPhone() {
+    public Integer getPhone() {
         return mPhone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(Integer phone) {
         mPhone = phone;
     }
 }

@@ -47,4 +47,28 @@ public class DiscussionArchive {
     public void addDiscussion(Discussion d) {
         mDiscussions.add(d);
     }
+/*
+    public List<String> selectDiscussionThread(String discussionTitle) {
+
+        List<String> discussionThread = new ArrayList<>();
+        for (Discussion discussion : mDiscussions) {
+            if (discussion.getTitle().equals(discussionTitle)) {
+                discussionThread.add(discussion.getDiscussionPoint());
+            }
+        }
+        return discussionThread;
+    }
+
+    public List<String> selectDiscussionTitles() {
+
+        List<String> discussionTitles = new ArrayList<>();
+
+        for (Discussion discussion : mDiscussions) {
+            if (discussion.getTitle().contains(discussion.getTitle())) {
+                discussionTitles.add(discussion.getTitle());
+            }
+        }
+        return discussionTitles;
+    }
+    */
 }

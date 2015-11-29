@@ -49,6 +49,25 @@
 
     <string name="new_discussion">New Discussion</string>
 
+    <string name="error_intro"></string>
+    <string name="error_blank_title">Blank title</string>
+    <string name="error_blank_discussion_point">Blank discussion</string>
+    <string name="error_join"> and </string>
+    <string name="error_end"></string>
+
+    <string name="error_blank_artist">Blank artist</string>
+
+    <string name="error_blank_name">Blank name</string>
+    <string name="error_blank_email">Blank email</string>
+    <string name="error_blank_phone_number">Blank number</string>
+
+    <string name="error_blank_year">Blank year</string>
+    <string name="error_blank_num_tracks">Blank number of tracks</string>
+    <string name="error_blank_track">Blank track</string>
+    <string name="error_blank_arranger">Blank arranger</string>
+    <string name="error_blank_genre">Blank genre</string>
+
+
 
 
 </resources>
