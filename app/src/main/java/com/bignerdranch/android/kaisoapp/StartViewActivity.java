@@ -11,6 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +33,8 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
  * Created by ursberger1 on 11/13/15.
  */
 public class StartViewActivity extends AppCompatActivity {
-/*
+
+    /*
     // Initialize the Amazon Cognito credentials provider
     CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
             getApplicationContext(),
@@ -55,6 +62,7 @@ public class StartViewActivity extends AppCompatActivity {
         }
     });
 */
+
     private static final String EXTRA_NEW_RELEASES = "new_releases";
     private static final String TAG = "StartViewActivity";
     private Button mSearchButton;
@@ -67,6 +75,17 @@ public class StartViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ParseObject.registerSubclass(Release.class);
+
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "ITuVP5vobHEQeHjlJZuegG9COr8PABh12yUOsoCf", "4iiFd8i4WInojQBNXmIUlOJYPwGiA2dWykeTWOge");
+
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
+
         setContentView(R.layout.activity_start_view);
 
         Release mRelease1 = new Release();
@@ -74,11 +93,32 @@ public class StartViewActivity extends AppCompatActivity {
         Release mDummyRelease1 = new Release(mRelease1.getId(),"title1","artist1","year1","arranger1",
                 "3",mDum1Tracks,"link1","genre1");
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease1);
+        mRelease1.put("mArtist", "artist1");
+        mRelease1.saveInBackground();
+
+
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
+        query.whereEqualTo("mArtist", "artist1");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> scoreList, ParseException e) {
+                if (e == null) {
+                    Log.d(TAG, "retrieve");
+                    Log.d(TAG, "Retrieved " + scoreList.size() + " scores");
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
+
         Release mRelease2 = new Release();
         ArrayList<String> mDum2Tracks = new ArrayList<String>(Arrays.asList("track1", "track2", "track3", "track4", "track5"));
         Release mDummyRelease2 = new Release(mRelease2.getId(),"title2","artist2","year2","arranger2",
                 "5",mDum2Tracks,"link2","genre2");
         ReleaseArchive.get(StartViewActivity.this).addRelease(mDummyRelease2);
+
+        mRelease2.saveInBackground();
+
         Release mRelease3 = new Release();
         ArrayList<String> mDum3Tracks = new ArrayList<String>(Arrays.asList("track1", "track2", "track3", "track4"));
         Release mDummyRelease3 = new Release(mRelease3.getId(),"title2","artist1","year2","arranger1",

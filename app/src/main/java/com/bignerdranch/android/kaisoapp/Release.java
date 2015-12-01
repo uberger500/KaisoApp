@@ -1,5 +1,8 @@
 package com.bignerdranch.android.kaisoapp;
 
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -7,7 +10,9 @@ import java.util.UUID;
 /**
  * Created by ursberger1 on 11/13/15.
  */
-public class Release {
+
+@ParseClassName("Release")
+public class Release extends ParseObject {
     private UUID mId;
     private String mTitle;
     private String mArtist;
@@ -18,6 +23,7 @@ public class Release {
     private String mLink;
     private String mGenre;
 
+  //  public Release() {}
     public Release() {
         this(UUID.randomUUID());
     }

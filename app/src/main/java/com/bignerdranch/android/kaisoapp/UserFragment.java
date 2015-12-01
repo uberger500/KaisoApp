@@ -1,10 +1,12 @@
 package com.bignerdranch.android.kaisoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.UUID;
@@ -21,6 +23,7 @@ public class UserFragment extends Fragment {
     private TextView mName;
     private TextView mEmail;
     private TextView mPhone;
+    private Button mSendMessage;
 
     public static UserFragment newInstance(UUID userId) {
         Bundle args = new Bundle();
@@ -55,6 +58,17 @@ public class UserFragment extends Fragment {
         mPhone = (TextView) v.findViewById(R.id.user_phone);
         mPhone.setText(mUser.getPhone().toString());
 
+        mSendMessage = (Button) v.findViewById(R.id.send_message_button);
+        mSendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                startActivity(i);
+            }
+        });
+
         return v;
     }
+
 }
