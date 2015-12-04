@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,9 +30,11 @@ import java.util.UUID;
  */
 public class DiscussionFragment extends Fragment {
 
+    private static final String TAG = "DiscuFragment";
+
     private static final String ARG_DISCUSSION_ID = "discussion_id";
 
-    private Discussion mDiscussion;
+    private ParseObject mDiscussion;
     private List<Discussion> mDiscussions;
     private String mDiscussionTitle;
     private List<String> mDiscussionPoints;
@@ -33,11 +42,14 @@ public class DiscussionFragment extends Fragment {
     private TextView mDiscussionPoint;
     private Button mSubmit;
     ListView listView;
+    public String mDiscussionId;
+    private List<String> mPoints = new ArrayList<>();
 
 
-    public static DiscussionFragment newInstance(UUID discussionId) {
+
+    public static DiscussionFragment newInstance(String discussionId) {
         Bundle args = new Bundle();
-        args.putSerializable(ARG_DISCUSSION_ID, discussionId);
+        args.putString(ARG_DISCUSSION_ID, discussionId);
         DiscussionFragment fragment = new DiscussionFragment();
         fragment.setArguments(args);
         return fragment;
@@ -47,90 +59,60 @@ public class DiscussionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID discussionId = (UUID) getArguments().getSerializable(ARG_DISCUSSION_ID);
+        mDiscussionId =  getArguments().getString(ARG_DISCUSSION_ID);
 
-        mDiscussion = DiscussionArchive.get(getActivity()).getDiscussion(discussionId);
+        Log.d(TAG, "mdiscussionID is " + mDiscussionId);
 
-        mDiscussionTitle = mDiscussion.getTitle();
-        mDiscussions = DiscussionArchive.get(getActivity()).getDiscussions();
-
-   /*     for (Discussion discussion : mDiscussions) {
-            if (discussion.getTitle().equals(mDiscussionTitle)) {
-                mDiscussionThread.add(discussion.getDiscussionPoint());
-            }
-        }
-        */
-        mDiscussionPoints = mDiscussion.getDiscussionPoints();
+//        mDiscussionPoints = mDiscussion.getPoints();
 
         setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_discussion, container, false);
+        final View v = inflater.inflate(R.layout.fragment_discussion, container, false);
 
         listView = (ListView) v.findViewById(R.id.list_view_discussion);
 
-        mTitle = (TextView) v.findViewById(R.id.discussion_title2);
-        mTitle.setText(mDiscussionTitle);
-       /* mTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Discussion");
+        query.getInBackground(mDiscussionId, new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    mTitle = (TextView) v.findViewById(R.id.discussion_title2);
+                    mTitle.setText(object.getString("mTitle"));
 
-            }
+                    mDiscussion = object;
+                    mPoints = (List<String>) object.get("mDiscussionPoints");
+                    Log.d(TAG, "mPoints size is " + mPoints.size());
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mDiscussion.setTitle(s.toString());
-            }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                            android.R.layout.simple_list_item_1, android.R.id.text1, mPoints);
+                    listView.setAdapter(adapter);
 
-            @Override
-            public void afterTextChanged(Editable s) {
+                    mDiscussionPoint = (EditText) v.findViewById(R.id.discussion_point2);
+                    mSubmit = (Button) v.findViewById(R.id.submit_disc_btn);
+                    mSubmit.setText(R.string.submit_disc_btn);
+                    mSubmit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d(TAG, "mPoints size is2  " + mPoints.size());
 
+                            addPoint();
+                        }
+
+                    });
+
+                } else {
+                    Log.d("Discussion2", "Error: " + e.getMessage());
+                }
             }
         });
-*/
      /*   if(mDiscussionThread != null) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                     android.R.layout.simple_list_item_1, android.R.id.text1, mDiscussionThread);
             listView.setAdapter(adapter);
 
         }*/
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, mDiscussionPoints);
-        listView.setAdapter(adapter);
-
-        mDiscussionPoint = (EditText) v.findViewById(R.id.discussion_point2);
-   /*     mDiscussionEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mDiscussion.setDiscussionPoint(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
-
-        mSubmit = (Button) v.findViewById(R.id.submit_disc_btn);
-        mSubmit.setText(R.string.submit_disc_btn);
-        mSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-          //      Toast.makeText(getActivity(), R.string.submit_button_info, Toast.LENGTH_SHORT).show();
-          //      DiscussionArchive.get(getActivity()).addDiscussion(mDiscussion);
-
-                addPoint();
-        //        getActivity().finish();
-            }
-        });
         return v;
     }
 
@@ -149,11 +131,14 @@ public class DiscussionFragment extends Fragment {
                     .show();
             return;
         }
-        // Set up and start a progress dialog
-
         // Set up a new Discussion
-        mDiscussionPoints.add(discussionPoint);
-        mDiscussion.setDiscussionPoints(mDiscussionPoints);
+        mPoints.add(discussionPoint);
+        Log.d(TAG, "mPoints size3 is " + mPoints.size());
+
+
+        mDiscussion.put("mDiscussionPoints", mPoints);
+        mDiscussion.saveInBackground();
+
    //     mDiscussions.add(mDiscussion);
         getActivity().finish();
     }

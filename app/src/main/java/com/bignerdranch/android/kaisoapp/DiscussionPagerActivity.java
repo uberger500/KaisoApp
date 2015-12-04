@@ -8,6 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,12 +22,13 @@ import java.util.UUID;
  * Created by ursberger1 on 11/15/15.
  */
 public class DiscussionPagerActivity extends AppCompatActivity {
- 
+    private static final String TAG = "DiscPagerActivity";
+
     private static final String EXTRA_DISCUSSION_ID = "com.bignerdranch.android.kaisoapp.discussion_id";
     private ViewPager mViewPager;
     private List<Discussion> mDiscussions;
 
-    public static Intent newIntent(Context packageContext, UUID discussionId) {
+    public static Intent newIntent(Context packageContext, String discussionId) {
         Intent intent = new Intent(packageContext, DiscussionPagerActivity.class);
         intent.putExtra(EXTRA_DISCUSSION_ID, discussionId);
         return intent;
@@ -32,17 +39,56 @@ public class DiscussionPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_pager);
 
-        UUID discussionId = (UUID) getIntent().getSerializableExtra(EXTRA_DISCUSSION_ID);
+        final String discussionId = getIntent().getStringExtra(EXTRA_DISCUSSION_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
-        mDiscussions = DiscussionArchive.get(this).getDiscussions();
+        // mDiscussions = DiscussionArchive.get(this).getDiscussions();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Discussion");
+        //  query.whereEqualTo("mArtist", artistName);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> queryList, ParseException e) {
+                if (e == null) {
+                    Log.d(TAG, "Retrieved " + queryList.size() + " release");
+                    final List<ParseObject> discussionList = queryList;
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
+                        @Override
+                        public Fragment getItem(int position) {
+                            ParseObject discussion = discussionList.get(position);
+                            Log.d(TAG, "getItem called");
+                            return DiscussionFragment.newInstance(discussion.getObjectId());
+                        }
+
+                        @Override
+                        public int getCount() {
+                            return discussionList.size();
+                        }
+
+                    });
+
+                    for (int i = 0; i < discussionList.size(); i++) {
+                        if (discussionList.get(i).getObjectId().equals(discussionId)) {
+                            Log.d(TAG, "in if releaseId is " + discussionId);
+                            mViewPager.setCurrentItem(i);
+                            break;
+                        }
+                    }
+                } else {
+                    Log.d("Discussion", "Error: " + e.getMessage());
+                }
+            }
+        });
+    }
+}
+ /*
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
                 Discussion discussion = mDiscussions.get(position);
-                return DiscussionFragment.newInstance(discussion.getId());
+                return DiscussionFragment.newInstance(discussion.getObjectId());
             }
 
             @Override
@@ -53,14 +99,14 @@ public class DiscussionPagerActivity extends AppCompatActivity {
         });
 
         for (int i = 0; i < mDiscussions.size(); i++) {
-            if (mDiscussions.get(i).getId().equals(discussionId)) {
+            if (mDiscussions.get(i).getObjectId().equals(discussionId)) {
                 mViewPager.setCurrentItem(i);
                 break;
             }
         }
     }
 }
-
+*/
 /*
   <LinearLayout
         android:orientation="vertical"

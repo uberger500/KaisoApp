@@ -10,6 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,27 +24,30 @@ import java.util.UUID;
 /**
  * Created by ursberger1 on 11/18/15.
  */
+
 public class SearchResultListFragment extends Fragment {
 
     private static final String EXTRA_ARTIST_SEARCH =
             "com.bignerdranch.android.kaisoapp.artist_search";
 
-    private static final String TAG = "SearchResultActivity";
+    private static final String TAG = "SearchResulListFrag";
 
     private RecyclerView mReleaseRecyclerView;
     private ReleaseAdapter mAdapter;
     private String mArtistSearch;
 
-    private List<Release> mArtistList = new ArrayList<>();
+    private List<ParseObject> mArtistList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "create1");
 
         mArtistSearch = getActivity().getIntent().getStringExtra(EXTRA_ARTIST_SEARCH);
 
+        Log.d(TAG, "mArtistSearch is " + mArtistSearch);
         setHasOptionsMenu(true);
-        Log.d(TAG, "creating search List view");
+        Log.d(TAG, "create");
     }
 
     @Override
@@ -56,17 +65,31 @@ public class SearchResultListFragment extends Fragment {
 
 
     private void updateUI() {
-        ReleaseArchive releaseArchive = ReleaseArchive.get(getActivity());
-        List<Release> releases = releaseArchive.getReleases();
+        Log.d(TAG, "updateUI");
+        Log.d(TAG, "mArtistSearch2 is " + mArtistSearch);
 
-        for (Release release : releases)  {
-            if (release.getArtist().equals(mArtistSearch)) {
-                mArtistList.add(release);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
+        query.whereEqualTo("mArtist", mArtistSearch);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> releaseList, ParseException e) {
+                if (e == null) {
+                    if(releaseList.size() == 0) {
+                        Toast.makeText(getActivity(), R.string.search_nothing_found, Toast.LENGTH_SHORT).show();
+
+                    }
+                    if (mAdapter == null) {
+                        Log.d(TAG, "Retrieved " + releaseList.size() + " releases");
+                        mAdapter = new ReleaseAdapter(releaseList);
+                        mReleaseRecyclerView.setAdapter(mAdapter);
+                    } else {
+                        mAdapter.setReleases(releaseList);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                } else {
+                    Log.d("Search", "Error: " + e.getMessage());
+                }
             }
-        }
-
-        mAdapter = new ReleaseAdapter(mArtistList);
-        mReleaseRecyclerView.setAdapter(mAdapter);
+        });
     }
 
 
@@ -75,7 +98,7 @@ public class SearchResultListFragment extends Fragment {
 
 
         private TextView mReleaseTitleTextView;
-        private Release mRelease;
+        private ParseObject mRelease;
 
         public ReleaseHolder(View itemView) {
             super(itemView);
@@ -84,16 +107,20 @@ public class SearchResultListFragment extends Fragment {
             mReleaseTitleTextView = (TextView) itemView.findViewById(R.id.list_item_release_title_text_view);
         }
 
-        public void bindRelease(Release release) {
+        public void bindRelease(ParseObject release) {
 
             mRelease = release;
-            mReleaseTitleTextView.setText(mRelease.getTitle());
+            Log.d(TAG, "title is " + mRelease.getString("mTitle"));
+            mReleaseTitleTextView.setText(mRelease.getString("mTitle"));
 
         }
 
         @Override
         public void onClick(View v) {
-            Intent intent = SearchPagerActivity.newIntent(getActivity(), mRelease.getId());
+            Log.d(TAG, "clicktitle is " + mRelease.getString("mTitle"));
+            Log.d(TAG, "objectId is " + mRelease.getObjectId());
+
+            Intent intent = SearchPagerActivity.newIntent(getActivity(), mRelease.getString("mArtist"));
             startActivity(intent);
         }
     }
@@ -101,9 +128,9 @@ public class SearchResultListFragment extends Fragment {
 
     private class ReleaseAdapter extends RecyclerView.Adapter<ReleaseHolder> {
 
-        private List<Release> mReleases;
+        private List<ParseObject> mReleases;
 
-        public ReleaseAdapter(List<Release> releases) {
+        public ReleaseAdapter(List<ParseObject> releases) {
             mReleases = releases;
         }
 
@@ -116,13 +143,17 @@ public class SearchResultListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ReleaseHolder holder, int position) {
-            Release release = mReleases.get(position);
+            ParseObject release = mReleases.get(position);
             holder.bindRelease(release);
         }
 
         @Override
         public int getItemCount() {
             return mReleases.size();
+        }
+
+        public  void setReleases(List<ParseObject> releases) {
+            mReleases = releases;
         }
     }
 }

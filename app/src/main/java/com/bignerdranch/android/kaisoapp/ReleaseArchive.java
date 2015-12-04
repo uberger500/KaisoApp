@@ -9,15 +9,16 @@ import java.util.UUID;
 /**
  * Created by ursberger1 on 11/13/15.
  */
+/*
 public class ReleaseArchive {
     private static ReleaseArchive sReleaseArchive;
 
     private List<Release> mReleases;
-/*
+
     public ReleaseArchive(List<Release> releases) {
         mReleases = releases;
     }
-*/
+
     public static ReleaseArchive get(Context context) {
         if (sReleaseArchive == null) {
             sReleaseArchive = new ReleaseArchive(context);
@@ -26,11 +27,11 @@ public class ReleaseArchive {
     }
     private ReleaseArchive(Context context) {
        mReleases = new ArrayList<>();
-   /*     for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             Release release = new Release();
             release.setTitle("Release #" + i);
             mReleases.add(release);
-        }*/
+        }
     }
 
     public List<Release> getReleases() {
@@ -45,14 +46,15 @@ public class ReleaseArchive {
         }
         return null;
     }
-/*
+
     public int getSize(ReleaseArchive releaseArchive) {
 
         int size = releaseArchive.size();
 
     }
-*/
+
     public void addRelease(Release r) {
         mReleases.add(r);
     }
 }
+*/

@@ -2,12 +2,18 @@ package com.bignerdranch.android.kaisoapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,27 +22,31 @@ import java.util.UUID;
 /**
  * Created by ursberger1 on 11/18/15.
  */
+
 public class BrowseFragment extends Fragment {
 
     private static final String ARG_RELEASE_ID = "release_id";
+    private static final String TAG = "BrowseFragment";
 
-    private Release mRelease;
-    private List<Release> mReleases;
+   // private Release mRelease;
+    private List<ParseObject> mReleases;
 
     ListView listView ;
 
     private TextView mArtist;
     private TextView mTitle;
     private TextView mYear;
-    private Integer mNumTracks;
+    private String mNumTracks;
     private TextView mTrack;
-    private List<String> mTracks;
+    private List<String> mTracks = new ArrayList<>();
     private TextView mArranger;
+    private TextView mLabel;
     private TextView mGenre;
+    public String mReleaseId;
 
-    public static BrowseFragment newInstance(UUID releaseId) {
+    public static BrowseFragment newInstance(String releaseId) {
         Bundle args = new Bundle();
-        args.putSerializable(ARG_RELEASE_ID, releaseId);
+        args.putString(ARG_RELEASE_ID, releaseId);
 
         BrowseFragment fragment = new BrowseFragment();
         fragment.setArguments(args);
@@ -46,46 +56,54 @@ public class BrowseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID releaseId = (UUID) getArguments().getSerializable(ARG_RELEASE_ID);
-
-        mRelease = ReleaseArchive.get(getActivity()).getRelease(releaseId);
-
-      //  final String artistName = mRelease1.getArtist();
-      //  mReleases = ReleaseArchive.get(getActivity()).getReleases();
-      //  final List<Release> mSelectionList = createReleaseSublist(mReleases, artistName);
-      //  mRelease = mSelectionList.get(getActivity()).getRelease(0);
+        mReleaseId =  getArguments().getString(ARG_RELEASE_ID);
+        Log.d(TAG, "Release id is " + mReleaseId);
+      //  mRelease = ReleaseArchive.get(getActivity()).getRelease(releaseId);
 
         setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_release, container, false);
+        final View v = inflater.inflate(R.layout.fragment_release, container, false);
 
-        listView = (ListView) v.findViewById(R.id.list);
+        listView  = (ListView) v.findViewById(R.id.list);
 
-        mArtist = (TextView) v.findViewById(R.id.artist_text);
-        mArtist.setText(mRelease.getArtist());
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
+        query.getInBackground(mReleaseId, new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    mArtist = (TextView) v.findViewById(R.id.artist_text);
+                    mArtist.setText(object.getString("mArtist"));
 
-        mYear = (TextView) v.findViewById(R.id.year_text);
-        mYear.setText(mRelease.getYear());
+                    mYear = (TextView) v.findViewById(R.id.year_text);
+                    mYear.setText(object.getString("mYear"));
 
-        mTitle = (TextView) v.findViewById(R.id.release_title);
-        mTitle.setText(mRelease.getTitle());
+                    mTitle = (TextView) v.findViewById(R.id.release_title);
+                    mTitle.setText(object.getString("mTitle"));
 
-        mNumTracks = Integer.valueOf((mRelease.getNumTracks()));
+                 //   mNumTracks = Integer.valueOf((object.getNumTracks()));
 
-        mTracks = mRelease.getTracks();
+                    mTracks = (List<String>) object.get("mTracks");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
-        listView.setAdapter(adapter);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                            android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
+                    listView.setAdapter(adapter);
 
-        mArranger = (TextView) v.findViewById(R.id.arranger_text);
-        mArranger.setText(mRelease.getArranger());
+                    mArranger = (TextView) v.findViewById(R.id.arranger_text);
+                    mArranger.setText(object.getString("mArranger"));
 
-        mGenre = (TextView) v.findViewById(R.id.genre_text);
-        mGenre.setText(mRelease.getGenre());
+                    mLabel = (TextView) v.findViewById(R.id.label_text);
+                    mLabel.setText(object.getString("mLabel"));
+
+                    mGenre = (TextView) v.findViewById(R.id.genre_text);
+                    mGenre.setText(object.getString("mGenre"));
+
+                } else {
+                    Log.d("browse", "Error: " + e.getMessage());
+                }
+            }
+        });
 
         return v;
     }

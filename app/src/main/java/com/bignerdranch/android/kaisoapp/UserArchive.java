@@ -9,6 +9,7 @@ import java.util.UUID;
 /**
  * Created by ursberger1 on 11/15/15.
  */
+/*
 public class UserArchive {
 
     private static UserArchive sUserArchive;
@@ -23,11 +24,11 @@ public class UserArchive {
     }
     private UserArchive(Context context) {
         mUsers = new ArrayList<>();
-   /*     for (int i = 0; i < 100; i++) {
+   /    for (int i = 0; i < 100; i++) {
             User user = new User();
             user.setName("User #" + i);
             mUsers.add(user);
-        }*/
+        }
     }
 
     public List<User> getUsers() {
@@ -47,3 +48,4 @@ public class UserArchive {
         mUsers.add(c);
     }
 }
+*/

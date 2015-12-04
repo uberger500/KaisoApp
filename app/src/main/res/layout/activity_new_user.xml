@@ -34,6 +34,15 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText_password"
+        android:padding="30dp"
+        android:hint="password"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
         android:id="@+id/editText_phone"

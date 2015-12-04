@@ -4,6 +4,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,17 +14,83 @@ import java.util.UUID;
 
 @ParseClassName("Release")
 public class Release extends ParseObject {
-    private UUID mId;
-    private String mTitle;
-    private String mArtist;
-    private String mYear;
-    private String mArranger;
-    private String mNumTracks;
-    private List<String> mTracks;
-    private String mLink;
-    private String mGenre;
 
-  //  public Release() {}
+    public Release() {}
+
+    public String getUUID() {
+        return getString("UUID");
+    }
+
+    public void setUUID(String uuid) {
+        put("UUID", uuid);
+    }
+
+
+    public String getTitle() {
+        return getString("mTitle");
+    }
+
+    public void setTitle(String title) {
+        put("mTitle", title);
+    }
+
+    public String getArtist() {
+        return getString("mArtist");
+    }
+
+    public void setArtist(String artist) {
+        put("mArtist", artist);
+    }
+    public String getYear() {
+        return getString("mYear");
+    }
+
+    public void setYear(String year) {
+        put("mYear", year);
+    }
+    public String getArranger() {
+        return getString("mArranger");
+    }
+
+    public void setArranger(String arranger) {
+        put("mArranger", arranger);
+    }
+
+    public String getNumTracks() {
+        return getString("mNumTracks");
+    }
+
+    public void setNumTracks(String numTracks) {
+        put("mName", numTracks);
+    }
+
+    public List<String> getTracks() {
+        return (List<String>) get("mTracks");
+    }
+
+    public void setTracks(List<String> tracks) {
+        put("mTracks", Arrays.asList(tracks));
+    }
+
+    public String getLabel() {
+        return getString("mLabel");
+    }
+
+    public void setLabel(String label) {
+        put("mLabel", label);
+    }
+
+    public String getGenre() {
+        return getString("mGenre");
+    }
+
+    public void setGenre(String genre) {
+        put("mGenre", genre);
+    }
+
+}
+/*
+
     public Release() {
         this(UUID.randomUUID());
     }
@@ -115,5 +182,5 @@ public class Release extends ParseObject {
 
     public void setGenre(String genre) {
         mGenre = genre;
-    }
-}
+    }*/
+

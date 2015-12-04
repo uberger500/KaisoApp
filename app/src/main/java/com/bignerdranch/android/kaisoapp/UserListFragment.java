@@ -5,17 +5,26 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
 /**
  * Created by ursberger1 on 11/15/15.
  */
+
 public class UserListFragment extends Fragment {
+    private static final String TAG = "UserListFrag";
 
     private RecyclerView mUserRecyclerView;
     private UserAdapter mAdapter;
@@ -24,6 +33,7 @@ public class UserListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        Log.d(TAG, "in onCreate");
     }
 
     @Override
@@ -33,8 +43,10 @@ public class UserListFragment extends Fragment {
 
         mUserRecyclerView = (RecyclerView) view.findViewById(R.id.item_recycler_view);
         mUserRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Log.d(TAG, "in onCreateView1");
 
         updateUI();
+        Log.d(TAG, "in onCreateView2");
 
         return view;
     }
@@ -45,12 +57,25 @@ public class UserListFragment extends Fragment {
             inflater.inflate(R.menu.fragment_user_list, menu);
         }
     */
-    private void updateUI() {
-        UserArchive userArchive = UserArchive.get(getActivity());
-        List<User> users = userArchive.getUsers();
 
-        mAdapter = new UserAdapter(users);
-        mUserRecyclerView.setAdapter(mAdapter);
+
+    private void updateUI() {
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> userList, ParseException e) {
+                if (e == null) {
+                    Log.d(TAG, "in Callback");
+                    Log.d(TAG, "Retrieved " + userList.size() + " users");
+                  //  releases = releaseBackConvert(releaseList);
+                    mAdapter = new UserAdapter(userList);
+                    mUserRecyclerView.setAdapter(mAdapter);
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
+
     }
 
     private class UserHolder extends RecyclerView.ViewHolder
@@ -58,7 +83,7 @@ public class UserListFragment extends Fragment {
 
 
         private TextView mUserTitleTextView;
-        private User mUser;
+        private ParseObject mUser;
 
         public UserHolder(View itemView) {
             super(itemView);
@@ -67,16 +92,16 @@ public class UserListFragment extends Fragment {
             mUserTitleTextView = (TextView) itemView.findViewById(R.id.list_item_user_title_text_view);
         }
 
-        public void bindUser(User user) {
+        public void bindUser(ParseObject user) {
 
             mUser = user;
-            mUserTitleTextView.setText(mUser.getName());
+            mUserTitleTextView.setText(mUser.getString("mName"));
 
         }
 
         @Override
         public void onClick(View v) {
-            Intent intent = UserPagerActivity.newIntent(getActivity(), mUser.getId());
+            Intent intent = UserPagerActivity.newIntent(getActivity(), mUser.getString("mName"));
             startActivity(intent);
         }
 
@@ -85,9 +110,9 @@ public class UserListFragment extends Fragment {
 
     private class UserAdapter extends RecyclerView.Adapter<UserHolder> {
 
-        private List<User> mUsers;
+        private List<ParseObject> mUsers;
 
-        public UserAdapter(List<User> users) {
+        public UserAdapter(List<ParseObject> users) {
             mUsers = users;
         }
 
@@ -100,7 +125,7 @@ public class UserListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(UserHolder holder, int position) {
-            User user = mUsers.get(position);
+            ParseObject user = mUsers.get(position);
             holder.bindUser(user);
         }
 
@@ -108,11 +133,5 @@ public class UserListFragment extends Fragment {
         public int getItemCount() {
             return mUsers.size();
         }
-/*
-            public void setReleases(List<Release> Releases) {
-                mReleases = Releases;
-            }
-*/
-    }
-
+  }
 }

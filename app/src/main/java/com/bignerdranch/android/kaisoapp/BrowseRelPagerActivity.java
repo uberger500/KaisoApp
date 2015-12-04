@@ -10,6 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -17,6 +22,7 @@ import java.util.UUID;
 /**
  * Created by ursberger1 on 11/18/15.
  */
+
 public class BrowseRelPagerActivity extends AppCompatActivity {
 
     private static final String TAG = "BrowseReleaseActivity";
@@ -41,39 +47,53 @@ public class BrowseRelPagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fragment_pager);
         Log.d(TAG, "onCreate called");
 
-        String artistName = (String) getIntent().getSerializableExtra(EXTRA_ARTIST_NAME);
+        final String artistName = getIntent().getStringExtra(EXTRA_ARTIST_NAME);
 
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
-        mReleases = ReleaseArchive.get(this).getReleases();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
+        query.whereEqualTo("mArtist", artistName);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> queryList, ParseException e) {
+                if (e == null) {
+                    Log.d(TAG, "Retrieved " + queryList.size() + " release");
+                    final List<ParseObject> releaseList = queryList;
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
+                        @Override
+                        public Fragment getItem(int position) {
+                            ParseObject release = releaseList.get(position);
+                            Log.d(TAG, "getItem called");
+                            return BrowseFragment.newInstance(release.getObjectId());
+                        }
 
-        mSelectionList = createReleaseSublist(mReleases, artistName);
+                        @Override
+                        public int getCount() {
+                            return releaseList.size();
+                        }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
-            @Override
-            public Fragment getItem(int position) {
-                Release release = mSelectionList.get(position);
-                Log.d(TAG, "getItem called");
-                return BrowseFragment.newInstance(release.getId());
+                    });
+
+                    for (int i = 0; i < releaseList.size(); i++) {
+                        if (releaseList.get(i).getString("mArtist").equals(artistName)) {
+                            mViewPager.setCurrentItem(i);
+                            break;
+                        }
+                    }
+                } else {
+                    Log.d("browse", "Error: " + e.getMessage());
+                }
             }
-
-            @Override
-            public int getCount() {
-                return mSelectionList.size();
-            }
-
         });
+        //   mReleases = ReleaseArchive.get(this).getReleases();
 
-        for (int i = 0; i < mSelectionList.size(); i++) {
-            if (mSelectionList.get(i).getArtist().equals(artistName)) {
-                mViewPager.setCurrentItem(i);
-                break;
-            }
-        }
+        //   mSelectionList = createReleaseSublist(mReleases, artistName);
+
 
     }
-    protected List<Release> createReleaseSublist(List<Release> mReleases, String artistName) {
+}
+    /*
+    protected List<ParseObjecte> createReleaseSublist(List<Release> mReleases, String artistName) {
 
         List<Release> mSubList = new ArrayList<>();
         for(Release release : mReleases) {
@@ -83,5 +103,5 @@ public class BrowseRelPagerActivity extends AppCompatActivity {
             }
         }
         return mSubList;
-    }
-}
+    }*/
+

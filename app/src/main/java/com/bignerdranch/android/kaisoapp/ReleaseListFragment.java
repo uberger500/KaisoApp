@@ -13,11 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.List;
 
 /**
  * Created by ursberger1 on 11/13/15.
  */
+
 public class ReleaseListFragment extends Fragment {
     private static final String TAG = "ReleaseLisActivity";
     private RecyclerView mReleaseRecyclerView;
@@ -45,11 +51,19 @@ public class ReleaseListFragment extends Fragment {
 
 
     private void updateUI() {
-        ReleaseArchive releaseArchive = ReleaseArchive.get(getActivity());
-        List<Release> releases = releaseArchive.getReleases();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> releaseList, ParseException e) {
+                if (e == null) {
+                    Log.d(TAG, "Retrieved " + releaseList.size() + " releases");
+                    mAdapter = new ReleaseAdapter(releaseList);
+                    mReleaseRecyclerView.setAdapter(mAdapter);
+                } else {
+                    Log.d("release", "Error: " + e.getMessage());
+                }
+            }
+        });
 
-        mAdapter = new ReleaseAdapter(releases);
-        mReleaseRecyclerView.setAdapter(mAdapter);
     }
 
     private class ReleaseHolder extends RecyclerView.ViewHolder
@@ -57,7 +71,7 @@ public class ReleaseListFragment extends Fragment {
 
 
         private TextView mReleaseTitleTextView;
-        private Release mRelease;
+        private ParseObject mRelease;
 
         public ReleaseHolder(View itemView) {
             super(itemView);
@@ -66,26 +80,26 @@ public class ReleaseListFragment extends Fragment {
             mReleaseTitleTextView = (TextView) itemView.findViewById(R.id.list_item_release_title_text_view);
         }
 
-        public void bindRelease(Release release) {
+        public void bindRelease(ParseObject release) {
 
             mRelease = release;
-            mReleaseTitleTextView.setText(mRelease.getTitle());
+            mReleaseTitleTextView.setText(mRelease.getString("mTitle"));
 
         }
 
         @Override
         public void onClick(View v) {
-            Intent intent = ReleasePagerActivity.newIntent(getActivity(), mRelease.getId());
+            Log.d(TAG, "onClick called "+ mRelease.getObjectId());
+
+            Intent intent = ReleasePagerActivity.newIntent(getActivity(), mRelease.getObjectId());
             startActivity(intent);
         }
     }
-
-
         private class ReleaseAdapter extends RecyclerView.Adapter<ReleaseHolder> {
 
-            private List<Release> mReleases;
+            private List<ParseObject> mReleases;
 
-            public ReleaseAdapter(List<Release> releases) {
+            public ReleaseAdapter(List<ParseObject> releases) {
                 mReleases = releases;
             }
 
@@ -98,7 +112,7 @@ public class ReleaseListFragment extends Fragment {
 
             @Override
             public void onBindViewHolder(ReleaseHolder holder, int position) {
-                Release release = mReleases.get(position);
+                ParseObject release = mReleases.get(position);
                 holder.bindRelease(release);
             }
 
@@ -106,14 +120,8 @@ public class ReleaseListFragment extends Fragment {
             public int getItemCount() {
                 return mReleases.size();
             }
-/*
-            public void setReleases(List<Release> Releases) {
-                mReleases = Releases;
-            }
-*/
+
         }
-
-
 
 }
 

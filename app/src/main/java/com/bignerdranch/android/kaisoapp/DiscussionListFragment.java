@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +30,8 @@ import java.util.List;
  * Created by ursberger1 on 11/15/15.
  */
 public class DiscussionListFragment extends Fragment {
+
+    private static final String TAG = "DiscListActivity";
 
     private RecyclerView mDiscussionRecyclerView;
     private DiscussionAdapter mAdapter;
@@ -79,8 +88,6 @@ public class DiscussionListFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_discussion_list, menu);
-
-
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -104,11 +111,28 @@ public class DiscussionListFragment extends Fragment {
 
     }
     private void updateUI() {
-        DiscussionArchive discussionArchive = DiscussionArchive.get(getActivity());
-        List<Discussion> discussions = discussionArchive.getDiscussions();
+      //  DiscussionArchive discussionArchive = DiscussionArchive.get(getActivity());
+      //  List<Discussion> discussions = discussionArchive.getDiscussions();
 
-        mAdapter = new DiscussionAdapter(discussions);
-        mDiscussionRecyclerView.setAdapter(mAdapter);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Discussion");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> discussionList, ParseException e) {
+                if (e == null) {
+                    Log.d(TAG, "Retrieved " + discussionList.size() + " discussion");
+                    mAdapter = new DiscussionAdapter(discussionList);
+                    mDiscussionRecyclerView.setAdapter(mAdapter);
+
+                    if(discussionList.size() != 0) {
+                        mNoDiscussionLayout.setVisibility(View.GONE);
+                    } else {
+                        mNoDiscussionLayout.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Log.d("release", "Error: " + e.getMessage());
+                }
+            }
+        });
+
 
 
   /*      if (mAdapter == null) {
@@ -121,11 +145,7 @@ public class DiscussionListFragment extends Fragment {
 
         updateSubtitle();
 */
-        if(discussions.size() != 0) {
-            mNoDiscussionLayout.setVisibility(View.GONE);
-        } else {
-            mNoDiscussionLayout.setVisibility(View.VISIBLE);
-        }
+
     }
 
     private class DiscussionHolder extends RecyclerView.ViewHolder
@@ -133,7 +153,7 @@ public class DiscussionListFragment extends Fragment {
 
 
         private TextView mDiscussionTitleTextView;
-        private Discussion mDiscussion;
+        private ParseObject mDiscussion;
 
         public DiscussionHolder(View itemView) {
             super(itemView);
@@ -142,25 +162,25 @@ public class DiscussionListFragment extends Fragment {
             mDiscussionTitleTextView = (TextView) itemView.findViewById(R.id.list_item_discussion_title_text_view);
         }
 
-        public void bindDiscussion(Discussion discussion) {
+        public void bindDiscussion(ParseObject discussion) {
 
             mDiscussion = discussion;
-            mDiscussionTitleTextView.setText(mDiscussion.getTitle());
+            mDiscussionTitleTextView.setText(mDiscussion.getString("mTitle"));
 
         }
 
         @Override
         public void onClick(View v) {
-            Intent intent = DiscussionPagerActivity.newIntent(getActivity(), mDiscussion.getId());
+            Intent intent = DiscussionPagerActivity.newIntent(getActivity(), mDiscussion.getObjectId());
             startActivity(intent);
         }
     }
 
     private class DiscussionAdapter extends RecyclerView.Adapter<DiscussionHolder> {
 
-        private List<Discussion> mDiscussions;
+        private List<ParseObject> mDiscussions;
 
-        public DiscussionAdapter(List<Discussion> discussions) {
+        public DiscussionAdapter(List<ParseObject> discussions) {
             mDiscussions = discussions;
         }
 
@@ -173,7 +193,7 @@ public class DiscussionListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(DiscussionHolder holder, int position) {
-            Discussion discussion = mDiscussions.get(position);
+            ParseObject discussion = mDiscussions.get(position);
             holder.bindDiscussion(discussion);
         }
 

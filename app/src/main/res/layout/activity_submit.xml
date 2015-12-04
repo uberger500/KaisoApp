@@ -72,8 +72,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-
-
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
@@ -101,6 +99,14 @@
         tools:text="arranger_edit_text"
         android:editable="true"
         android:hint="Arranger"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_edit_text"
+        tools:text="label_edit_text"
+        android:editable="true"
+        android:hint="Label"/>
 
     <EditText
         android:layout_width="match_parent"

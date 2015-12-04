@@ -13,13 +13,13 @@ public class DiscussionListActivity extends SingleFragmentActivity {
 
     private static final String EXTRA_DISCUSSION_ID =
             "com.bignerdranch.android.kaisoapp.discussion_id";
-
+/*
     public static Intent newIntent(Context packageContext, UUID userId) {
         Intent intent = new Intent(packageContext, DiscussionListActivity.class);
         intent.putExtra(EXTRA_DISCUSSION_ID, userId);
         return intent;
     }
-
+*/
     @Override
     protected Fragment createFragment() {
         return new DiscussionListFragment();

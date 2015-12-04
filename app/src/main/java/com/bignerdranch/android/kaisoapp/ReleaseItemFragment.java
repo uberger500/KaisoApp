@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/18/15.
  */
+/*
 public class ReleaseItemFragment extends Fragment {
 
         private RecyclerView mReleaseRecyclerView;
@@ -105,3 +106,4 @@ public class ReleaseItemFragment extends Fragment {
         }
     }
 
+*/

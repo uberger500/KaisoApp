@@ -9,6 +9,7 @@ import java.util.UUID;
 /**
  * Created by ursberger1 on 11/15/15.
  */
+/*
 public class DiscussionArchive {
 
     private static DiscussionArchive sDiscussionsArchive;
@@ -24,12 +25,12 @@ public class DiscussionArchive {
 
     private DiscussionArchive(Context context) {
         mDiscussions = new ArrayList<>();
-  /*      for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             Discussion discussion = new Discussion();
             discussion.setTitle("Discussion #" + i);
             mDiscussions.add(discussion);
         }*/
-    }
+  /*  }
 
     public List<Discussion> getDiscussions() {
         return mDiscussions;
@@ -47,7 +48,7 @@ public class DiscussionArchive {
     public void addDiscussion(Discussion d) {
         mDiscussions.add(d);
     }
-/*
+
     public List<String> selectDiscussionThread(String discussionTitle) {
 
         List<String> discussionThread = new ArrayList<>();
@@ -70,5 +71,6 @@ public class DiscussionArchive {
         }
         return discussionTitles;
     }
-    */
+
 }
+*/

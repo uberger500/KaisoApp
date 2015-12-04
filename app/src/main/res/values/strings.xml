@@ -30,8 +30,20 @@
 
     <string name="user_title">User Info</string>
     <string name="user_name_text">Name</string>
+    <string name="user_password_text">Password</string>
     <string name="user_email_text">Email</string>
     <string name="user_phone_text">Cell Phone Number</string>
+
+    <string name="artist_text">Artist</string>
+    <string name="title_text">Title</string>
+    <string name="year_text">Year</string>
+    <string name="arranger_text">Arranger</string>
+    <string name="label_text">Label</string>
+    <string name="genre_text">Genre</string>
+    <string name="track_text">Track</string>
+
+
+    <string name="search_nothing_found">Artist not found</string>
 
     <string name="new_user">Sign-up</string>
     <string name="artists_browse_view_text">Choose an artist</string>
@@ -59,8 +71,9 @@
 
     <string name="error_blank_name">Blank name</string>
     <string name="error_blank_email">Blank email</string>
+    <string name="error_blank_password">Blank password</string>
     <string name="error_blank_phone_number">Blank number</string>
-
+    <string name="error_blank_label">Blank Label</string>
     <string name="error_blank_year">Blank year</string>
     <string name="error_blank_num_tracks">Blank number of tracks</string>
     <string name="error_blank_track">Blank track</string>

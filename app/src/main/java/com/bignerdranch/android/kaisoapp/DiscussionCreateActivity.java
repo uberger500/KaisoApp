@@ -27,7 +27,7 @@ public class DiscussionCreateActivity extends AppCompatActivity {
     private EditText mDiscussionTitle;
     private EditText mDiscussionPoint;
     private Button mSubmitbtn;
-    private List<Discussion> mDiscussions = DiscussionArchive.get(this).getDiscussions();
+  //  private List<Discussion> mDiscussions = DiscussionArchive.get(this).getDiscussions();
     private List<String> mDiscussionPoints = new ArrayList<>();
 
     public static Intent newIntent(Context packageContext) {
@@ -83,9 +83,10 @@ public class DiscussionCreateActivity extends AppCompatActivity {
         mDiscussion = new Discussion();
         mDiscussion.setTitle(discussionTitle);
         mDiscussionPoints.add(discussionPoint);
-        mDiscussion.setDiscussionPoints(mDiscussionPoints);
-        mDiscussions.add(mDiscussion);
+        mDiscussion.setPoints(mDiscussionPoints);
+      //  mDiscussions.add(mDiscussion);
 
+        mDiscussion.saveInBackground();
         finish();
     }
 }

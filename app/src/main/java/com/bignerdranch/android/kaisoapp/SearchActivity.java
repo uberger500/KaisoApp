@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,9 +14,11 @@ import android.widget.Toast;
 /**
  * Created by ursberger1 on 11/15/15.
  */
-public class SearchActivity extends AppCompatActivity {
 
-    private Release mRelease;
+public class SearchActivity extends AppCompatActivity {
+    private static final String TAG = "SearchActivity";
+
+ //   private Release mRelease;
 
     private EditText mArtist;
     private EditText mYear;
@@ -35,7 +38,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search2);
 
         mArtist = (EditText) findViewById(R.id.artist_edit_text);
-        mArtist.addTextChangedListener(new TextWatcher() {
+     /*   mArtist.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -51,7 +54,7 @@ public class SearchActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 /*
         mYear = (EditText) findViewById(R.id.year_edit_text);
         mYear.addTextChangedListener(new TextWatcher() {
@@ -143,14 +146,14 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
-
 */
+
 
         mSearchSubmitButton = (Button) findViewById(R.id.search_submit_button);
         mSearchSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(SearchActivity.this, R.string.search_submit_button_info, Toast.LENGTH_SHORT).show();
+                Toast.makeText(SearchActivity.this, R.string.search_submit_button_info, Toast.LENGTH_SHORT).show();
 
                 search();
 
@@ -176,8 +179,9 @@ public class SearchActivity extends AppCompatActivity {
             return;
         }
 
+        Log.d(TAG, "starting intent artist: " + searchArtist );
 
-        Intent intent = SearchResultListActivity.newIntent(SearchActivity.this, mArtistSearch);
+        Intent intent = SearchResultListActivity.newIntent(SearchActivity.this, searchArtist);
         startActivity(intent);
     }
 }

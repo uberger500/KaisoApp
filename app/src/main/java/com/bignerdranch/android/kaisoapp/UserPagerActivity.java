@@ -8,22 +8,32 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 /**
  * Created by ursberger1 on 11/15/15.
  */
+
 public class UserPagerActivity extends AppCompatActivity {
 
+    private static final String TAG = "UserPagerActivity";
     private static final String EXTRA_USER_ID = "com.bignerdranch.android.kaisoapp.user_id";
     private ViewPager mViewPager;
-    private List<User> mUsers;
+    private final List<ParseObject> mUsers = new ArrayList<>();
 
-    public static Intent newIntent(Context packageContext, UUID userId) {
+    public static Intent newIntent(Context packageContext, String name) {
         Intent intent = new Intent(packageContext, UserPagerActivity.class);
-        intent.putExtra(EXTRA_USER_ID, userId);
+        intent.putExtra(EXTRA_USER_ID, name);
         return intent;
     }
 
@@ -32,31 +42,43 @@ public class UserPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_pager);
 
-        UUID userId = (UUID) getIntent().getSerializableExtra(EXTRA_USER_ID);
+        final String userName =  getIntent().getStringExtra(EXTRA_USER_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
-        mUsers = UserArchive.get(this).getUsers();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
-            @Override
-            public Fragment getItem(int position) {
-                User user = mUsers.get(position);
-                return UserFragment.newInstance(user.getId());
-            }
+      //  mUsers = UserArchive.get(this).getUsers();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(final List<ParseObject> userList, ParseException e) {
+                if (e == null) {
+                 //   mUsers = userList;
+                    Log.d(TAG, "Retrieved " + userList.size() + " users");
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
+                        @Override
+                        public Fragment getItem(int position) {
+                            ParseObject user = userList.get(position);
+                            return UserFragment.newInstance(user.getString("mName"));
+                        }
 
-            @Override
-            public int getCount() {
-                return mUsers.size();
-            }
+                        @Override
+                        public int getCount() {
+                            return userList.size();
+                        }
 
+                    });
+
+                    for (int i = 0; i < userList.size(); i++) {
+                        if (userList.get(i).getString("mName").equals(userName)) {
+                            mViewPager.setCurrentItem(i);
+                            break;
+                        }
+                    }
+                } else {
+                    Log.d("Userpager", " Error: " + e.getMessage());
+                }
+            }
         });
 
-        for (int i = 0; i < mUsers.size(); i++) {
-            if (mUsers.get(i).getId().equals(userId)) {
-                mViewPager.setCurrentItem(i);
-                break;
-            }
-        }
     }
 }

@@ -20,6 +20,7 @@ import java.util.UUID;
 /**
  * Created by ursberger1 on 11/15/15.
  */
+
 public class SubmitActivity extends AppCompatActivity {
 
     private static final String EXTRA_NEW_RELEASE = "com.bignerdranch.android.kaisoapp.new_release";
@@ -37,6 +38,7 @@ public class SubmitActivity extends AppCompatActivity {
     private EditText mTrack;
     private EditText mArranger;
     private EditText mGenre;
+    private EditText mLabel;
     private Button mPlusButton;
     private Button mTracksSave;
     private Button mSubmitButton;
@@ -50,9 +52,9 @@ public class SubmitActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  mRelease.setTracks(mTracks);
-      //  ReleaseArchive.get(this).addRelease(mRelease);
-     //   mTracks = mRelease.getTracks();
+        //  mRelease.setTracks(mTracks);
+        //  ReleaseArchive.get(this).addRelease(mRelease);
+        //   mTracks = mRelease.getTracks();
 
         setContentView(R.layout.activity_submit);
 
@@ -72,38 +74,17 @@ public class SubmitActivity extends AppCompatActivity {
         mPlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
+                 Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
                 addTrack();
 
                 adapter.notifyDataSetChanged();
             }
         });
-  /*      private void updateUI() {
-            CrimeLab crimeLab = CrimeLab.get(getActivity());
-            List<Crime> crimes = crimeLab.getCrimes();
-
-            if (mAdapter == null) {
-                mAdapter = new CrimeAdapter(crimes);
-                mCrimeRecyclerView.setAdapter(mAdapter);
-            } else {
-                mAdapter.setCrimes(crimes);
-                mAdapter.notifyDataSetChanged();
-            }
-
-            updateSubtitle();
-
-            if(crimes.size() != 0) {
-                mNoCrimeLayout.setVisibility(View.GONE);
-            } else {
-                mNoCrimeLayout.setVisibility(View.VISIBLE);
-            }
-        }
-        */
         mTracksSave = (Button) findViewById(R.id.track_save_button);
         mTracksSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
+                 Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
                 addTrack();
                 adapter.notifyDataSetChanged();
                 mPlusButton.setEnabled(false);
@@ -112,19 +93,19 @@ public class SubmitActivity extends AppCompatActivity {
 
         mTrack = (EditText) findViewById(R.id.track_edit_text);
         mArranger = (EditText) findViewById(R.id.arranger_edit_text);
+        mLabel = (EditText) findViewById(R.id.label_edit_text);
         mGenre = (EditText) findViewById(R.id.genre_edit_text);
-
 
         mSubmitButton = (Button) findViewById(R.id.submit_button);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
                 addRelease();
             }
         });
-
     }
+
 
     public void addTrack() {
         String track = mTrack.getText().toString().trim();
@@ -152,7 +133,7 @@ public class SubmitActivity extends AppCompatActivity {
         String year = mYear.getText().toString().trim();
         String title = mTitle.getText().toString().trim();
         String numTracks = mNumTracks.getText().toString().trim();
-
+        String label = mLabel.getText().toString().trim();
         String arranger = mArranger.getText().toString().trim();
         String genre = mGenre.getText().toString().trim();
 
@@ -192,6 +173,13 @@ public class SubmitActivity extends AppCompatActivity {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_arranger));
         }
+        if (label.length() == 0) {
+            if (validationError) {
+                validationErrorMessage.append(getString(R.string.error_join));
+            }
+            validationError = true;
+            validationErrorMessage.append(getString(R.string.error_blank_label));
+        }
         if (genre.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
@@ -199,10 +187,10 @@ public class SubmitActivity extends AppCompatActivity {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_genre));
         }
-/*
-        else {
-            phoneNumber = Integer.parseInt(number);
-        }*/
+
+        //   else {
+      //      phoneNumber = Integer.parseInt(number);
+
 
         validationErrorMessage.append(getString(R.string.error_end));
 
@@ -218,11 +206,13 @@ public class SubmitActivity extends AppCompatActivity {
         mRelease.setNumTracks(numTracks);
         mRelease.setTracks(mTracks);
         mRelease.setArranger(arranger);
+        mRelease.setLabel(label);
         mRelease.setGenre(genre);
 
-        ReleaseArchive.get(this).addRelease(mRelease);
-      /*
+     //   ReleaseArchive.get(this).addRelease(mRelease);
 
+        mRelease.saveInBackground();
+/*
         if (mUsers.size() == 0 ) {
             UserArchive.get(UserCreateActivity.this).addUser(mUser);
         } else {
@@ -238,12 +228,59 @@ public class SubmitActivity extends AppCompatActivity {
                 UserArchive.get(UserCreateActivity.this).addUser(mUser);
             }
         }
-        */
+*/
 
 
         finish();
     }
 }
+/*
+    private void updateUI() {
+            CrimeLab crimeLab = CrimeLab.get(getActivity());
+            List<Crime> crimes = crimeLab.getCrimes();
+
+            if (mAdapter == null) {
+                mAdapter = new CrimeAdapter(crimes);
+                mCrimeRecyclerView.setAdapter(mAdapter);
+            } else {
+                mAdapter.setCrimes(crimes);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            updateSubtitle();
+
+            if(crimes.size() != 0) {
+                mNoCrimeLayout.setVisibility(View.GONE);
+            } else {
+                mNoCrimeLayout.setVisibility(View.VISIBLE);
+            }
+    }
+
+
+        mTracksSave = (Button) findViewById(R.id.track_save_button);
+        mTracksSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
+                addTrack();
+                adapter.notifyDataSetChanged();
+                mPlusButton.setEnabled(false);
+            }
+        });
+
+
+
+
+        mSubmitButton = (Button) findViewById(R.id.submit_button);
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
+                addRelease();
+            }
+        });
+
+    }*/
 /*
         mArtist = (EditText) findViewById(R.id.artist_edit_text);
         mArtist.addTextChangedListener(new TextWatcher() {
