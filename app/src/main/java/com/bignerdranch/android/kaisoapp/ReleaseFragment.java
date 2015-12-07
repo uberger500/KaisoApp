@@ -29,7 +29,7 @@ public class ReleaseFragment extends Fragment {
 
     private static final String ARG_RELEASE_ID = "release_id";
     private static final String TAG = "ReleaseFragmentActivity";
-    private Release mRelease;
+  //  private Release mRelease;
 
     ListView listView ;
 
@@ -47,7 +47,7 @@ public class ReleaseFragment extends Fragment {
     public static ReleaseFragment newInstance(String releaseId) {
         Bundle args = new Bundle();
         args.putString(ARG_RELEASE_ID, releaseId);
-
+        Log.d("f", " 20instance");
         ReleaseFragment fragment = new ReleaseFragment();
         fragment.setArguments(args);
         return fragment;
@@ -57,9 +57,8 @@ public class ReleaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mReleaseId =  getArguments().getString(ARG_RELEASE_ID);
-        Log.d(TAG, "onCreate called "+ mReleaseId);
-      //  mRelease = ReleaseArchive.get(getActivity()).getRelease(releaseId);
-
+        Log.d(TAG, "onCreate called1 "+ mReleaseId);
+        Log.d("f", " 21fragoncreat");
         setHasOptionsMenu(true);
     }
 
@@ -68,12 +67,14 @@ public class ReleaseFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_release, container, false);
 
         listView  = (ListView) v.findViewById(R.id.list);
-        Log.d(TAG, "onCreate called "+ mReleaseId);
-
+        Log.d(TAG, "onCreate called2 "+ mReleaseId);
+        Log.d("f", " 22fragcreaview");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
         query.getInBackground(mReleaseId, new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
+                    Log.d("f", "retrieved 3 " + object.getString("mTitle"));
+
                     mArtist = (TextView) v.findViewById(R.id.artist_text);
                     mArtist.setText(object.getString("mArtist"));
 
@@ -87,9 +88,13 @@ public class ReleaseFragment extends Fragment {
 
                     mTracks = (List<String>) object.get("mTracks");
 
+                    Log.d("f", " 23fragdisp");
+                    Log.d(TAG, "mTracks-tracklist size is " + mTracks.size());
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                             android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
+
                     listView.setAdapter(adapter);
+
 
                     mArranger = (TextView) v.findViewById(R.id.arranger_text);
                     mArranger.setText(object.getString("mArranger"));

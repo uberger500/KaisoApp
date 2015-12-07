@@ -3,12 +3,14 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textAppearance="?android:attr/textAppearanceLarge"
               android:padding="15dp">
 
 <LinearLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge">
 
 
     <TextView
@@ -31,6 +33,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
     >
 
     <TextView

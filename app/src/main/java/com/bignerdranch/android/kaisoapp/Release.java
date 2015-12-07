@@ -17,14 +17,6 @@ public class Release extends ParseObject {
 
     public Release() {}
 
-    public String getUUID() {
-        return getString("UUID");
-    }
-
-    public void setUUID(String uuid) {
-        put("UUID", uuid);
-    }
-
 
     public String getTitle() {
         return getString("mTitle");
@@ -41,6 +33,7 @@ public class Release extends ParseObject {
     public void setArtist(String artist) {
         put("mArtist", artist);
     }
+
     public String getYear() {
         return getString("mYear");
     }
@@ -48,6 +41,7 @@ public class Release extends ParseObject {
     public void setYear(String year) {
         put("mYear", year);
     }
+
     public String getArranger() {
         return getString("mArranger");
     }
@@ -61,16 +55,14 @@ public class Release extends ParseObject {
     }
 
     public void setNumTracks(String numTracks) {
-        put("mName", numTracks);
+        put("mNumTracks", numTracks);
     }
 
     public List<String> getTracks() {
         return (List<String>) get("mTracks");
     }
 
-    public void setTracks(List<String> tracks) {
-        put("mTracks", Arrays.asList(tracks));
-    }
+    public void setTracks(List<String> tracks) { put("mTracks", tracks); }
 
     public String getLabel() {
         return getString("mLabel");

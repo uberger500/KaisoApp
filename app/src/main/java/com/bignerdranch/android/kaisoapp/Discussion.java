@@ -23,7 +23,7 @@ public class Discussion extends ParseObject{
     }
 
     public void setPoints(List<String> points) {
-        put("mDiscussionPoints", Arrays.asList(points));
+        put("mDiscussionPoints", points);
     }
 
     public String getTitle() {

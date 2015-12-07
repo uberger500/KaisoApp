@@ -34,6 +34,7 @@ public class ReleaseListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         Log.d(TAG, "creating release List view");
+        Log.d("f", " 3");
     }
 
     @Override
@@ -43,7 +44,7 @@ public class ReleaseListFragment extends Fragment {
 
         mReleaseRecyclerView = (RecyclerView) view.findViewById(R.id.item_recycler_view);
         mReleaseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        Log.d("f", " 4");
         updateUI();
 
         return view;
@@ -54,10 +55,17 @@ public class ReleaseListFragment extends Fragment {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> releaseList, ParseException e) {
+                Log.d("f", " 5");
                 if (e == null) {
-                    Log.d(TAG, "Retrieved " + releaseList.size() + " releases");
-                    mAdapter = new ReleaseAdapter(releaseList);
-                    mReleaseRecyclerView.setAdapter(mAdapter);
+                 //   if (mAdapter == null) {
+                        Log.d(TAG, "Retrieved 1 " + releaseList.size() + " releases");
+                        mAdapter = new ReleaseAdapter(releaseList);
+                        mReleaseRecyclerView.setAdapter(mAdapter);
+                //    } else {
+                //        mAdapter.setReleases(releaseList);
+                //        mAdapter.notifyDataSetChanged();
+                //    }
+
                 } else {
                     Log.d("release", "Error: " + e.getMessage());
                 }
@@ -65,7 +73,15 @@ public class ReleaseListFragment extends Fragment {
         });
 
     }
+/*
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("f", " 6");
+        updateUI();
 
+    }
+*/
     private class ReleaseHolder extends RecyclerView.ViewHolder
            implements View.OnClickListener {
 
@@ -76,6 +92,7 @@ public class ReleaseListFragment extends Fragment {
         public ReleaseHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
+            Log.d("f", " 7");
 
             mReleaseTitleTextView = (TextView) itemView.findViewById(R.id.list_item_release_title_text_view);
         }
@@ -84,13 +101,14 @@ public class ReleaseListFragment extends Fragment {
 
             mRelease = release;
             mReleaseTitleTextView.setText(mRelease.getString("mTitle"));
+            Log.d("f", " 8bindrelease");
 
         }
 
         @Override
         public void onClick(View v) {
             Log.d(TAG, "onClick called "+ mRelease.getObjectId());
-
+            Log.d("f", " 9onclick");
             Intent intent = ReleasePagerActivity.newIntent(getActivity(), mRelease.getObjectId());
             startActivity(intent);
         }
@@ -107,6 +125,7 @@ public class ReleaseListFragment extends Fragment {
             public ReleaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
                 View view = layoutInflater.inflate(R.layout.list_item_release, parent, false);
+                Log.d("f", " 10releaseholder");
                 return new ReleaseHolder(view);
             }
 
@@ -114,11 +133,19 @@ public class ReleaseListFragment extends Fragment {
             public void onBindViewHolder(ReleaseHolder holder, int position) {
                 ParseObject release = mReleases.get(position);
                 holder.bindRelease(release);
+                Log.d("f", " 11bindviewholder");
             }
 
             @Override
             public int getItemCount() {
+
+                Log.d("f", " 12getcount");
                 return mReleases.size();
+            }
+
+            public  void setReleases(List<ParseObject> releases) {
+                Log.d("f", " 13setrelease");
+                mReleases = releases;
             }
 
         }

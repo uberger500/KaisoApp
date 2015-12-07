@@ -81,6 +81,7 @@ public class StartViewActivity extends AppCompatActivity {
         mNewReleasesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("f", " 1");
                 Intent i = new Intent(StartViewActivity.this, ReleaseListActivity.class);
                 startActivity(i);
             }

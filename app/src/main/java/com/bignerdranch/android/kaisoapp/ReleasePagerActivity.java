@@ -35,7 +35,8 @@ public class ReleasePagerActivity extends AppCompatActivity {
     public static Intent newIntent(Context packageContext, String releaseId) {
         Intent intent = new Intent(packageContext, ReleasePagerActivity.class);
         intent.putExtra(EXTRA_RELEASE_ID, releaseId);
-        Log.d(TAG, "in newIntnet");
+        Log.d(TAG, "in newIntent");
+        Log.d("f", " 14pagerintent");
         return intent;
     }
 
@@ -47,37 +48,41 @@ public class ReleasePagerActivity extends AppCompatActivity {
 
         Log.d(TAG, "creating release pager view, new Exception();");
 
+        Log.d("f", " 15oncreate");
         final String releaseId = getIntent().getStringExtra(EXTRA_RELEASE_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
-      //  mReleases = ReleaseArchive.get(this).getReleases();
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
-      //  query.whereEqualTo("mArtist", artistName);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> queryList, ParseException e) {
                 if (e == null) {
-                    Log.d(TAG, "Retrieved " + queryList.size() + " release");
+                    Log.d("f", " 16query");
+                    Log.d(TAG, "Retrieved 2 " + queryList.size() + " release");
                     final List<ParseObject> releaseList = queryList;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
                         @Override
                         public Fragment getItem(int position) {
                             ParseObject release = releaseList.get(position);
-                            Log.d(TAG, "getItem called");
+                            Log.d("f", " 17getitem");
+                            Log.d(TAG, "getItem called1");
                             return ReleaseFragment.newInstance(release.getObjectId());
                         }
 
                         @Override
                         public int getCount() {
+                            Log.d("f", " 18getcount");
                             return releaseList.size();
                         }
 
                     });
 
                     for (int i = 0; i < releaseList.size(); i++) {
+                        Log.d("f", " 19aoutsideloop");
+
                         if (releaseList.get(i).getObjectId().equals(releaseId)) {
+                            Log.d("f", " 19inloop");
                             Log.d(TAG, "in if releaseId is " + releaseId);
                             mViewPager.setCurrentItem(i);
                             break;

@@ -31,7 +31,7 @@ public class BrowseRelPagerActivity extends AppCompatActivity {
     private static final String EXTRA_ARTIST_NAME = "com.bignerdranch.android.kaisoapp.artist_name";
     private ViewPager mViewPager;
     private List<Release> mReleases;
-    private List<Release> mSelectionList;
+   // private List<Release> mSelectionList;
 
     public static Intent newIntent(Context packageContext, String artistName) {
         Intent intent = new Intent(packageContext, BrowseRelPagerActivity.class);
