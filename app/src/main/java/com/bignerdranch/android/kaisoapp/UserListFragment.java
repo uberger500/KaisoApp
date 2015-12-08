@@ -81,7 +81,6 @@ public class UserListFragment extends Fragment {
     private class UserHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-
         private TextView mUserTitleTextView;
         private ParseObject mUser;
 

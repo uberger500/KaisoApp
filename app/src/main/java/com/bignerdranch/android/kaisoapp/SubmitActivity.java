@@ -2,15 +2,18 @@ package com.bignerdranch.android.kaisoapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -66,8 +69,19 @@ public class SubmitActivity extends AppCompatActivity {
         mTitle = (EditText) findViewById(R.id.title_edit_text);
         mNumTracks = (EditText) findViewById(R.id.num_tracks_edit_text);
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, mTracks) {
+
+            //this method to change the color of simple_list_item_1 comes from stack overflow:
+            //http://stackoverflow.com/questions/5563698/how-to-change-text-color-of-simple-list-item
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView text = (TextView) view.findViewById(android.R.id.text1);
+                    text.setTextColor(Color.BLACK);
+                    return view;
+                }
+        };
         listView.setAdapter(adapter);
 
         mPlusButton = (Button) findViewById(R.id.plus_button);
@@ -157,15 +171,15 @@ public class SubmitActivity extends AppCompatActivity {
             }
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_title));
-        }
+        }/*
         if (numTracks.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
             }
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_num_tracks));
-        }
-
+        }*/
+/*
         if (arranger.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
@@ -179,7 +193,7 @@ public class SubmitActivity extends AppCompatActivity {
             }
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_label));
-        }
+        }*/
         if (genre.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));

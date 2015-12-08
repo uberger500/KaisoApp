@@ -74,7 +74,7 @@ public class UserFragment extends Fragment {
 
                     mPhone = (TextView) v.findViewById(R.id.user_phone);
                     mPhone.setText(mUser.getString("mPhone"));
-                    Log.d("user", "Retrieved " + userList.size() + "    2 user");
+                    Log.d("user", "Retrieved " + mUser.getString("mName"));
 
                     mSendMessage = (Button) v.findViewById(R.id.send_message_button);
                     mSendMessage.setOnClickListener(new View.OnClickListener() {
@@ -108,9 +108,6 @@ public class UserFragment extends Fragment {
                 }
             }
         });
-
-
-
         return v;
     }
 

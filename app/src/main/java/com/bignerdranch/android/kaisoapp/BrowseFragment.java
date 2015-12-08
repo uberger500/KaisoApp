@@ -10,7 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -68,9 +70,13 @@ public class BrowseFragment extends Fragment {
         listView  = (ListView) v.findViewById(R.id.list);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
-        query.getInBackground(mReleaseId, new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
+        query.whereEqualTo("objectId", mReleaseId);
+       // query.getInBackground(mReleaseId, new GetCallback<ParseObject>() {
+        query.findInBackground(new FindCallback<ParseObject>() {
+            //public void done(ParseObject object, ParseException e) {
+            public void done(List<ParseObject> userList, ParseException e) {
                 if (e == null) {
+                    ParseObject object = userList.get(0);
                     mArtist = (TextView) v.findViewById(R.id.artist_text);
                     mArtist.setText(object.getString("mArtist"));
 
@@ -82,13 +88,15 @@ public class BrowseFragment extends Fragment {
 
                  //   mNumTracks = Integer.valueOf((object.getNumTracks()));
 
-                    Log.d(TAG, "before arrayadapter");
                     mTracks = (List<String>) object.get("mTracks");
                     Log.d(TAG, "mtracks size " + mTracks.size());
+                    Log.d(TAG, "context " + getContext());
+                    Log.d("browse", "Retrieved " + object.getString("mTitle"));
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                            android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
-                    listView.setAdapter(adapter);
+
+               //     ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                 //           android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
+                  //  listView.setAdapter(adapter);
 
                     mArranger = (TextView) v.findViewById(R.id.arranger_text);
                     mArranger.setText(object.getString("mArranger"));

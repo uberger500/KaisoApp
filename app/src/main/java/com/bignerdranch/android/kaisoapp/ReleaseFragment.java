@@ -90,21 +90,23 @@ public class ReleaseFragment extends Fragment {
 
                     Log.d("f", " 23fragdisp");
                     Log.d(TAG, "mTracks-tracklist size is " + mTracks.size());
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                            android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
+                    if(getContext() != null) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                                android.R.layout.simple_dropdown_item_1line, android.R.id.text1, mTracks);
 
-                    listView.setAdapter(adapter);
+                        listView.setAdapter(adapter);
 
 
-                    mArranger = (TextView) v.findViewById(R.id.arranger_text);
-                    mArranger.setText(object.getString("mArranger"));
+                        mArranger = (TextView) v.findViewById(R.id.arranger_text);
+                        mArranger.setText(object.getString("mArranger"));
 
-                    mLabel = (TextView) v.findViewById(R.id.label_text);
-                    mLabel.setText(object.getString("mLabel"));
+                        mLabel = (TextView) v.findViewById(R.id.label_text);
+                        mLabel.setText(object.getString("mLabel"));
 
-                    mGenre = (TextView) v.findViewById(R.id.genre_text);
-                    mGenre.setText(object.getString("mGenre"));
+                        mGenre = (TextView) v.findViewById(R.id.genre_text);
+                        mGenre.setText(object.getString("mGenre"));
 
+                    }
                 } else {
                     Log.d("Release", "Error: " + e.getMessage());
                 }

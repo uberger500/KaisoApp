@@ -84,24 +84,27 @@ public class DiscussionFragment extends Fragment {
                     mDiscussion = object;
                     mPoints = (List<String>) object.get("mDiscussionPoints");
                     Log.d(TAG, "mPoints size is " + mPoints.size());
+                    Log.d(TAG, "context " + getContext());
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                            android.R.layout.simple_list_item_1, android.R.id.text1, mPoints);
-                    listView.setAdapter(adapter);
+                    if(getContext() != null) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                                android.R.layout.simple_list_item_1, android.R.id.text1, mPoints);
+                        listView.setAdapter(adapter);
 
-                    mDiscussionPoint = (EditText) v.findViewById(R.id.discussion_point2);
-                    mSubmit = (Button) v.findViewById(R.id.submit_disc_btn);
-                    mSubmit.setText(R.string.submit_disc_btn);
-                    mSubmit.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Log.d(TAG, "mPoints size is2  " + mPoints.size());
+                        mDiscussionPoint = (EditText) v.findViewById(R.id.discussion_point2);
+                        mSubmit = (Button) v.findViewById(R.id.submit_disc_btn);
+                        mSubmit.setText(R.string.submit_disc_btn);
+                        mSubmit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.d(TAG, "mPoints size is2  " + mPoints.size());
 
-                            addPoint();
-                        }
+                                addPoint();
+                            }
 
-                    });
+                        });
 
+                    }
                 } else {
                     Log.d("Discussion2", "Error: " + e.getMessage());
                 }

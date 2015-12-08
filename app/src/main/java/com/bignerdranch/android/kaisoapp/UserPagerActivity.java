@@ -58,6 +58,7 @@ public class UserPagerActivity extends AppCompatActivity {
                         @Override
                         public Fragment getItem(int position) {
                             ParseObject user = userList.get(position);
+                            Log.d(TAG, "releaseId called " + user.getObjectId() + user.getString("mTitle"));
                             return UserFragment.newInstance(user.getString("mName"));
                         }
 

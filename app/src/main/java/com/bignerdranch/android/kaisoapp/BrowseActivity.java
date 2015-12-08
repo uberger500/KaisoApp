@@ -59,6 +59,7 @@ public class BrowseActivity extends AppCompatActivity {
                     Log.d(TAG, "Retrieved " + queryList.size() + " releases");
                   //  List<Release> releaseList = releaseBackConvert(queryList);
                     mArtistList = createArtistList(queryList);
+                    Log.d(TAG, "artistlistsize " + mArtistList.size());
                     ArrayAdapter adapter = new ArrayAdapter<>(BrowseActivity.this,
                             android.R.layout.simple_list_item_1, android.R.id.text1, mArtistList);
                     mArtistListView = (ListView) findViewById(R.id.artistList);

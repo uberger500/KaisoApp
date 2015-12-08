@@ -92,16 +92,5 @@ public class BrowseRelPagerActivity extends AppCompatActivity {
 
     }
 }
-    /*
-    protected List<ParseObjecte> createReleaseSublist(List<Release> mReleases, String artistName) {
 
-        List<Release> mSubList = new ArrayList<>();
-        for(Release release : mReleases) {
-            if (release.getArtist().equals(artistName)) {
-                Log.d(TAG, "found unique artist");
-                mSubList.add(release);
-            }
-        }
-        return mSubList;
-    }*/
 
