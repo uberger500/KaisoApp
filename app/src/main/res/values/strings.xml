@@ -20,6 +20,7 @@
 
     <string name="submit_button_info">Submit</string>
     <string name="search_submit_button_info">Search</string>
+    <string name="search_submit_button_info2">Got Results</string>
 
     <string name="submit_info_view_text">Submit New Release Info</string>
     <string name="subtitle_search_info">Use one or more search terms</string>

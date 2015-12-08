@@ -120,7 +120,7 @@ public class SearchResultListFragment extends Fragment {
             Log.d(TAG, "clicktitle is " + mRelease.getString("mTitle"));
             Log.d(TAG, "objectId is " + mRelease.getObjectId());
 
-            Intent intent = SearchPagerActivity.newIntent(getActivity(), mRelease.getString("mArtist"));
+            Intent intent = SearchPagerActivity.newIntent(getActivity(), mRelease.getObjectId(), mRelease.getString("mArtist"));
             startActivity(intent);
         }
     }

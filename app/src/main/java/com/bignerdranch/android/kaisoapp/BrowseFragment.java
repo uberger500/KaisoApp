@@ -28,7 +28,6 @@ public class BrowseFragment extends Fragment {
     private static final String ARG_RELEASE_ID = "release_id";
     private static final String TAG = "BrowseFragment";
 
-   // private Release mRelease;
     private List<ParseObject> mReleases;
 
     ListView listView ;
@@ -57,8 +56,7 @@ public class BrowseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mReleaseId =  getArguments().getString(ARG_RELEASE_ID);
-        Log.d(TAG, "Release id is " + mReleaseId);
-      //  mRelease = ReleaseArchive.get(getActivity()).getRelease(releaseId);
+        Log.d(TAG, "Release idBrowse is " + mReleaseId);
 
         setHasOptionsMenu(true);
     }
@@ -84,7 +82,9 @@ public class BrowseFragment extends Fragment {
 
                  //   mNumTracks = Integer.valueOf((object.getNumTracks()));
 
+                    Log.d(TAG, "before arrayadapter");
                     mTracks = (List<String>) object.get("mTracks");
+                    Log.d(TAG, "mtracks size " + mTracks.size());
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                             android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);

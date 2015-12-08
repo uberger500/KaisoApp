@@ -30,7 +30,7 @@ public class ReleasePagerActivity extends AppCompatActivity {
 
     private static final String EXTRA_RELEASE_ID = "com.bignerdranch.android.kaisoapp.release_id";
     private ViewPager mViewPager;
-    private List<Release> mReleases;
+  //  private List<Release> mReleases;
 
     public static Intent newIntent(Context packageContext, String releaseId) {
         Intent intent = new Intent(packageContext, ReleasePagerActivity.class);
@@ -93,6 +93,11 @@ public class ReleasePagerActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+}
+
+
 /*
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
@@ -115,5 +120,3 @@ public class ReleasePagerActivity extends AppCompatActivity {
                 break;
             }
         }*/
-    }
-}

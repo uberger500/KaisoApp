@@ -27,7 +27,7 @@ public class SearchResultListActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        Log.d(TAG, "in createFragement" );
+        Log.d(TAG, "in createFragment" );
         return new SearchResultListFragment();
     }
 }

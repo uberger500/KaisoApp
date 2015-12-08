@@ -43,32 +43,30 @@ public class DiscussionPagerActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
-        // mDiscussions = DiscussionArchive.get(this).getDiscussions();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Discussion");
-        //  query.whereEqualTo("mArtist", artistName);
         query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> queryList, ParseException e) {
+            public void done(final List<ParseObject> queryList, ParseException e) {
                 if (e == null) {
                     Log.d(TAG, "Retrieved " + queryList.size() + " release");
-                    final List<ParseObject> discussionList = queryList;
+                  //  final List<ParseObject> discussionList = queryList;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
                         @Override
                         public Fragment getItem(int position) {
-                            ParseObject discussion = discussionList.get(position);
+                            ParseObject discussion = queryList.get(position);
                             Log.d(TAG, "getItem called");
                             return DiscussionFragment.newInstance(discussion.getObjectId());
                         }
 
                         @Override
                         public int getCount() {
-                            return discussionList.size();
+                            return queryList.size();
                         }
 
                     });
 
-                    for (int i = 0; i < discussionList.size(); i++) {
-                        if (discussionList.get(i).getObjectId().equals(discussionId)) {
+                    for (int i = 0; i < queryList.size(); i++) {
+                        if (queryList.get(i).getObjectId().equals(discussionId)) {
                             Log.d(TAG, "in if releaseId is " + discussionId);
                             mViewPager.setCurrentItem(i);
                             break;

@@ -28,15 +28,15 @@ public class SearchPagerActivity extends AppCompatActivity {
     private static final String TAG = "SearchPagerActivity";
 
     private static final String EXTRA_RELEASE_ID = "com.bignerdranch.android.kaisoapp.release_id";
-    private ViewPager mViewPager;
-    private List<ParseObject> mSearchList = new ArrayList<>();
-    private List<ParseObject> mReleases;
-    private Release mSearchedArtist;
-    private String mArtistName;
+    private static final String EXTRA_ARTIST_NAME = "com.bignerdranch.android.kaisoapp.artist_name";
 
-    public static Intent newIntent(Context packageContext, String releaseId) {
+    private ViewPager mViewPager;
+
+
+    public static Intent newIntent(Context packageContext, String objectId, String artistName) {
         Intent intent = new Intent(packageContext, SearchPagerActivity.class);
-        intent.putExtra(EXTRA_RELEASE_ID, releaseId);
+        intent.putExtra(EXTRA_RELEASE_ID, objectId);
+        intent.putExtra(EXTRA_ARTIST_NAME, artistName);
         Log.d(TAG, "in newIntent");
         return intent;
     }
@@ -47,14 +47,15 @@ public class SearchPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_pager);
 
-        final String mArtistName =  getIntent().getStringExtra(EXTRA_RELEASE_ID);
+        final String objectId =  getIntent().getStringExtra(EXTRA_RELEASE_ID);
+        final String artistName =  getIntent().getStringExtra(EXTRA_ARTIST_NAME);
 
 //        Log.d(TAG, "releaseId is" + releaseId);
 
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
-        query.whereEqualTo("mArtist", mArtistName);
+        query.whereEqualTo("mArtist", artistName);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> queryList, ParseException e) {
                 if (e == null) {
@@ -65,19 +66,26 @@ public class SearchPagerActivity extends AppCompatActivity {
                         @Override
                         public Fragment getItem(int position) {
                             ParseObject release = releaseList.get(position);
-                            Log.d(TAG, "getItem called");
+                            Log.d(TAG, "position " + position);
+                            Log.d(TAG, "releaseId called " + release.getObjectId() + release.getString("mTitle"));
                             return BrowseFragment.newInstance(release.getObjectId());
                         }
 
                         @Override
                         public int getCount() {
+                            Log.d(TAG, "listsize " + releaseList.size());
+
                             return releaseList.size();
                         }
 
                     });
 
                     for (int i = 0; i < releaseList.size(); i++) {
-                        if (releaseList.get(i).getString("mArtist").equals(mArtistName)) {
+                        Log.d(TAG, "outsideif i is " + i);
+
+                        if (releaseList.get(i).getObjectId().equals(objectId)) {
+                            Log.d(TAG, "insideifi is " + i);
+
                             mViewPager.setCurrentItem(i);
                             break;
                         }
@@ -88,12 +96,15 @@ public class SearchPagerActivity extends AppCompatActivity {
             }
         });
 
+    }
+}
 
-       // ReleaseArchive releaseArchive = ReleaseArchive.get(this);
 
-      //  mReleases = releaseArchive.getReleases();
-     //   mSearchedArtist = releaseArchive.getRelease(releaseId);
-       // mArtistName = mSearchedArtist.getArtist();
+// ReleaseArchive releaseArchive = ReleaseArchive.get(this);
+
+//  mReleases = releaseArchive.getReleases();
+//   mSearchedArtist = releaseArchive.getRelease(releaseId);
+// mArtistName = mSearchedArtist.getArtist();
   /*      Log.d(TAG, "creating release pager view, new Exception();");
         Log.d(TAG, "artistName is " + mArtistName);
         for (ParseObject release : mReleases)  {
@@ -125,5 +136,3 @@ public class SearchPagerActivity extends AppCompatActivity {
             }
         }
         */
-    }
-}

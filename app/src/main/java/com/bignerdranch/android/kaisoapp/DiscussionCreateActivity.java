@@ -27,7 +27,7 @@ public class DiscussionCreateActivity extends AppCompatActivity {
     private EditText mDiscussionTitle;
     private EditText mDiscussionPoint;
     private Button mSubmitbtn;
-  //  private List<Discussion> mDiscussions = DiscussionArchive.get(this).getDiscussions();
+
     private List<String> mDiscussionPoints = new ArrayList<>();
 
     public static Intent newIntent(Context packageContext) {
@@ -76,113 +76,14 @@ public class DiscussionCreateActivity extends AppCompatActivity {
                         .show();
                 return;
             }
-
-            // Set up and start a progress dialog
-
-            // Set up a new Discussion
         mDiscussion = new Discussion();
         mDiscussion.setTitle(discussionTitle);
         mDiscussionPoints.add(discussionPoint);
         mDiscussion.setPoints(mDiscussionPoints);
-      //  mDiscussions.add(mDiscussion);
-
         mDiscussion.saveInBackground();
         finish();
     }
 }
 
-      /*  mDiscussionTitle.setText(mDiscussion.getTitle());
-        mDiscussionTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mDiscussion.setTitle(s.toString());
-                if (s.toString() != null && s.toString().length() > 0) {
-                    flag1 = true;
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-*/
-/*
-        mDiscussionPoint.setText(mDiscussion.getDiscussionPoint());
-        mDiscussionPoint.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mDiscussion.setDiscussionPoint(s.toString());
-                if (s.toString() != null && s.toString().length() > 0) {
-                    flag2 = true;
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-*/
- //            ParseUser user = new ParseUser();
-//          user.setUsername(username);
-//        user.setPassword(password);
-// Call the Parse signup method
-//      user.signUpInBackground(new SignUpCallback() {
-//        @Override
-//      public void done(ParseException e) {
-// Handle the response
-//    }
-//   });
-        /*
-        mEmail = (EditText) findViewById(R.id.editText_email);
-        mEmail.setText(mUser.getEmail());
-        mEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mUser.setEmail(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-*/
-/*
-        mSubmitbtn = (Button) findViewById(R.id.button_submit);
-        mSubmitbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mUsers.size() == 0 ) {
-                    UserArchive.get(UserCreateActivity.this).addUser(mUser);
-                } else {
-                    boolean flag = false;
-                    for (User user : mUsers) {
-                        if (user.getName().equals(mUser.getName())) {
-                            Toast.makeText(UserCreateActivity.this, R.string.duplicate_user, Toast.LENGTH_SHORT).show();
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if (flag == false) {
-                        UserArchive.get(UserCreateActivity.this).addUser(mUser);
-                    }
-                }
-
-
-                finish();
-            }
-        });
-*/
 
 

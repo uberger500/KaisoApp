@@ -25,7 +25,7 @@ import java.util.List;
  */
 
 public class ReleaseListFragment extends Fragment {
-    private static final String TAG = "ReleaseLisActivity";
+    private static final String TAG = "ReleaseListActivity";
     private RecyclerView mReleaseRecyclerView;
     private ReleaseAdapter mAdapter;
 

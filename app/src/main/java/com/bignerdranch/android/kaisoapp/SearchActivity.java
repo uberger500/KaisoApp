@@ -18,8 +18,6 @@ import android.widget.Toast;
 public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
 
- //   private Release mRelease;
-
     private EditText mArtist;
     private EditText mYear;
     private EditText mTitle;
@@ -38,7 +36,44 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search2);
 
         mArtist = (EditText) findViewById(R.id.artist_edit_text);
-     /*   mArtist.addTextChangedListener(new TextWatcher() {
+
+        mSearchSubmitButton = (Button) findViewById(R.id.search_submit_button);
+        mSearchSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SearchActivity.this, R.string.search_submit_button_info, Toast.LENGTH_SHORT).show();
+                search();
+
+            }
+        });
+
+    }
+
+    public void search() {
+        String searchArtist = mArtist.getText().toString().trim();
+        boolean validationError = false;
+        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        if (searchArtist.length() == 0) {
+            validationError = true;
+            validationErrorMessage.append(getString(R.string.error_blank_artist));
+        }
+
+        validationErrorMessage.append(getString(R.string.error_end));
+
+        if (validationError) {
+            Toast.makeText(SearchActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+
+        Log.d(TAG, "starting intent artist: " + searchArtist );
+
+        Intent intent = SearchResultListActivity.newIntent(SearchActivity.this, searchArtist);
+        startActivity(intent);
+    }
+}
+
+/*   mArtist.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -147,41 +182,3 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 */
-
-
-        mSearchSubmitButton = (Button) findViewById(R.id.search_submit_button);
-        mSearchSubmitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SearchActivity.this, R.string.search_submit_button_info, Toast.LENGTH_SHORT).show();
-
-                search();
-
-            }
-        });
-
-    }
-
-    public void search() {
-        String searchArtist = mArtist.getText().toString().trim();
-        boolean validationError = false;
-        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
-        if (searchArtist.length() == 0) {
-            validationError = true;
-            validationErrorMessage.append(getString(R.string.error_blank_artist));
-        }
-
-        validationErrorMessage.append(getString(R.string.error_end));
-
-        if (validationError) {
-            Toast.makeText(SearchActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
-                    .show();
-            return;
-        }
-
-        Log.d(TAG, "starting intent artist: " + searchArtist );
-
-        Intent intent = SearchResultListActivity.newIntent(SearchActivity.this, searchArtist);
-        startActivity(intent);
-    }
-}

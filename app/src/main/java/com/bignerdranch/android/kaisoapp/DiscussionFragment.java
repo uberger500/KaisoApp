@@ -107,12 +107,7 @@ public class DiscussionFragment extends Fragment {
                 }
             }
         });
-     /*   if(mDiscussionThread != null) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                    android.R.layout.simple_list_item_1, android.R.id.text1, mDiscussionThread);
-            listView.setAdapter(adapter);
 
-        }*/
         return v;
     }
 
@@ -134,12 +129,9 @@ public class DiscussionFragment extends Fragment {
         // Set up a new Discussion
         mPoints.add(discussionPoint);
         Log.d(TAG, "mPoints size3 is " + mPoints.size());
-
-
         mDiscussion.put("mDiscussionPoints", mPoints);
         mDiscussion.saveInBackground();
 
-   //     mDiscussions.add(mDiscussion);
         getActivity().finish();
     }
 }
