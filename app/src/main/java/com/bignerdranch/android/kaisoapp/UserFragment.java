@@ -75,12 +75,11 @@ public class UserFragment extends Fragment {
                         public void onClick(View v) {
                             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
                             emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{mEmailAddress.getText().toString()});
-                            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, mEmailSubject.getText());
+                            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, mEmailSubject.getText().toString());
                             emailIntent.setType("plain/text");
                             emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, mEmailBody.getText());
                             getContext().startActivity(Intent.createChooser(emailIntent, "Send mail..."));
                             getActivity().finish();
-
                         }
                     });
                 } else {
