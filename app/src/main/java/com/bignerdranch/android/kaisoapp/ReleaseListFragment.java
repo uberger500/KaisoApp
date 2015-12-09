@@ -33,8 +33,6 @@ public class ReleaseListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        Log.d(TAG, "creating release List view");
-        Log.d("f", " 3");
     }
 
     @Override
@@ -44,13 +42,9 @@ public class ReleaseListFragment extends Fragment {
 
         mReleaseRecyclerView = (RecyclerView) view.findViewById(R.id.item_recycler_view);
         mReleaseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        Log.d("f", " 4");
         updateUI();
-
         return view;
     }
-
-
     private void updateUI() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -71,7 +65,6 @@ public class ReleaseListFragment extends Fragment {
                 }
             }
         });
-
     }
 /*
     @Override
@@ -85,30 +78,31 @@ public class ReleaseListFragment extends Fragment {
     private class ReleaseHolder extends RecyclerView.ViewHolder
            implements View.OnClickListener {
 
-
+        private TextView mReleaseArtistTextView;
         private TextView mReleaseTitleTextView;
+        private TextView mReleaseConnectorTextView;
+
         private ParseObject mRelease;
 
         public ReleaseHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            Log.d("f", " 7");
-
+            mReleaseArtistTextView = (TextView) itemView.findViewById(R.id.list_item_release_artist_text_view);
+            mReleaseConnectorTextView = (TextView) itemView.findViewById(R.id.list_item_release_connector_text_view);
             mReleaseTitleTextView = (TextView) itemView.findViewById(R.id.list_item_release_title_text_view);
         }
 
         public void bindRelease(ParseObject release) {
 
             mRelease = release;
+            mReleaseArtistTextView.setText(mRelease.getString("mArtist"));
+            mReleaseConnectorTextView.setText(" - ");
             mReleaseTitleTextView.setText(mRelease.getString("mTitle"));
-            Log.d("f", " 8bindrelease");
 
         }
 
         @Override
         public void onClick(View v) {
-            Log.d(TAG, "onClick called "+ mRelease.getObjectId());
-            Log.d("f", " 9onclick");
             Intent intent = ReleasePagerActivity.newIntent(getActivity(), mRelease.getObjectId());
             startActivity(intent);
         }
@@ -125,7 +119,6 @@ public class ReleaseListFragment extends Fragment {
             public ReleaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
                 View view = layoutInflater.inflate(R.layout.list_item_release, parent, false);
-                Log.d("f", " 10releaseholder");
                 return new ReleaseHolder(view);
             }
 
@@ -133,22 +126,16 @@ public class ReleaseListFragment extends Fragment {
             public void onBindViewHolder(ReleaseHolder holder, int position) {
                 ParseObject release = mReleases.get(position);
                 holder.bindRelease(release);
-                Log.d("f", " 11bindviewholder");
             }
 
             @Override
             public int getItemCount() {
-
-                Log.d("f", " 12getcount");
                 return mReleases.size();
             }
 
             public  void setReleases(List<ParseObject> releases) {
-                Log.d("f", " 13setrelease");
                 mReleases = releases;
             }
-
         }
-
 }
 

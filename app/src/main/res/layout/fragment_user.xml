@@ -30,11 +30,19 @@
         android:padding="20dp"/>
 
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/user_phone_text"
-        android:id="@+id/user_phone"
+        android:hint="@string/user_email_text_subject"
+        android:id="@+id/user_email_subject"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:padding="20dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/user_email_body"
+        android:id="@+id/user_email_body"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:padding="20dp"/>
 

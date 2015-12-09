@@ -3,24 +3,18 @@ package com.bignerdranch.android.kaisoapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.telephony.SmsManager;
-import android.telephony.*;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by ursberger1 on 11/15/15.
@@ -33,26 +27,26 @@ public class UserFragment extends Fragment {
     private ParseObject mUser;
 
     private TextView mName;
-    private TextView mEmail;
-    private TextView mPhone;
+    private TextView mEmailAddress;
+    private EditText mEmailSubject;
+    private EditText mEmailBody;
     private Button mSendMessage;
 
-    private String userName;
+    private String userId;
 
-    public static UserFragment newInstance(String userName) {
+    public static UserFragment newInstance(String userId) {
         Bundle args = new Bundle();
-        args.putString(ARG_USER_ID, userName);
+        args.putString(ARG_USER_ID, userId);
 
         UserFragment fragment = new UserFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userName =  getArguments().getString(ARG_USER_ID);
+        userId =  getArguments().getString(ARG_USER_ID);
         setHasOptionsMenu(true);
     }
 
@@ -61,48 +55,34 @@ public class UserFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_user, container, false);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
-        query.whereEqualTo("mName", userName);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> userList, ParseException e) {
-                if (e == null) {
-                    mUser = userList.get(0);
+        query.getInBackground(userId, new GetCallback<ParseObject>() {
+            public void done(ParseObject mUser, ParseException e) {
+             if (e == null) {
                     mName = (TextView) v.findViewById(R.id.user_name);
                     mName.setText(mUser.getString("mName"));
 
-                    mEmail = (TextView) v.findViewById(R.id.user_email);
-                    mEmail.setText(mUser.getString("mEmail"));
+                    mEmailAddress = (TextView) v.findViewById(R.id.user_email);
+                    mEmailAddress.setText(mUser.getString("mEmail"));
 
-                    mPhone = (TextView) v.findViewById(R.id.user_phone);
-                    mPhone.setText(mUser.getString("mPhone"));
-                    Log.d("user", "Retrieved " + mUser.getString("mName"));
+                    mEmailSubject = (EditText) v.findViewById(R.id.user_email_subject);
+                    mEmailBody = (EditText) v.findViewById(R.id.user_email_body);
 
                     mSendMessage = (Button) v.findViewById(R.id.send_message_button);
                     mSendMessage.setOnClickListener(new View.OnClickListener() {
+                        //this code to send an email is based on code provided in:
+                        //http://www.helloandroid.com/tutorials/how-send-email-your-application
                         @Override
                         public void onClick(View v) {
-                            String phoneNo = mUser.getString("mPhone");
-                            Log.d("phone", "phone " + phoneNo);
-                            //   String sms = locationText.getText().toString();
-/*
-                            try {
-                                //set up a smsManager to send message
-                                SmsManager smsManager = SmsManager.getDefault();
-                                smsManager.sendTextMessage(phoneNo, null, null, null, null);
-                                Toast.makeText(getContext(), "SMS Sent!",
-                                        Toast.LENGTH_LONG).show();
-                            } catch (Exception e) {
-                                Toast.makeText(getContext(),
-                                        "SMS failed, please try again later!",
-                                        Toast.LENGTH_LONG).show();
-                                e.printStackTrace();
-                            }
-                            */
-                                  Intent i = new Intent(Intent.ACTION_SEND);
-                                i.setType("text/plain");
-                              startActivity(i);
+                            final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{mEmailAddress.getText().toString()});
+                            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, mEmailSubject.getText());
+                            emailIntent.setType("plain/text");
+                            emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, mEmailBody.getText());
+                            getContext().startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                            getActivity().finish();
+
                         }
                     });
-                    // object will be your game score
                 } else {
                     Log.d("user", "Error: " + e.getMessage());
                 }
@@ -110,5 +90,4 @@ public class UserFragment extends Fragment {
         });
         return v;
     }
-
 }

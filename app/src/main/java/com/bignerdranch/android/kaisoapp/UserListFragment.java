@@ -100,7 +100,7 @@ public class UserListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent = UserPagerActivity.newIntent(getActivity(), mUser.getString("mName"));
+            Intent intent = UserPagerActivity.newIntent(getActivity(), mUser.getObjectId());
             startActivity(intent);
         }
 

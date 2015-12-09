@@ -31,9 +31,9 @@ public class UserPagerActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private final List<ParseObject> mUsers = new ArrayList<>();
 
-    public static Intent newIntent(Context packageContext, String name) {
+    public static Intent newIntent(Context packageContext, String userId) {
         Intent intent = new Intent(packageContext, UserPagerActivity.class);
-        intent.putExtra(EXTRA_USER_ID, name);
+        intent.putExtra(EXTRA_USER_ID, userId);
         return intent;
     }
 
@@ -42,7 +42,7 @@ public class UserPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_pager);
 
-        final String userName =  getIntent().getStringExtra(EXTRA_USER_ID);
+        final String userId =  getIntent().getStringExtra(EXTRA_USER_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
@@ -59,7 +59,7 @@ public class UserPagerActivity extends AppCompatActivity {
                         public Fragment getItem(int position) {
                             ParseObject user = userList.get(position);
                             Log.d(TAG, "releaseId called " + user.getObjectId() + user.getString("mTitle"));
-                            return UserFragment.newInstance(user.getString("mName"));
+                            return UserFragment.newInstance(user.getObjectId());
                         }
 
                         @Override
@@ -70,7 +70,7 @@ public class UserPagerActivity extends AppCompatActivity {
                     });
 
                     for (int i = 0; i < userList.size(); i++) {
-                        if (userList.get(i).getString("mName").equals(userName)) {
+                        if (userList.get(i).getObjectId().equals(userId)) {
                             mViewPager.setCurrentItem(i);
                             break;
                         }

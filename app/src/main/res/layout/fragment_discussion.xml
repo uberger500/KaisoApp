@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/discussion_title2"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_gravity="left"
             android:padding="16dp"
             android:hint="@string/discussion"/>
@@ -38,7 +39,8 @@
             android:text="@string/submit_disc_btn"
             android:id="@+id/submit_disc_btn"
             android:layout_gravity="right"
-            android:padding="16dp"/>
+            android:padding="16dp"
+            />
 
     </LinearLayout>
 

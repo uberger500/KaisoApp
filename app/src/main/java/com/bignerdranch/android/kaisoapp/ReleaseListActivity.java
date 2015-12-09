@@ -23,7 +23,6 @@ public class ReleaseListActivity extends SingleFragmentActivity {
 */
     @Override
     protected Fragment createFragment() {
-        Log.d("f", " 2");
         return new ReleaseListFragment();
     }
 }
