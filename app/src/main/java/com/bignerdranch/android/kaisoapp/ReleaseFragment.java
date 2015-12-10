@@ -89,15 +89,15 @@ public class ReleaseFragment extends Fragment {
                     }
                     //   mNumTracks = Integer.valueOf((object.getNumTracks()));
 
-               //     mTracks = (List<String>) object.get("mTracks");
+                    mTracks = (List<String>) object.get("mTracks");
 
           //          Log.d("f", " 23fragdisp");
 //                    Log.d(TAG, "mTracks-tracklist size is " + mTracks.size());
-               //     if(getContext() != null) {
-               //         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-               //                 android.R.layout.simple_dropdown_item_1line, android.R.id.text1, mTracks);
+                    if(getContext() != null && mTracks != null) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                                android.R.layout.simple_dropdown_item_1line, android.R.id.text1, mTracks);
 
-//                        listView.setAdapter(adapter);
+                        listView.setAdapter(adapter);
 
 
                     mArranger = (TextView) v.findViewById(R.id.arranger_text);
@@ -111,7 +111,7 @@ public class ReleaseFragment extends Fragment {
                     if(object.getString("mGenre") != null) {
                         mGenre.setText(object.getString("mGenre"));
                     }
-                  //  }
+                    }
                 } else {
                     Log.d("Release", "Error: " + e.getMessage());
                 }

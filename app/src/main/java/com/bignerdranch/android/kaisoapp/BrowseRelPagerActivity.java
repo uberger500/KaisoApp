@@ -53,6 +53,7 @@ public class BrowseRelPagerActivity extends AppCompatActivity {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
         query.whereEqualTo("mArtist", artistName);
+        query.orderByAscending("mArtist");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> queryList, ParseException e) {
                 if (e == null) {

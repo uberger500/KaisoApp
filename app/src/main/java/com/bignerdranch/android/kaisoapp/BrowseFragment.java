@@ -39,7 +39,7 @@ public class BrowseFragment extends Fragment {
     private TextView mYear;
    // private String mNumTracks;
   //  private TextView mTrack;
- //   private List<String> mTracks = new ArrayList<>();
+    private List<String> mTracks = new ArrayList<>();
     private TextView mArranger;
  //   private TextView mLabel;
     private TextView mGenre;
@@ -91,22 +91,24 @@ public class BrowseFragment extends Fragment {
                     }
                  //   mNumTracks = Integer.valueOf((object.getNumTracks()));
 
-                  //  mTracks = (List<String>) object.get("mTracks");
-               //     ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                 //           android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
-                  //  listView.setAdapter(adapter);
+                    mTracks = (List<String>) object.get("mTracks");
+                    if(getContext() != null && mTracks != null) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                                android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
+                        listView.setAdapter(adapter);
 
-                    mArranger = (TextView) v.findViewById(R.id.arranger_text);
-                    if(object.getString("mArranger") != null) {
-                        mArranger.setText(object.getString("mArranger"));
-                    }
-                 //   mLabel = (TextView) v.findViewById(R.id.label_text);
-                 //   if(object.getString("mLabel") != null) {
-                 //       mLabel.setText(object.getString("mLabel"));
-                 //   }
-                    mGenre = (TextView) v.findViewById(R.id.genre_text);
-                    if(object.getString("mGenre") != null) {
-                        mGenre.setText(object.getString("mGenre"));
+                        mArranger = (TextView) v.findViewById(R.id.arranger_text);
+                        if (object.getString("mArranger") != null) {
+                            mArranger.setText(object.getString("mArranger"));
+                        }
+                        //   mLabel = (TextView) v.findViewById(R.id.label_text);
+                        //   if(object.getString("mLabel") != null) {
+                        //       mLabel.setText(object.getString("mLabel"));
+                        //   }
+                        mGenre = (TextView) v.findViewById(R.id.genre_text);
+                        if (object.getString("mGenre") != null) {
+                            mGenre.setText(object.getString("mGenre"));
+                        }
                     }
                 } else {
                     Log.d("browse", "Error: " + e.getMessage());

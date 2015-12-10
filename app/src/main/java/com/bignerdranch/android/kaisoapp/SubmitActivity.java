@@ -55,14 +55,10 @@ public class SubmitActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //  mRelease.setTracks(mTracks);
-        //  ReleaseArchive.get(this).addRelease(mRelease);
-        //   mTracks = mRelease.getTracks();
 
         setContentView(R.layout.activity_submit);
 
         listView = (ListView) findViewById(R.id.list_tracks);
-
 
         mArtist = (EditText) findViewById(R.id.artist_edit_text);
         mYear = (EditText) findViewById(R.id.year_edit_text);
@@ -90,7 +86,6 @@ public class SubmitActivity extends AppCompatActivity {
             public void onClick(View v) {
                  Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
                 addTrack();
-
                 adapter.notifyDataSetChanged();
             }
         });
@@ -218,33 +213,12 @@ public class SubmitActivity extends AppCompatActivity {
         mRelease.setYear(year);
         mRelease.setTitle(title);
       //  mRelease.setNumTracks(numTracks);
-      //  mRelease.setTracks(mTracks);
+        mRelease.setTracks(mTracks);
         mRelease.setArranger(arranger);
         mRelease.setLabel(label);
         mRelease.setGenre(genre);
 
-     //   ReleaseArchive.get(this).addRelease(mRelease);
-
         mRelease.saveInBackground();
-/*
-        if (mUsers.size() == 0 ) {
-            UserArchive.get(UserCreateActivity.this).addUser(mUser);
-        } else {
-            boolean flag = false;
-            for (User user : mUsers) {
-                if (user.getName().equals(mUser.getName())) {
-                    Toast.makeText(UserCreateActivity.this, R.string.duplicate_user, Toast.LENGTH_SHORT).show();
-                    flag = true;
-                    break;
-                }
-            }
-            if (flag == false) {
-                UserArchive.get(UserCreateActivity.this).addUser(mUser);
-            }
-        }
-*/
-
-
         finish();
     }
 }
