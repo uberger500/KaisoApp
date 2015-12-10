@@ -29,25 +29,42 @@ public class SearchResultListFragment extends Fragment {
 
     private static final String EXTRA_ARTIST_SEARCH =
             "com.bignerdranch.android.kaisoapp.artist_search";
+    private static final String EXTRA_YEAR_SEARCH =
+            "com.bignerdranch.android.kaisoapp.year_search";
+    private static final String EXTRA_TITLE_SEARCH =
+            "com.bignerdranch.android.kaisoapp.title_search";
+    private static final String EXTRA_TRACK_SEARCH =
+            "com.bignerdranch.android.kaisoapp.track_search";
+    private static final String EXTRA_ARRANGER_SEARCH =
+            "com.bignerdranch.android.kaisoapp.arranger_search";
+    private static final String EXTRA_GENRE_SEARCH =
+            "com.bignerdranch.android.kaisoapp.genre_search";
 
     private static final String TAG = "SearchResulListFrag";
 
     private RecyclerView mReleaseRecyclerView;
     private ReleaseAdapter mAdapter;
     private String mArtistSearch;
+    private String mYearSearch;
+    private String mTitleSearch;
+    private String mTrackSearch;
+    private String mArrangerSearch;
+    private String mGenreSearch;
 
     private List<ParseObject> mArtistList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "create1");
 
         mArtistSearch = getActivity().getIntent().getStringExtra(EXTRA_ARTIST_SEARCH);
+        mYearSearch = getActivity().getIntent().getStringExtra(EXTRA_YEAR_SEARCH);
+        mTitleSearch = getActivity().getIntent().getStringExtra(EXTRA_TITLE_SEARCH);
+        mTrackSearch = getActivity().getIntent().getStringExtra(EXTRA_TRACK_SEARCH);
+        mArrangerSearch = getActivity().getIntent().getStringExtra(EXTRA_ARRANGER_SEARCH);
+        mGenreSearch = getActivity().getIntent().getStringExtra(EXTRA_GENRE_SEARCH);
 
-        Log.d(TAG, "mArtistSearch is " + mArtistSearch);
         setHasOptionsMenu(true);
-        Log.d(TAG, "create");
     }
 
     @Override
@@ -65,11 +82,25 @@ public class SearchResultListFragment extends Fragment {
 
 
     private void updateUI() {
-        Log.d(TAG, "updateUI");
-        Log.d(TAG, "mArtistSearch2 is " + mArtistSearch);
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
-        query.whereEqualTo("mArtist", mArtistSearch);
+        if (mArtistSearch.length() != 0) {
+            query.whereEqualTo("mArtist", mArtistSearch);
+        }
+        if (mYearSearch.length() != 0) {
+            query.whereEqualTo("mYear", mYearSearch);
+        }
+        if (mTitleSearch.length() != 0) {
+            query.whereEqualTo("mTitle", mTitleSearch);
+        }
+        if (mTrackSearch.length() != 0) {
+            query.whereEqualTo("mTrack", mTrackSearch);
+        }
+        if (mArrangerSearch.length() != 0) {
+            query.whereEqualTo("mArranger", mArrangerSearch);
+        }
+        if (mGenreSearch.length() != 0) {
+            query.whereEqualTo("mGenre", mGenreSearch);
+        }
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> releaseList, ParseException e) {
                 if (e == null) {

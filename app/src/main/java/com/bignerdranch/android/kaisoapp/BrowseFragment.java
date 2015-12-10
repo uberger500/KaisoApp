@@ -37,11 +37,11 @@ public class BrowseFragment extends Fragment {
     private TextView mArtist;
     private TextView mTitle;
     private TextView mYear;
-    private String mNumTracks;
-    private TextView mTrack;
-    private List<String> mTracks = new ArrayList<>();
+   // private String mNumTracks;
+  //  private TextView mTrack;
+ //   private List<String> mTracks = new ArrayList<>();
     private TextView mArranger;
-    private TextView mLabel;
+ //   private TextView mLabel;
     private TextView mGenre;
     public String mReleaseId;
 
@@ -58,7 +58,7 @@ public class BrowseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mReleaseId =  getArguments().getString(ARG_RELEASE_ID);
-        Log.d(TAG, "Release idBrowse is " + mReleaseId);
+      //  Log.d(TAG, "Release idBrowse is " + mReleaseId);
 
         setHasOptionsMenu(true);
     }
@@ -70,43 +70,44 @@ public class BrowseFragment extends Fragment {
         listView  = (ListView) v.findViewById(R.id.list);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
-        query.whereEqualTo("objectId", mReleaseId);
-       // query.getInBackground(mReleaseId, new GetCallback<ParseObject>() {
-        query.findInBackground(new FindCallback<ParseObject>() {
-            //public void done(ParseObject object, ParseException e) {
-            public void done(List<ParseObject> userList, ParseException e) {
+      //  query.whereEqualTo("objectId", mReleaseId);
+        query.getInBackground(mReleaseId, new GetCallback<ParseObject>() {
+       // query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+           // public void done(List<ParseObject> userList, ParseException e) {
                 if (e == null) {
-                    ParseObject object = userList.get(0);
+                  //  ParseObject object = userList.get(0);
                     mArtist = (TextView) v.findViewById(R.id.artist_text);
-                    mArtist.setText(object.getString("mArtist"));
-
+                    if(object.getString("mArtist") != null) {
+                        mArtist.setText(object.getString("mArtist"));
+                    }
                     mYear = (TextView) v.findViewById(R.id.year_text);
-                    mYear.setText(object.getString("mYear"));
-
+                    if(object.getString("mYear") != null) {
+                        mYear.setText(object.getString("mYear"));
+                    }
                     mTitle = (TextView) v.findViewById(R.id.release_title);
-                    mTitle.setText(object.getString("mTitle"));
-
+                    if(object.getString("mTitle") != null) {
+                        mTitle.setText(object.getString("mTitle"));
+                    }
                  //   mNumTracks = Integer.valueOf((object.getNumTracks()));
 
-                    mTracks = (List<String>) object.get("mTracks");
-                    Log.d(TAG, "mtracks size " + mTracks.size());
-                    Log.d(TAG, "context " + getContext());
-                    Log.d("browse", "Retrieved " + object.getString("mTitle"));
-
-
+                  //  mTracks = (List<String>) object.get("mTracks");
                //     ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                  //           android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
                   //  listView.setAdapter(adapter);
 
                     mArranger = (TextView) v.findViewById(R.id.arranger_text);
-                    mArranger.setText(object.getString("mArranger"));
-
-                    mLabel = (TextView) v.findViewById(R.id.label_text);
-                    mLabel.setText(object.getString("mLabel"));
-
+                    if(object.getString("mArranger") != null) {
+                        mArranger.setText(object.getString("mArranger"));
+                    }
+                 //   mLabel = (TextView) v.findViewById(R.id.label_text);
+                 //   if(object.getString("mLabel") != null) {
+                 //       mLabel.setText(object.getString("mLabel"));
+                 //   }
                     mGenre = (TextView) v.findViewById(R.id.genre_text);
-                    mGenre.setText(object.getString("mGenre"));
-
+                    if(object.getString("mGenre") != null) {
+                        mGenre.setText(object.getString("mGenre"));
+                    }
                 } else {
                     Log.d("browse", "Error: " + e.getMessage());
                 }

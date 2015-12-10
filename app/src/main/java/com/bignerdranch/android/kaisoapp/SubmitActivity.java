@@ -146,7 +146,7 @@ public class SubmitActivity extends AppCompatActivity {
         String artist = mArtist.getText().toString().trim();
         String year = mYear.getText().toString().trim();
         String title = mTitle.getText().toString().trim();
-        String numTracks = mNumTracks.getText().toString().trim();
+      //  String numTracks = mNumTracks.getText().toString().trim();
         String label = mLabel.getText().toString().trim();
         String arranger = mArranger.getText().toString().trim();
         String genre = mGenre.getText().toString().trim();
@@ -217,8 +217,8 @@ public class SubmitActivity extends AppCompatActivity {
         mRelease.setArtist(artist);
         mRelease.setYear(year);
         mRelease.setTitle(title);
-        mRelease.setNumTracks(numTracks);
-        mRelease.setTracks(mTracks);
+      //  mRelease.setNumTracks(numTracks);
+      //  mRelease.setTracks(mTracks);
         mRelease.setArranger(arranger);
         mRelease.setLabel(label);
         mRelease.setGenre(genre);

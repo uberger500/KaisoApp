@@ -25,6 +25,14 @@
     <string name="submit_info_view_text">Submit New Release Info</string>
     <string name="subtitle_search_info">Use one or more search terms</string>
     <string name="search_view_text">Search Archive</string>
+    <string name="search">Search Archive</string>
+    <string name="artist_name">Artist name</string>
+    <string name="release_title">Release title</string>
+    <string name="track_title">Track title</string>
+    <string name="arranger">Arranger</string>
+    <string name="genre">Genre</string>
+    <string name="year_of_release">Year of release</string>
+
 
     <string name="discussion_title">Discussion Title</string>
     <string name="discussion">Discussion Thread</string>
@@ -65,12 +73,13 @@
     <string name="new_discussion">New Discussion</string>
 
     <string name="error_intro"></string>
-    <string name="error_blank_title">Blank title</string>
-    <string name="error_blank_discussion_point">Blank discussion</string>
+    <string name="error_blank_title"> Blank title </string>
+    <string name="error_blank_discussion_point"> Blank discussion</string>
     <string name="error_join"> and </string>
     <string name="error_end"></string>
 
-    <string name="error_blank_artist">Blank artist</string>
+    <string name="error_blank_input">Use at least one search term</string>
+    <string name="error_blank_artist">Blank Artist</string>
 
     <string name="error_blank_name">Blank name</string>
     <string name="error_blank_email">Blank email</string>

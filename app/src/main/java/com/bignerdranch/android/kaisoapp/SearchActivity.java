@@ -33,9 +33,14 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search2);
+        setContentView(R.layout.activity_search);
 
         mArtist = (EditText) findViewById(R.id.artist_edit_text);
+        mYear = (EditText) findViewById(R.id.year_edit_text);
+        mTitle = (EditText) findViewById(R.id.title_edit_text);
+        mTrack = (EditText) findViewById(R.id.track_edit_text);
+        mArranger = (EditText) findViewById(R.id.arranger_edit_text);
+        mGenre = (EditText) findViewById(R.id.genre_edit_text);
 
         mSearchSubmitButton = (Button) findViewById(R.id.search_submit_button);
         mSearchSubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -51,11 +56,22 @@ public class SearchActivity extends AppCompatActivity {
 
     public void search() {
         String searchArtist = mArtist.getText().toString().trim();
+        String searchYear = mYear.getText().toString().trim();
+        String searchTitle = mTitle.getText().toString().trim();
+        String searchTrack = mTrack.getText().toString().trim();
+        String searchArranger = mArranger.getText().toString().trim();
+        String searchGenre = mGenre.getText().toString().trim();
+
         boolean validationError = false;
         StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
-        if (searchArtist.length() == 0) {
+        if (searchArtist.length() == 0 &&
+                searchYear.length() == 0 &&
+                searchTitle.length() == 0 &&
+                searchTrack.length() == 0 &&
+                searchArranger.length() == 0 &&
+                searchGenre.length() == 0) {
             validationError = true;
-            validationErrorMessage.append(getString(R.string.error_blank_artist));
+            validationErrorMessage.append(getString(R.string.error_blank_input));
         }
 
         validationErrorMessage.append(getString(R.string.error_end));
@@ -68,117 +84,9 @@ public class SearchActivity extends AppCompatActivity {
 
         Log.d(TAG, "starting intent artist: " + searchArtist );
 
-        Intent intent = SearchResultListActivity.newIntent(SearchActivity.this, searchArtist);
+        Intent intent = SearchResultListActivity.newIntent(SearchActivity.this, searchArtist,
+                searchYear, searchTitle, searchTrack, searchArranger, searchGenre );
         startActivity(intent);
     }
 }
 
-/*   mArtist.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-              //  mRelease.setArtist(s.toString());
-                mArtistSearch = s.toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
-/*
-        mYear = (EditText) findViewById(R.id.year_edit_text);
-        mYear.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRelease.setYear(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        mTitle = (EditText) findViewById(R.id.title_edit_text);
-        mTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRelease.setTitle(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-        mTrack = (EditText) findViewById(R.id.track_edit_text);
-        mTrack.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //          mRelease.setTracks(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        mArranger = (EditText) findViewById(R.id.arranger_edit_text);
-        mArranger.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRelease.setArranger(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        mGenre = (EditText) findViewById(R.id.genre_edit_text);
-        mGenre.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRelease.setGenre(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-*/

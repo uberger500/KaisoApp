@@ -12,7 +12,7 @@
         tools:text="Search Archive"
         android:id="@+id/search_view"
         android:text="@string/search_view_text"
-        android:textAlignment="center"
+        android:maxLength="6"
         />
 
     <TextView
@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:text="@string/subtitle_search_info"
         android:id="@+id/subtitle_search_info"
-        android:textAlignment="center"
         tools:text="Search subtitle"/>
 
     <EditText
@@ -28,54 +27,54 @@
         android:layout_height="wrap_content"
         android:id="@+id/artist_edit_text"
         tools:text="artist_edit_text"
-        android:editable="true"
-        android:hint="Artist name"/>
+        android:maxLength="15"
+        android:hint="@string/artist_name"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/year_edit_text"
         tools:text="year_edit_text"
-        android:editable="true"
-        android:hint="Year of release"/>
+        android:maxLength="4"
+        android:hint="@string/year_of_release"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/title_edit_text"
         tools:text="title_edit_text"
-        android:editable="true"
-        android:hint="Release title"/>
+        android:maxLength="20"
+        android:hint="@string/release_title"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/track_edit_text"
         tools:text="track_edit_text"
-        android:editable="true"
-        android:hint="Track title"/>
+        android:maxLength="30"
+        android:hint="@string/track_title"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/arranger_edit_text"
         tools:text="arranger_edit_text"
-        android:editable="true"
-        android:hint="Arranger"/>
+        android:maxLength="20"
+        android:hint="@string/arranger"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/genre_edit_text"
         tools:text="genre_edit_text"
-        android:editable="true"
-        android:hint="Genre"/>
+        android:maxLength="10"
+        android:hint="@string/genre"/>
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search"
+        android:text="@string/search"
         android:id="@+id/search_submit_button"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>

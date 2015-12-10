@@ -76,37 +76,42 @@ public class ReleaseFragment extends Fragment {
                     Log.d("f", "retrieved 3 " + object.getString("mTitle"));
 
                     mArtist = (TextView) v.findViewById(R.id.artist_text);
-                    mArtist.setText(object.getString("mArtist"));
-
+                    if(object.getString("mArtist") != null) {
+                        mArtist.setText(object.getString("mArtist"));
+                    }
                     mYear = (TextView) v.findViewById(R.id.year_text);
-                    mYear.setText(object.getString("mYear"));
-
+                    if(object.getString("mYear") != null) {
+                        mYear.setText(object.getString("mYear"));
+                    }
                     mTitle = (TextView) v.findViewById(R.id.release_title);
-                    mTitle.setText(object.getString("mTitle"));
-
+                    if(object.getString("mTitle") != null) {
+                        mTitle.setText(object.getString("mTitle"));
+                    }
                     //   mNumTracks = Integer.valueOf((object.getNumTracks()));
 
-                    mTracks = (List<String>) object.get("mTracks");
+               //     mTracks = (List<String>) object.get("mTracks");
 
-                    Log.d("f", " 23fragdisp");
-                    Log.d(TAG, "mTracks-tracklist size is " + mTracks.size());
-                    if(getContext() != null) {
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                                android.R.layout.simple_dropdown_item_1line, android.R.id.text1, mTracks);
+          //          Log.d("f", " 23fragdisp");
+//                    Log.d(TAG, "mTracks-tracklist size is " + mTracks.size());
+               //     if(getContext() != null) {
+               //         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+               //                 android.R.layout.simple_dropdown_item_1line, android.R.id.text1, mTracks);
 
-                        listView.setAdapter(adapter);
+//                        listView.setAdapter(adapter);
 
 
-                        mArranger = (TextView) v.findViewById(R.id.arranger_text);
+                    mArranger = (TextView) v.findViewById(R.id.arranger_text);
+                    if(object.getString("mArranger") != null) {
                         mArranger.setText(object.getString("mArranger"));
-
-                        mLabel = (TextView) v.findViewById(R.id.label_text);
-                        mLabel.setText(object.getString("mLabel"));
-
-                        mGenre = (TextView) v.findViewById(R.id.genre_text);
-                        mGenre.setText(object.getString("mGenre"));
-
                     }
+                //        mLabel = (TextView) v.findViewById(R.id.label_text);
+                 //       mLabel.setText(object.getString("mLabel"));
+
+                    mGenre = (TextView) v.findViewById(R.id.genre_text);
+                    if(object.getString("mGenre") != null) {
+                        mGenre.setText(object.getString("mGenre"));
+                    }
+                  //  }
                 } else {
                     Log.d("Release", "Error: " + e.getMessage());
                 }
