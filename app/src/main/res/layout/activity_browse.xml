@@ -11,9 +11,11 @@
         android:layout_height="wrap_content"
         tools:text="artists_browse_view"
         android:text="@string/artists_browse_view_text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/artists_browse_view"
-        android:layout_gravity="center_horizontal"
-        android:padding="16dp"/>
+        android:layout_gravity="left"
+        android:padding="20dp"
+        android:background="@color/primary_material_light"/>
 
     <ListView
         android:layout_width="match_parent"

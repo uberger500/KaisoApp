@@ -27,25 +27,19 @@ public class BrowseRelPagerActivity extends AppCompatActivity {
 
     private static final String TAG = "BrowseReleaseActivity";
 
-
     private static final String EXTRA_ARTIST_NAME = "com.bignerdranch.android.kaisoapp.artist_name";
     private ViewPager mViewPager;
-  //  private List<Release> mReleases;
-   // private List<Release> mSelectionList;
 
     public static Intent newIntent(Context packageContext, String artistName) {
         Intent intent = new Intent(packageContext, BrowseRelPagerActivity.class);
-     //   Log.d(TAG, "in newIntentArtist");
         intent.putExtra(EXTRA_ARTIST_NAME, artistName);
         return intent;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_pager);
-      //  Log.d(TAG, "onCreate called");
 
         final String artistName = getIntent().getStringExtra(EXTRA_ARTIST_NAME);
 
@@ -57,14 +51,12 @@ public class BrowseRelPagerActivity extends AppCompatActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> queryList, ParseException e) {
                 if (e == null) {
-                    Log.d(TAG, "Retrieved " + queryList.size() + " release");
                     final List<ParseObject> releaseList = queryList;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
                         @Override
                         public Fragment getItem(int position) {
                             ParseObject release = releaseList.get(position);
-                            Log.d(TAG, "getItem called");
                             return BrowseFragment.newInstance(release.getObjectId());
                         }
 
@@ -72,7 +64,6 @@ public class BrowseRelPagerActivity extends AppCompatActivity {
                         public int getCount() {
                             return releaseList.size();
                         }
-
                     });
 
                     for (int i = 0; i < releaseList.size(); i++) {
@@ -86,11 +77,6 @@ public class BrowseRelPagerActivity extends AppCompatActivity {
                 }
             }
         });
-        //   mReleases = ReleaseArchive.get(this).getReleases();
-
-        //   mSelectionList = createReleaseSublist(mReleases, artistName);
-
-
     }
 }
 

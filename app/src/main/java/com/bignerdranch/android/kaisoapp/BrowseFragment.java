@@ -58,7 +58,6 @@ public class BrowseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mReleaseId =  getArguments().getString(ARG_RELEASE_ID);
-      //  Log.d(TAG, "Release idBrowse is " + mReleaseId);
 
         setHasOptionsMenu(true);
     }
@@ -70,13 +69,9 @@ public class BrowseFragment extends Fragment {
         listView  = (ListView) v.findViewById(R.id.list);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
-      //  query.whereEqualTo("objectId", mReleaseId);
         query.getInBackground(mReleaseId, new GetCallback<ParseObject>() {
-       // query.findInBackground(new FindCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
-           // public void done(List<ParseObject> userList, ParseException e) {
                 if (e == null) {
-                  //  ParseObject object = userList.get(0);
                     mArtist = (TextView) v.findViewById(R.id.artist_text);
                     if(object.getString("mArtist") != null) {
                         mArtist.setText(object.getString("mArtist"));
@@ -89,6 +84,14 @@ public class BrowseFragment extends Fragment {
                     if(object.getString("mTitle") != null) {
                         mTitle.setText(object.getString("mTitle"));
                     }
+                    mGenre = (TextView) v.findViewById(R.id.genre_text);
+                    if (object.getString("mGenre") != null) {
+                        mGenre.setText(object.getString("mGenre"));
+                    }
+                    mArranger = (TextView) v.findViewById(R.id.arranger_text);
+                    if (object.getString("mArranger") != null) {
+                        mArranger.setText(object.getString("mArranger"));
+                    }
                  //   mNumTracks = Integer.valueOf((object.getNumTracks()));
 
                     mTracks = (List<String>) object.get("mTracks");
@@ -97,18 +100,12 @@ public class BrowseFragment extends Fragment {
                                 android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
                         listView.setAdapter(adapter);
 
-                        mArranger = (TextView) v.findViewById(R.id.arranger_text);
-                        if (object.getString("mArranger") != null) {
-                            mArranger.setText(object.getString("mArranger"));
-                        }
+
                         //   mLabel = (TextView) v.findViewById(R.id.label_text);
                         //   if(object.getString("mLabel") != null) {
                         //       mLabel.setText(object.getString("mLabel"));
                         //   }
-                        mGenre = (TextView) v.findViewById(R.id.genre_text);
-                        if (object.getString("mGenre") != null) {
-                            mGenre.setText(object.getString("mGenre"));
-                        }
+
                     }
                 } else {
                     Log.d("browse", "Error: " + e.getMessage());

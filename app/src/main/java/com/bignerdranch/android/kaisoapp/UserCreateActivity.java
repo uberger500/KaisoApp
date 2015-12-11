@@ -58,8 +58,8 @@ public class UserCreateActivity extends AppCompatActivity {
 
     public void addUser() {
 
-        String name = mName.getText().toString().trim();
-        String email = mEmail.getText().toString().trim();
+        String name = mName.getText().toString().trim().toLowerCase();
+        String email = mEmail.getText().toString().trim().toLowerCase();
         String password = mPassword.getText().toString().trim();
 
         //this validation code is based on a website I can't remember...

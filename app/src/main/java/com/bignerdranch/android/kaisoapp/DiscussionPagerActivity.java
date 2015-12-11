@@ -47,22 +47,17 @@ public class DiscussionPagerActivity extends AppCompatActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(final List<ParseObject> queryList, ParseException e) {
                 if (e == null) {
-                    Log.d(TAG, "Retrieved " + queryList.size() + " release");
-                  //  final List<ParseObject> discussionList = queryList;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
                         @Override
                         public Fragment getItem(int position) {
                             ParseObject discussion = queryList.get(position);
-                            Log.d(TAG, "getItem called");
                             return DiscussionFragment.newInstance(discussion.getObjectId());
                         }
-
                         @Override
                         public int getCount() {
                             return queryList.size();
                         }
-
                     });
 
                     for (int i = 0; i < queryList.size(); i++) {
@@ -79,32 +74,6 @@ public class DiscussionPagerActivity extends AppCompatActivity {
         });
     }
 }
- /*
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
-            @Override
-            public Fragment getItem(int position) {
-                Discussion discussion = mDiscussions.get(position);
-                return DiscussionFragment.newInstance(discussion.getObjectId());
-            }
-
-            @Override
-            public int getCount() {
-                return mDiscussions.size();
-            }
-
-        });
-
-        for (int i = 0; i < mDiscussions.size(); i++) {
-            if (mDiscussions.get(i).getObjectId().equals(discussionId)) {
-                mViewPager.setCurrentItem(i);
-                break;
-            }
-        }
-    }
-}
-*/
 /*
   <LinearLayout
         android:orientation="vertical"

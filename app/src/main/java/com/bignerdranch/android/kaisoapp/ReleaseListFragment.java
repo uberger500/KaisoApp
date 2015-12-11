@@ -47,6 +47,7 @@ public class ReleaseListFragment extends Fragment {
     }
     private void updateUI() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
+        query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> releaseList, ParseException e) {
                 Log.d("f", " 5");

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -32,12 +33,10 @@ public class SearchPagerActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
 
-
     public static Intent newIntent(Context packageContext, String objectId, String artistName) {
         Intent intent = new Intent(packageContext, SearchPagerActivity.class);
         intent.putExtra(EXTRA_RELEASE_ID, objectId);
         intent.putExtra(EXTRA_ARTIST_NAME, artistName);
-        Log.d(TAG, "in newIntent");
         return intent;
     }
 
@@ -55,6 +54,51 @@ public class SearchPagerActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
+        query.fromLocalDatastore();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> queryList, ParseException e) {
+                if (e == null) {
+                    Log.d(TAG, "Retrieved " + queryList.size() + " release");
+                    final List<ParseObject> releaseList = queryList;
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
+                        @Override
+                        public Fragment getItem(int position) {
+                            ParseObject release = releaseList.get(position);
+                            return BrowseFragment.newInstance(release.getObjectId());
+                        }
+
+                        @Override
+                        public int getCount() {
+                            return releaseList.size();
+                        }
+
+                    });
+
+                    for (int i = 0; i < releaseList.size(); i++) {
+
+                        if (releaseList.get(i).getObjectId().equals(objectId)) {
+                            mViewPager.setCurrentItem(i);
+                            break;
+                        }
+                    }
+                    ParseObject.unpinAllInBackground(releaseList);
+                } else {
+                    Log.d("browse", "Error: " + e.getMessage());
+                }
+            }
+            /*
+            public void done(List<ParseObject> scoreList,
+                             ParseException e) {
+                if (e == null) {
+                    Log.d("score", "Retrieved " + scoreList.size());
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+            */
+        });
+     /*   ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
         query.whereEqualTo("mArtist", artistName);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> queryList, ParseException e) {
@@ -66,26 +110,19 @@ public class SearchPagerActivity extends AppCompatActivity {
                         @Override
                         public Fragment getItem(int position) {
                             ParseObject release = releaseList.get(position);
-                            Log.d(TAG, "position " + position);
-                            Log.d(TAG, "releaseId called " + release.getObjectId() + release.getString("mTitle"));
                             return BrowseFragment.newInstance(release.getObjectId());
                         }
 
                         @Override
                         public int getCount() {
-                            Log.d(TAG, "listsize " + releaseList.size());
-
                             return releaseList.size();
                         }
 
                     });
 
                     for (int i = 0; i < releaseList.size(); i++) {
-                        Log.d(TAG, "outsideif i is " + i);
 
                         if (releaseList.get(i).getObjectId().equals(objectId)) {
-                            Log.d(TAG, "insideifi is " + i);
-
                             mViewPager.setCurrentItem(i);
                             break;
                         }
@@ -95,7 +132,7 @@ public class SearchPagerActivity extends AppCompatActivity {
                 }
             }
         });
-
+*/
     }
 }
 

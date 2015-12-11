@@ -67,14 +67,10 @@ public class ReleaseFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_release, container, false);
 
         listView  = (ListView) v.findViewById(R.id.list);
-        Log.d(TAG, "onCreate called2 "+ mReleaseId);
-        Log.d("f", " 22fragcreaview");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
         query.getInBackground(mReleaseId, new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    Log.d("f", "retrieved 3 " + object.getString("mTitle"));
-
                     mArtist = (TextView) v.findViewById(R.id.artist_text);
                     if(object.getString("mArtist") != null) {
                         mArtist.setText(object.getString("mArtist"));

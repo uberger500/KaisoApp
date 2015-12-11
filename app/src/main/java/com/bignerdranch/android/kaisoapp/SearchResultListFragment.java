@@ -19,7 +19,6 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by ursberger1 on 11/18/15.
@@ -46,7 +45,7 @@ public class SearchResultListFragment extends Fragment {
     private ReleaseAdapter mAdapter;
     private String mArtistSearch;
     private String mYearSearch;
-    private String mTitleSearch;
+    private String mAlbumTitleSearch;
     private String mTrackSearch;
     private String mArrangerSearch;
     private String mGenreSearch;
@@ -59,8 +58,8 @@ public class SearchResultListFragment extends Fragment {
 
         mArtistSearch = getActivity().getIntent().getStringExtra(EXTRA_ARTIST_SEARCH);
         mYearSearch = getActivity().getIntent().getStringExtra(EXTRA_YEAR_SEARCH);
-        mTitleSearch = getActivity().getIntent().getStringExtra(EXTRA_TITLE_SEARCH);
-        mTrackSearch = getActivity().getIntent().getStringExtra(EXTRA_TRACK_SEARCH);
+        mAlbumTitleSearch = getActivity().getIntent().getStringExtra(EXTRA_TITLE_SEARCH);
+      //  mTrackSearch = getActivity().getIntent().getStringExtra(EXTRA_TRACK_SEARCH);
         mArrangerSearch = getActivity().getIntent().getStringExtra(EXTRA_ARRANGER_SEARCH);
         mGenreSearch = getActivity().getIntent().getStringExtra(EXTRA_GENRE_SEARCH);
 
@@ -89,33 +88,35 @@ public class SearchResultListFragment extends Fragment {
         if (mYearSearch.length() != 0) {
             query.whereEqualTo("mYear", mYearSearch);
         }
-        if (mTitleSearch.length() != 0) {
-            query.whereEqualTo("mTitle", mTitleSearch);
+        if (mAlbumTitleSearch.length() != 0) {
+            query.whereContains("mTitle", mAlbumTitleSearch);
         }
-        if (mTrackSearch.length() != 0) {
-            query.whereEqualTo("mTrack", mTrackSearch);
-        }
+    //    if (mTrackSearch.length() != 0) {
+    //        query.whereContains("mTrack", mTrackSearch);
+    //    }
         if (mArrangerSearch.length() != 0) {
             query.whereEqualTo("mArranger", mArrangerSearch);
         }
         if (mGenreSearch.length() != 0) {
             query.whereEqualTo("mGenre", mGenreSearch);
         }
+        query.orderByAscending("mArtist");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> releaseList, ParseException e) {
                 if (e == null) {
                     if(releaseList.size() == 0) {
                         Toast.makeText(getActivity(), R.string.search_nothing_found, Toast.LENGTH_SHORT).show();
-
                     }
+                    ParseObject.pinAllInBackground(releaseList);
+
                     if (mAdapter == null) {
-                        Log.d(TAG, "Retrieved " + releaseList.size() + " releases");
                         mAdapter = new ReleaseAdapter(releaseList);
                         mReleaseRecyclerView.setAdapter(mAdapter);
                     } else {
                         mAdapter.setReleases(releaseList);
                         mAdapter.notifyDataSetChanged();
                     }
+
                 } else {
                     Log.d("Search", "Error: " + e.getMessage());
                 }
@@ -141,15 +142,11 @@ public class SearchResultListFragment extends Fragment {
         public void bindRelease(ParseObject release) {
 
             mRelease = release;
-            Log.d(TAG, "title is " + mRelease.getString("mTitle"));
             mReleaseTitleTextView.setText(mRelease.getString("mTitle"));
-
         }
 
         @Override
         public void onClick(View v) {
-            Log.d(TAG, "clicktitle is " + mRelease.getString("mTitle"));
-            Log.d(TAG, "objectId is " + mRelease.getObjectId());
 
             Intent intent = SearchPagerActivity.newIntent(getActivity(), mRelease.getObjectId(), mRelease.getString("mArtist"));
             startActivity(intent);

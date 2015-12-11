@@ -47,15 +47,6 @@ public class StartViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ParseObject.registerSubclass(Release.class);
-        ParseObject.registerSubclass(User.class);
-        ParseObject.registerSubclass(Discussion.class);
-
-
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "ITuVP5vobHEQeHjlJZuegG9COr8PABh12yUOsoCf", "4iiFd8i4WInojQBNXmIUlOJYPwGiA2dWykeTWOge");
-
 
         setContentView(R.layout.activity_start_view);
 

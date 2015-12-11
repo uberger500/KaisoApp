@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity {
         mArtist = (EditText) findViewById(R.id.artist_edit_text);
         mYear = (EditText) findViewById(R.id.year_edit_text);
         mTitle = (EditText) findViewById(R.id.title_edit_text);
-        mTrack = (EditText) findViewById(R.id.track_edit_text);
+      //  mTrack = (EditText) findViewById(R.id.track_edit_text);
         mArranger = (EditText) findViewById(R.id.arranger_edit_text);
         mGenre = (EditText) findViewById(R.id.genre_edit_text);
 
@@ -48,7 +48,6 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(SearchActivity.this, R.string.search_submit_button_info, Toast.LENGTH_SHORT).show();
                 search();
-
             }
         });
 
@@ -58,7 +57,7 @@ public class SearchActivity extends AppCompatActivity {
         String searchArtist = mArtist.getText().toString().trim();
         String searchYear = mYear.getText().toString().trim();
         String searchTitle = mTitle.getText().toString().trim();
-        String searchTrack = mTrack.getText().toString().trim();
+     //   String searchTrack = mTrack.getText().toString().trim();
         String searchArranger = mArranger.getText().toString().trim();
         String searchGenre = mGenre.getText().toString().trim();
 
@@ -67,7 +66,7 @@ public class SearchActivity extends AppCompatActivity {
         if (searchArtist.length() == 0 &&
                 searchYear.length() == 0 &&
                 searchTitle.length() == 0 &&
-                searchTrack.length() == 0 &&
+          //      searchTrack.length() == 0 &&
                 searchArranger.length() == 0 &&
                 searchGenre.length() == 0) {
             validationError = true;
@@ -85,8 +84,18 @@ public class SearchActivity extends AppCompatActivity {
         Log.d(TAG, "starting intent artist: " + searchArtist );
 
         Intent intent = SearchResultListActivity.newIntent(SearchActivity.this, searchArtist,
-                searchYear, searchTitle, searchTrack, searchArranger, searchGenre );
+                searchYear, searchTitle, //searchTrack,
+                 searchArranger, searchGenre );
         startActivity(intent);
     }
 }
 
+/*
+ <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/track_edit_text"
+        tools:text="track_edit_text"
+        android:maxLength="30"
+        android:hint="@string/track_title"/>
+ */

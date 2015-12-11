@@ -62,8 +62,6 @@ public class DiscussionListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), R.string.submit_button_info, Toast.LENGTH_SHORT).show();
-             //   Intent i = new Intent(DiscussionListFragment.this, DiscussionCreateActivity.class);
-             //   startActivity(i);
                 Intent intent = DiscussionCreateActivity.newIntent(getActivity());
                 startActivity(intent);
             }
@@ -126,9 +124,6 @@ public class DiscussionListFragment extends Fragment {
                 }
             }
         });
-
-
-
   /*      if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
@@ -139,7 +134,6 @@ public class DiscussionListFragment extends Fragment {
 
         updateSubtitle();
 */
-
     }
 
     private class DiscussionHolder extends RecyclerView.ViewHolder
@@ -157,10 +151,8 @@ public class DiscussionListFragment extends Fragment {
         }
 
         public void bindDiscussion(ParseObject discussion) {
-
             mDiscussion = discussion;
             mDiscussionTitleTextView.setText(mDiscussion.getString("mTitle"));
-
         }
 
         @Override
@@ -201,7 +193,5 @@ public class DiscussionListFragment extends Fragment {
             }
 */
     }
-
-
 }
 

@@ -12,6 +12,7 @@
         tools:text="Search Archive"
         android:id="@+id/search_view"
         android:text="@string/search_view_text"
+        android:padding="30dp"
         android:maxLength="6"
         />
 
@@ -20,7 +21,12 @@
         android:layout_height="wrap_content"
         android:text="@string/subtitle_search_info"
         android:id="@+id/subtitle_search_info"
-        tools:text="Search subtitle"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:text="Search subtitle"
+        android:paddingLeft="30dp"
+        android:paddingTop="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="15dp"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -28,6 +34,7 @@
         android:id="@+id/artist_edit_text"
         tools:text="artist_edit_text"
         android:maxLength="15"
+        android:padding="30dp"
         android:hint="@string/artist_name"/>
 
     <EditText
@@ -36,6 +43,7 @@
         android:id="@+id/year_edit_text"
         tools:text="year_edit_text"
         android:maxLength="4"
+        android:padding="30dp"
         android:hint="@string/year_of_release"/>
 
     <EditText
@@ -44,15 +52,10 @@
         android:id="@+id/title_edit_text"
         tools:text="title_edit_text"
         android:maxLength="20"
+        android:padding="30dp"
         android:hint="@string/release_title"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/track_edit_text"
-        tools:text="track_edit_text"
-        android:maxLength="30"
-        android:hint="@string/track_title"/>
+
 
     <EditText
         android:layout_width="match_parent"
@@ -60,6 +63,7 @@
         android:id="@+id/arranger_edit_text"
         tools:text="arranger_edit_text"
         android:maxLength="20"
+        android:padding="30dp"
         android:hint="@string/arranger"/>
 
     <EditText
@@ -68,6 +72,7 @@
         android:id="@+id/genre_edit_text"
         tools:text="genre_edit_text"
         android:maxLength="10"
+        android:padding="30dp"
         android:hint="@string/genre"/>
 
 
