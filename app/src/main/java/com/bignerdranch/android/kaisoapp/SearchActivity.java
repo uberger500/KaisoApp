@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.ParseObject;
+
 /**
  * Created by ursberger1 on 11/15/15.
  */
@@ -51,6 +53,12 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        ParseObject.unpinAllInBackground("searchList");
     }
 
     public void search() {

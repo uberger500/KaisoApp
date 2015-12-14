@@ -29,7 +29,6 @@ public class ReleaseFragment extends Fragment {
 
     private static final String ARG_RELEASE_ID = "release_id";
     private static final String TAG = "ReleaseFragmentActivity";
-  //  private Release mRelease;
 
     ListView listView ;
 
@@ -47,7 +46,6 @@ public class ReleaseFragment extends Fragment {
     public static ReleaseFragment newInstance(String releaseId) {
         Bundle args = new Bundle();
         args.putString(ARG_RELEASE_ID, releaseId);
-        Log.d("f", " 20instance");
         ReleaseFragment fragment = new ReleaseFragment();
         fragment.setArguments(args);
         return fragment;
@@ -57,8 +55,6 @@ public class ReleaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mReleaseId =  getArguments().getString(ARG_RELEASE_ID);
-        Log.d(TAG, "onCreate called1 "+ mReleaseId);
-        Log.d("f", " 21fragoncreat");
         setHasOptionsMenu(true);
     }
 
@@ -87,8 +83,6 @@ public class ReleaseFragment extends Fragment {
 
                     mTracks = (List<String>) object.get("mTracks");
 
-          //          Log.d("f", " 23fragdisp");
-//                    Log.d(TAG, "mTracks-tracklist size is " + mTracks.size());
                     if(getContext() != null && mTracks != null) {
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_dropdown_item_1line, android.R.id.text1, mTracks);

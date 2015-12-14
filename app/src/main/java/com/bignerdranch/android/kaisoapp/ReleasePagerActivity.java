@@ -30,60 +30,44 @@ public class ReleasePagerActivity extends AppCompatActivity {
 
     private static final String EXTRA_RELEASE_ID = "com.bignerdranch.android.kaisoapp.release_id";
     private ViewPager mViewPager;
-  //  private List<Release> mReleases;
+    private List<ParseObject> releaseList;
 
     public static Intent newIntent(Context packageContext, String releaseId) {
         Intent intent = new Intent(packageContext, ReleasePagerActivity.class);
         intent.putExtra(EXTRA_RELEASE_ID, releaseId);
-        Log.d(TAG, "in newIntent");
-        Log.d("f", " 14pagerintent");
         return intent;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_pager);
 
-        Log.d(TAG, "creating release pager view, new Exception();");
-
-        Log.d("f", " 15oncreate");
         final String releaseId = getIntent().getStringExtra(EXTRA_RELEASE_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
+      //  query.fromLocalDatastore("releaseList");
+        query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> queryList, ParseException e) {
                 if (e == null) {
-                    Log.d("f", " 16query");
-                    Log.d(TAG, "Retrieved 2 " + queryList.size() + " release");
-                    final List<ParseObject> releaseList = queryList;
+                    releaseList = queryList;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
                         @Override
                         public Fragment getItem(int position) {
                             ParseObject release = releaseList.get(position);
-                            Log.d("f", " 17getitem");
-                            Log.d(TAG, "getItem called1");
-                            return ReleaseFragment.newInstance(release.getObjectId());
+                            return BrowseFragment.newInstance(release.getObjectId());
                         }
-
                         @Override
                         public int getCount() {
-                            Log.d("f", " 18getcount");
                             return releaseList.size();
                         }
-
                     });
-
                     for (int i = 0; i < releaseList.size(); i++) {
-                        Log.d("f", " 19aoutsideloop");
-
                         if (releaseList.get(i).getObjectId().equals(releaseId)) {
-                            Log.d("f", " 19inloop");
-                            Log.d(TAG, "in if releaseId is " + releaseId);
                             mViewPager.setCurrentItem(i);
                             break;
                         }
@@ -97,26 +81,3 @@ public class ReleasePagerActivity extends AppCompatActivity {
     }
 }
 
-
-/*
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
-            @Override
-            public Fragment getItem(int position) {
-                Release release = mReleases.get(position);
-                return ReleaseFragment.newInstance(release.getObjectId());
-            }
-
-            @Override
-            public int getCount() {
-                return mReleases.size();
-            }
-
-        });
-
-        for (int i = 0; i < mReleases.size(); i++) {
-            if (mReleases.get(i).getId().equals(releaseId)) {
-                mViewPager.setCurrentItem(i);
-                break;
-            }
-        }*/

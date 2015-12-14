@@ -48,6 +48,7 @@ public class BrowseActivity extends AppCompatActivity {
         mPageTitle.setText(R.string.artists_browse_view_text);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
+        query.orderByAscending("mArtist");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> queryList, ParseException e) {
                 if (e == null) {

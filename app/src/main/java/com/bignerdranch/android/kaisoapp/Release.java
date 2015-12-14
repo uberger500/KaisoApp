@@ -34,6 +34,10 @@ public class Release extends ParseObject {
         put("mArtist", artist);
     }
 
+    public void setArtistLowercase(String artist) {
+        put("mArtistLowercase", artist.toLowerCase());
+    }
+
     public String getYear() {
         return getString("mYear");
     }

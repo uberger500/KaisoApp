@@ -39,7 +39,6 @@ public class ReleaseListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-
         mReleaseRecyclerView = (RecyclerView) view.findViewById(R.id.item_recycler_view);
         mReleaseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
@@ -50,16 +49,15 @@ public class ReleaseListFragment extends Fragment {
         query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> releaseList, ParseException e) {
-                Log.d("f", " 5");
                 if (e == null) {
                  //   if (mAdapter == null) {
-                        Log.d(TAG, "Retrieved 1 " + releaseList.size() + " releases");
                         mAdapter = new ReleaseAdapter(releaseList);
                         mReleaseRecyclerView.setAdapter(mAdapter);
                 //    } else {
                 //        mAdapter.setReleases(releaseList);
                 //        mAdapter.notifyDataSetChanged();
                 //    }
+                //    ParseObject.pinAllInBackground("releaseList", releaseList);
 
                 } else {
                     Log.d("release", "Error: " + e.getMessage());

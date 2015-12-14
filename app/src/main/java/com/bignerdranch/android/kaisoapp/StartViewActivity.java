@@ -47,7 +47,6 @@ public class StartViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_start_view);
 
         mSearchButton = (Button) findViewById(R.id.button_search);
@@ -72,7 +71,6 @@ public class StartViewActivity extends AppCompatActivity {
         mNewReleasesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("f", " 1");
                 Intent i = new Intent(StartViewActivity.this, ReleaseListActivity.class);
                 startActivity(i);
             }

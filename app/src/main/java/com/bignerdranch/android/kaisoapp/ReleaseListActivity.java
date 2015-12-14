@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import com.parse.ParseObject;
+
 import java.util.UUID;
 
 /**
@@ -12,15 +14,11 @@ import java.util.UUID;
  */
 public class ReleaseListActivity extends SingleFragmentActivity {
 
-    private static final String EXTRA_RELEASE_ID =
-            "com.bignerdranch.android.kaisoapp.release_id";
-
-   /* public static Intent newIntent(Context packageContext, UUID releaseId) {
-        Intent intent = new Intent(packageContext, ReleaseListActivity.class);
-        intent.putExtra(EXTRA_RELEASE_ID, releaseId);
-        return intent;
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+      //  ParseObject.unpinAllInBackground("releaseList");
     }
-*/
     @Override
     protected Fragment createFragment() {
         return new ReleaseListFragment();

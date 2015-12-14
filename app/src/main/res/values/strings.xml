@@ -54,10 +54,10 @@
     <string name="track_text">Track</string>
 
 
-    <string name="search_nothing_found">Artist not found</string>
+    <string name="search_nothing_found">Nothing found</string>
 
     <string name="new_user">Sign-up</string>
-    <string name="artists_browse_view_text">Choose an artist</string>
+    <string name="artists_browse_view_text">Browse an artist</string>
 
     <string name="discussion_recycler_submit">Go</string>
     <string name="no_discussions">Start a discussion</string>

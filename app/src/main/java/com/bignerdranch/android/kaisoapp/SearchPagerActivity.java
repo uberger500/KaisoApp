@@ -33,6 +33,8 @@ public class SearchPagerActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
 
+    private List<ParseObject> releaseList;
+
     public static Intent newIntent(Context packageContext, String objectId, String artistName) {
         Intent intent = new Intent(packageContext, SearchPagerActivity.class);
         intent.putExtra(EXTRA_RELEASE_ID, objectId);
@@ -46,8 +48,8 @@ public class SearchPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_pager);
 
-        final String objectId =  getIntent().getStringExtra(EXTRA_RELEASE_ID);
-        final String artistName =  getIntent().getStringExtra(EXTRA_ARTIST_NAME);
+        final String objectId = getIntent().getStringExtra(EXTRA_RELEASE_ID);
+        final String artistName = getIntent().getStringExtra(EXTRA_ARTIST_NAME);
 
 //        Log.d(TAG, "releaseId is" + releaseId);
 
@@ -55,11 +57,12 @@ public class SearchPagerActivity extends AppCompatActivity {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
         query.fromLocalDatastore();
+        query.orderByAscending("mArtist");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> queryList, ParseException e) {
                 if (e == null) {
                     Log.d(TAG, "Retrieved " + queryList.size() + " release");
-                    final List<ParseObject> releaseList = queryList;
+                    releaseList = queryList;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
                         @Override
@@ -82,11 +85,11 @@ public class SearchPagerActivity extends AppCompatActivity {
                             break;
                         }
                     }
-                    ParseObject.unpinAllInBackground(releaseList);
                 } else {
                     Log.d("browse", "Error: " + e.getMessage());
                 }
             }
+
             /*
             public void done(List<ParseObject> scoreList,
                              ParseException e) {
@@ -98,6 +101,12 @@ public class SearchPagerActivity extends AppCompatActivity {
             }
             */
         });
+
+
+    }
+
+}
+
      /*   ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
         query.whereEqualTo("mArtist", artistName);
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -133,8 +142,8 @@ public class SearchPagerActivity extends AppCompatActivity {
             }
         });
 */
-    }
-}
+
+
 
 
 // ReleaseArchive releaseArchive = ReleaseArchive.get(this);

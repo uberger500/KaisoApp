@@ -210,6 +210,7 @@ public class SubmitActivity extends AppCompatActivity {
         }
 
         mRelease.setArtist(artist);
+        mRelease.setArtistLowercase(artist);
         mRelease.setYear(year);
         mRelease.setTitle(title);
       //  mRelease.setNumTracks(numTracks);
