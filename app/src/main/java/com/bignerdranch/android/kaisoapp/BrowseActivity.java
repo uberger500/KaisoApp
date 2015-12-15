@@ -44,6 +44,7 @@ public class BrowseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_browse);
+
         mPageTitle = (TextView) findViewById(R.id.artists_browse_view);
         mPageTitle.setText(R.string.artists_browse_view_text);
 

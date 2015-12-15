@@ -82,8 +82,8 @@ public class ReleaseFragment extends Fragment {
                     //   mNumTracks = Integer.valueOf((object.getNumTracks()));
 
                     mTracks = (List<String>) object.get("mTracks");
-
-                    if(getContext() != null && mTracks != null) {
+                    if (getContext() != null && mTracks != null) {
+                        Log.d(TAG, "onCreateView 7");
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_dropdown_item_1line, android.R.id.text1, mTracks);
 

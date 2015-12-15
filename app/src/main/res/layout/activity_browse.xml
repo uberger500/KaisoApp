@@ -4,7 +4,8 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:id="@+id/browse_releases">
+              android:id="@+id/browse_releases"
+              android:background="#ffffcc">
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,7 +16,7 @@
         android:id="@+id/artists_browse_view"
         android:layout_gravity="left"
         android:padding="20dp"
-        android:background="@color/primary_material_light"/>
+        />
 
     <ListView
         android:layout_width="match_parent"

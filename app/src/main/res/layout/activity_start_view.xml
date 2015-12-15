@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:layout_gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:backgroundTint="#fa96c8"/>
+        android:background="#ffcccc"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         android:layout_weight="1"
         android:layout_gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:backgroundTint="#c896c8"/>
+        android:background="#ffffcc"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
         android:layout_gravity="center_horizontal"
         android:clickable="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:backgroundTint="#9696c8"/>
+        android:background="#ccffcc"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
         android:padding="16dp"
         android:layout_gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:backgroundTint="#6496c8"/>
+        android:background="#ccffff"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -56,7 +56,7 @@
         android:layout_weight="1"
         android:layout_gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:backgroundTint="#3296c8"/>
+        android:background="#ccccff"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -71,6 +71,6 @@
         android:padding="16dp"
         android:layout_gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:backgroundTint="#009696"/>
+        android:background="#ffccff"/>
 </TableLayout>
 

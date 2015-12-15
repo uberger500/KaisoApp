@@ -59,6 +59,7 @@ public class ReleasePagerActivity extends AppCompatActivity {
                         @Override
                         public Fragment getItem(int position) {
                             ParseObject release = releaseList.get(position);
+                            Log.d(TAG, "in get Item");
                             return BrowseFragment.newInstance(release.getObjectId());
                         }
                         @Override

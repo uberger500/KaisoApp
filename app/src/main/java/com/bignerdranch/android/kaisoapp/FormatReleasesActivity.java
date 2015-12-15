@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * Created by urs on 12/14/15.
  */
+/*
 public class FormatReleasesActivity extends AppCompatActivity {
 
     private List<String> mArtistList = new ArrayList<>();
@@ -43,6 +44,8 @@ public class FormatReleasesActivity extends AppCompatActivity {
                                 if (e == null) {
                                    for (ParseObject release : artistReleaselist) {
 
+                                       List<String> mTracks = new ArrayList<>();
+                                       mTracks.add(release.getString("mTitle"));
                                        Log.d("inloop", " looping");
                                    }
 
@@ -72,3 +75,4 @@ public class FormatReleasesActivity extends AppCompatActivity {
         return artistList;
     }
 }
+*/

@@ -76,7 +76,7 @@ public class BrowseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_release, container, false);
-
+Log.d(TAG, "onCreateView");
         listViewTracks  = (ListView) v.findViewById(R.id.list);
         listViewComments  = (ListView) v.findViewById(R.id.list_comment);
 
@@ -85,21 +85,25 @@ public class BrowseFragment extends Fragment {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
                     mObject = object;
-
+                    Log.d(TAG, "onCreateView 2");
                     mArtist = (TextView) v.findViewById(R.id.artist_text);
                     if (object.getString("mArtist") != null) {
+                        Log.d(TAG, "onCreateView 3");
                         mArtist.setText(object.getString("mArtist"));
                     }
                     mYear = (TextView) v.findViewById(R.id.year_text);
                     if (object.getString("mYear") != null) {
+                        Log.d(TAG, "onCreateView 4");
                         mYear.setText(object.getString("mYear"));
                     }
                     mTitle = (TextView) v.findViewById(R.id.release_title);
                     if (object.getString("mTitle") != null) {
+                        Log.d(TAG, "onCreateView 5");
                         mTitle.setText(object.getString("mTitle"));
                     }
                     mGenre = (TextView) v.findViewById(R.id.genre_text);
                     if (object.getString("mGenre") != null) {
+                        Log.d(TAG, "onCreateView 6");
                         mGenre.setText(object.getString("mGenre"));
                     }
                     mArranger = (TextView) v.findViewById(R.id.arranger_text);
@@ -107,19 +111,20 @@ public class BrowseFragment extends Fragment {
                         mArranger.setText(object.getString("mArranger"));
                     }
                     //   mNumTracks = Integer.valueOf((object.getNumTracks()));
-
                     mTracks = (List<String>) object.get("mTracks");
                     if (getContext() != null && mTracks != null) {
+                        Log.d(TAG, "onCreateView 7");
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
                         listViewTracks.setAdapter(adapter);
 
                            }
                     }
-                    mAddComment = (TextView) v.findViewById(R.id.add_comment);
+              //      mAddComment = (TextView) v.findViewById(R.id.add_comment);
 
                     mComments = (List<String>) object.get("mComments");
                     if (getContext() != null && mComments != null) {
+                        Log.d(TAG, "onCreateView 8");
                         final ArrayAdapter<String> adapterComments = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_list_item_1, android.R.id.text1, mComments);
                         listViewComments.setAdapter(adapterComments);
@@ -132,12 +137,13 @@ public class BrowseFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             addComment();
+                            Log.d(TAG, "onCreateView 9");
                             adapterComments.notifyDataSetChanged();
                         }
                     });
 
                 } else {
-                    Log.d("browse", "Error: " + e.getMessage());
+                    Log.d("browse", "Error: " );
                 }
             }
         });
