@@ -1,5 +1,6 @@
 package com.bignerdranch.android.kaisoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -7,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -32,7 +36,8 @@ public class BrowseFragment extends Fragment {
 
     private List<ParseObject> mReleases;
 
-    ListView listView ;
+    ListView listViewTracks ;
+    ListView listViewComments ;
 
     private TextView mArtist;
     private TextView mTitle;
@@ -44,6 +49,12 @@ public class BrowseFragment extends Fragment {
  //   private TextView mLabel;
     private TextView mGenre;
     public String mReleaseId;
+
+    private TextView mAddComment;
+    private EditText mAddCommentEdit;
+    private Button mSubmitComment;
+    private List<String> mComments = new ArrayList<>();
+    private ParseObject mObject;
 
     public static BrowseFragment newInstance(String releaseId) {
         Bundle args = new Bundle();
@@ -66,22 +77,25 @@ public class BrowseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_release, container, false);
 
-        listView  = (ListView) v.findViewById(R.id.list);
+        listViewTracks  = (ListView) v.findViewById(R.id.list);
+        listViewComments  = (ListView) v.findViewById(R.id.list_comment);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
         query.getInBackground(mReleaseId, new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
+                    mObject = object;
+
                     mArtist = (TextView) v.findViewById(R.id.artist_text);
-                    if(object.getString("mArtist") != null) {
+                    if (object.getString("mArtist") != null) {
                         mArtist.setText(object.getString("mArtist"));
                     }
                     mYear = (TextView) v.findViewById(R.id.year_text);
-                    if(object.getString("mYear") != null) {
+                    if (object.getString("mYear") != null) {
                         mYear.setText(object.getString("mYear"));
                     }
                     mTitle = (TextView) v.findViewById(R.id.release_title);
-                    if(object.getString("mTitle") != null) {
+                    if (object.getString("mTitle") != null) {
                         mTitle.setText(object.getString("mTitle"));
                     }
                     mGenre = (TextView) v.findViewById(R.id.genre_text);
@@ -92,21 +106,36 @@ public class BrowseFragment extends Fragment {
                     if (object.getString("mArranger") != null) {
                         mArranger.setText(object.getString("mArranger"));
                     }
-                 //   mNumTracks = Integer.valueOf((object.getNumTracks()));
+                    //   mNumTracks = Integer.valueOf((object.getNumTracks()));
 
                     mTracks = (List<String>) object.get("mTracks");
-                    if(getContext() != null && mTracks != null) {
+                    if (getContext() != null && mTracks != null) {
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_list_item_1, android.R.id.text1, mTracks);
-                        listView.setAdapter(adapter);
+                        listViewTracks.setAdapter(adapter);
 
-
-                        //   mLabel = (TextView) v.findViewById(R.id.label_text);
-                        //   if(object.getString("mLabel") != null) {
-                        //       mLabel.setText(object.getString("mLabel"));
-                        //   }
-
+                           }
                     }
+                    mAddComment = (TextView) v.findViewById(R.id.add_comment);
+
+                    mComments = (List<String>) object.get("mComments");
+                    if (getContext() != null && mComments != null) {
+                        final ArrayAdapter<String> adapterComments = new ArrayAdapter<>(getContext(),
+                                android.R.layout.simple_list_item_1, android.R.id.text1, mComments);
+                        listViewComments.setAdapter(adapterComments);
+
+                    mAddCommentEdit = (EditText) v.findViewById(R.id.add_comment_edit_text);
+
+                    mSubmitComment = (Button) v.findViewById(R.id.button_add_comment);
+                    mSubmitComment.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            addComment();
+                            adapterComments.notifyDataSetChanged();
+                        }
+                    });
+
                 } else {
                     Log.d("browse", "Error: " + e.getMessage());
                 }
@@ -115,4 +144,33 @@ public class BrowseFragment extends Fragment {
 
         return v;
     }
-}
+
+    public void addComment() {
+        String comment = mAddCommentEdit.getText().toString();
+
+        boolean validationError = false;
+        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        if (comment.length() == 0 ) {
+            validationError = true;
+            validationErrorMessage.append(getString(R.string.error_blank_input));
+        }
+
+        validationErrorMessage.append(getString(R.string.error_end));
+
+        if (validationError) {
+            Toast.makeText(getContext(), validationErrorMessage.toString(), Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+
+        mComments.add(comment);
+        mObject.put("mComments", mComments);
+
+        mObject.saveInBackground();
+        mAddCommentEdit.setText("");
+
+      //  getActivity().finish();
+
+    }
+ }
+

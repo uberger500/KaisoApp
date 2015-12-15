@@ -84,6 +84,14 @@ public class Release extends ParseObject {
         put("mGenre", genre);
     }
 
+    public void setComments(List<String> comments) { put("mComments", comments); }
+
+    public List<String> getComments() {
+        return (List<String>) get("mComments");
+    }
+
+
+
 }
 /*
 

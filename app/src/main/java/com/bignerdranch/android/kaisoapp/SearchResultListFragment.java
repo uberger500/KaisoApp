@@ -81,11 +81,18 @@ public class SearchResultListFragment extends Fragment {
 
 
     private void updateUI() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
+        ParseQuery<ParseObject> query1 = ParseQuery.getQuery("Release");
+
+        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Release");
         if (mArtistSearch.length() != 0) {
-            query.whereEqualTo("mArtist", mArtistSearch);
-      //      query.whereEqualTo("mArtistLowercase", mArtistSearch.toLowerCase());
+            query1.whereEqualTo("mArtist", mArtistSearch);
+            query2.whereEqualTo("mArtistLowercase", mArtistSearch.toLowerCase());
         }
+        List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
+        queries.add(query1);
+        queries.add(query2);
+        ParseQuery<ParseObject> query = ParseQuery.or(queries);
+
         if (mYearSearch.length() != 0) {
             query.whereEqualTo("mYear", mYearSearch);
         }

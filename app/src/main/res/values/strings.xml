@@ -57,6 +57,8 @@
     <string name="search_nothing_found">Nothing found</string>
 
     <string name="new_user">Sign-up</string>
+    <string name="initialize">Initialize releases</string>
+    <string name="format">Format releases</string>
     <string name="artists_browse_view_text">Browse an artist</string>
 
     <string name="discussion_recycler_submit">Go</string>
@@ -92,7 +94,10 @@
     <string name="error_blank_arranger">Blank arranger</string>
     <string name="error_blank_genre">Blank genre</string>
 
+    <string name="add_comment">Add comment</string>
+    <string name="add_comment_edit_text">Add comment</string>
 
+    <string name="submit_comment_button">submit comment</string>
 
 
 </resources>

@@ -120,6 +120,14 @@ public class StartViewActivity extends AppCompatActivity {
                 Intent intent = UserCreateActivity.newIntent(this);
                 startActivity(intent);
                 return true;
+            case R.id.menu_item_initialize:
+                Intent intent2 = InitializeActivity.newIntent(this);
+                startActivity(intent2);
+                return true;
+            case R.id.menu_item_format:
+                Intent intent3 = FormatReleasesActivity.newIntent(this);
+                startActivity(intent3);
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
