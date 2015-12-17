@@ -8,15 +8,4 @@
         android:title="@string/new_user"
         app:showAsAction="ifRoom|withText"/>
 
-    <item
-        android:id="@+id/menu_item_initialize"
-
-        android:title="@string/initialize"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/menu_item_format"
-        android:title="@string/format"
-        app:showAsAction="never"/>
-
 </menu>

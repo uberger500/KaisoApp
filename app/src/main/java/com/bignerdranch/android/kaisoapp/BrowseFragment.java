@@ -81,8 +81,8 @@ public class BrowseFragment extends Fragment {
                         mArtist.setText(object.getString("mArtist"));
                     }
                     mYear = (TextView) v.findViewById(R.id.year_text);
-                    if (object.getString("mYear") != null) {
-                        mYear.setText(object.getString("mYear"));
+                    if (object.getInt("mYear") != 0) {
+                        mYear.setText(Integer.toString(object.getInt("mYear")));
                     }
                     mTitle = (TextView) v.findViewById(R.id.release_title);
                     if (object.getString("mTitle") != null) {
