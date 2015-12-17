@@ -15,7 +15,6 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -33,7 +32,6 @@ public class UserListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        Log.d(TAG, "in onCreate");
     }
 
     @Override
@@ -43,10 +41,8 @@ public class UserListFragment extends Fragment {
 
         mUserRecyclerView = (RecyclerView) view.findViewById(R.id.item_recycler_view);
         mUserRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        Log.d(TAG, "in onCreateView1");
 
         updateUI();
-        Log.d(TAG, "in onCreateView2");
 
         return view;
     }
@@ -65,9 +61,6 @@ public class UserListFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> userList, ParseException e) {
                 if (e == null) {
-                    Log.d(TAG, "in Callback");
-                    Log.d(TAG, "Retrieved " + userList.size() + " users");
-                  //  releases = releaseBackConvert(releaseList);
                     mAdapter = new UserAdapter(userList);
                     mUserRecyclerView.setAdapter(mAdapter);
                 } else {
@@ -95,7 +88,6 @@ public class UserListFragment extends Fragment {
 
             mUser = user;
             mUserTitleTextView.setText(mUser.getString("mName"));
-
         }
 
         @Override
@@ -103,8 +95,6 @@ public class UserListFragment extends Fragment {
             Intent intent = UserPagerActivity.newIntent(getActivity(), mUser.getObjectId());
             startActivity(intent);
         }
-
-
     }
 
     private class UserAdapter extends RecyclerView.Adapter<UserHolder> {

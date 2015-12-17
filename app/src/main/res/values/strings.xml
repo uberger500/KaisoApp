@@ -18,6 +18,9 @@
     <string name="subtitle_format">%1$s releases</string>
     <string name="disclaimer">This is a long disclaimer, this is a long disclaimer</string>
 
+    <string name="plus_button">save + new track</string>
+    <string name="save_tracks">save tracks</string>
+
     <string name="submit_button_info">Submit</string>
     <string name="search_submit_button_info">Search</string>
     <string name="search_submit_button_info2">Got Results</string>

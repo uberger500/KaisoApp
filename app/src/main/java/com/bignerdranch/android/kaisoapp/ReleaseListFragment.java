@@ -7,8 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -97,7 +95,6 @@ public class ReleaseListFragment extends Fragment {
             mReleaseArtistTextView.setText(mRelease.getString("mArtist"));
             mReleaseConnectorTextView.setText(" - ");
             mReleaseTitleTextView.setText(mRelease.getString("mTitle"));
-
         }
 
         @Override

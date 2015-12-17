@@ -18,12 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +38,6 @@ public class DiscussionListFragment extends Fragment {
     private String mDiscussionTitle;
 
     LinearLayout mNoDiscussionLayout;
- //   private TextView mNoDiscussion;
     private Button mOkButton;
 
     @Override
@@ -48,7 +45,6 @@ public class DiscussionListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,8 +58,7 @@ public class DiscussionListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), R.string.submit_button_info, Toast.LENGTH_SHORT).show();
-                Intent intent = DiscussionCreateActivity.newIntent(getActivity());
-                startActivity(intent);
+                createDiscussion();
             }
         });
         mDiscussionRecyclerView = (RecyclerView) view.findViewById(R.id.item_recycler_view);
@@ -90,11 +85,6 @@ public class DiscussionListFragment extends Fragment {
             case R.id.menu_item_new_discussion:
                 createDiscussion();
                 return true;
-      /*      case R.id.menu_item_show_subtitle:
-                mSubtitleVisible = !mSubtitleVisible;
-                getActivity().invalidateOptionsMenu();
-                updateSubtitle();
-                return  true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -110,7 +100,6 @@ public class DiscussionListFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> discussionList, ParseException e) {
                 if (e == null) {
-                    Log.d(TAG, "Retrieved " + discussionList.size() + " discussion");
                     mAdapter = new DiscussionAdapter(discussionList);
                     mDiscussionRecyclerView.setAdapter(mAdapter);
 
@@ -124,16 +113,6 @@ public class DiscussionListFragment extends Fragment {
                 }
             }
         });
-  /*      if (mAdapter == null) {
-            mAdapter = new CrimeAdapter(crimes);
-            mCrimeRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.setCrimes(crimes);
-            mAdapter.notifyDataSetChanged();
-        }
-
-        updateSubtitle();
-*/
     }
 
     private class DiscussionHolder extends RecyclerView.ViewHolder
@@ -187,11 +166,6 @@ public class DiscussionListFragment extends Fragment {
         public int getItemCount() {
             return mDiscussions.size();
         }
-/*
-            public void setReleases(List<Release> Releases) {
-                mReleases = Releases;
-            }
-*/
     }
 }
 

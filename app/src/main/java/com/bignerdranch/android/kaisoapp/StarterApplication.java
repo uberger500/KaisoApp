@@ -22,13 +22,10 @@ public class StarterApplication extends Application {
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Discussion.class);
 
-        // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
 
         Parse.initialize(this, "ITuVP5vobHEQeHjlJZuegG9COr8PABh12yUOsoCf",
                 "4iiFd8i4WInojQBNXmIUlOJYPwGiA2dWykeTWOge");
-
-
     }
 
 }

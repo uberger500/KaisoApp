@@ -59,7 +59,7 @@ public class SearchResultListFragment extends Fragment {
         mArtistSearch = getActivity().getIntent().getStringExtra(EXTRA_ARTIST_SEARCH);
         mYearSearch = getActivity().getIntent().getStringExtra(EXTRA_YEAR_SEARCH);
         mAlbumTitleSearch = getActivity().getIntent().getStringExtra(EXTRA_TITLE_SEARCH);
-      //  mTrackSearch = getActivity().getIntent().getStringExtra(EXTRA_TRACK_SEARCH);
+        mTrackSearch = getActivity().getIntent().getStringExtra(EXTRA_TRACK_SEARCH);
         mArrangerSearch = getActivity().getIntent().getStringExtra(EXTRA_ARRANGER_SEARCH);
         mGenreSearch = getActivity().getIntent().getStringExtra(EXTRA_GENRE_SEARCH);
 
@@ -99,18 +99,16 @@ public class SearchResultListFragment extends Fragment {
         if (mAlbumTitleSearch.length() != 0) {
             query.whereContains("mTitle", mAlbumTitleSearch);
         }
-    //    if (mTrackSearch.length() != 0) {
-    //        query.whereContains("mTrack", mTrackSearch);
-    //    }
+        if (mTrackSearch.length() != 0) {
+            query.whereContains("mTrack", mTrackSearch);
+        }
         if (mArrangerSearch.length() != 0) {
             query.whereEqualTo("mArranger", mArrangerSearch);
         }
         if (mGenreSearch.length() != 0) {
             query.whereEqualTo("mGenre", mGenreSearch);
         }
-     //   query.orderByAscending("mArtist");
         query.orderByAscending("mArtist");
-
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> releaseList, ParseException e) {
                 if (e == null) {
@@ -157,12 +155,10 @@ public class SearchResultListFragment extends Fragment {
             mReleaseArtistTextView.setText(mRelease.getString("mArtist"));
             mReleaseConnectorTextView.setText(" - ");
             mReleaseTitleTextView.setText(mRelease.getString("mTitle"));
-
         }
 
         @Override
         public void onClick(View v) {
-          //  Intent intent = ReleasePagerActivity.newIntent(getActivity(), mRelease.getObjectId());
             Intent intent = SearchPagerActivity.newIntent(getActivity(), mRelease.getObjectId(), mRelease.getString("mArtist"));
             startActivity(intent);
         }
@@ -197,70 +193,4 @@ public class SearchResultListFragment extends Fragment {
             mReleases = releases;
         }
     }
-    /*
-    private class ReleaseHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
-
-        private TextView mReleaseArtistTextView;
-        private TextView mReleaseConnectorTextView;
-        private TextView mReleaseTitleTextView;
-        private ParseObject mRelease;
-
-        public ReleaseHolder(View itemView) {
-            super(itemView);
-            itemView.setOnClickListener(this);
-
-            mReleaseTitleTextView = (TextView) itemView.findViewById(R.id.list_item_release_title_text_view);            mReleaseTitleTextView = (TextView) itemView.findViewById(R.id.list_item_release_title_text_view);
-       //     mReleaseTitleTextView = (TextView) itemView.findViewById(R.id.list_item_release_title_text_view);
-
-        }
-
-        public void bindRelease(ParseObject release) {
-
-            mRelease = release;
-            mReleaseTitleTextView.setText(mRelease.getString("mTitle"));
-        //    mReleaseConnectorTextView.setText(" - ");
-          //  mReleaseTitleTextView.setText(mRelease.getString("mTitle"));
-
-        }
-
-        @Override
-        public void onClick(View v) {
-
-            Intent intent = SearchPagerActivity.newIntent(getActivity(), mRelease.getObjectId(), mRelease.getString("mArtist"));
-            startActivity(intent);
-        }
-    }
-
-
-    private class ReleaseAdapter extends RecyclerView.Adapter<ReleaseHolder> {
-
-        private List<ParseObject> mReleases;
-
-        public ReleaseAdapter(List<ParseObject> releases) {
-            mReleases = releases;
-        }
-
-        @Override
-        public ReleaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            View view = layoutInflater.inflate(R.layout.list_item_release, parent, false);
-            return new ReleaseHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(ReleaseHolder holder, int position) {
-            ParseObject release = mReleases.get(position);
-            holder.bindRelease(release);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mReleases.size();
-        }
-
-        public  void setReleases(List<ParseObject> releases) {
-            mReleases = releases;
-        }
-    }*/
 }

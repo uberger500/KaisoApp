@@ -11,14 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by ursberger1 on 11/15/15.
@@ -46,19 +44,15 @@ public class UserPagerActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
-      //  mUsers = UserArchive.get(this).getUsers();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(final List<ParseObject> userList, ParseException e) {
                 if (e == null) {
-                 //   mUsers = userList;
-                    Log.d(TAG, "Retrieved " + userList.size() + " users");
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
                         @Override
                         public Fragment getItem(int position) {
                             ParseObject user = userList.get(position);
-                            Log.d(TAG, "releaseId called " + user.getObjectId() + user.getString("mTitle"));
                             return UserFragment.newInstance(user.getObjectId());
                         }
 
@@ -80,6 +74,5 @@ public class UserPagerActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 }

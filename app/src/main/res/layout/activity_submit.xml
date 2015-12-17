@@ -41,13 +41,7 @@
         android:editable="true"
         android:hint="Release title"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/num_tracks_edit_text"
-        tools:text="num_tracks_edit_text"
-        android:editable="true"
-        android:hint="Number of tracks"/>
+
 
     <LinearLayout
         android:orientation="vertical"
@@ -77,7 +71,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+"
+                android:text="@string/plus_button"
                 android:id="@+id/plus_button"
                 android:layout_weight="1"/>
 
@@ -85,9 +79,10 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"
+                android:text="@string/save_tracks"
                 android:id="@+id/track_save_button"
                 android:layout_weight="1"/>
+
 
         </LinearLayout>
 

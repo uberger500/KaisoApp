@@ -57,6 +57,14 @@
         android:hint="@string/release_title"/>
 
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/track_edit_text"
+        tools:text="track_edit_text"
+        android:maxLength="30"
+        android:padding="30dp"
+        android:hint="@string/track_title"/>
 
     <EditText
         android:layout_width="match_parent"

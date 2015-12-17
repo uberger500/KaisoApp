@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * Created by urs on 12/14/15.
  */
+/*
 public class InitializeActivity extends AppCompatActivity {
 
     private int mNumberReleases;
@@ -83,3 +84,4 @@ public class InitializeActivity extends AppCompatActivity {
 
     }
 }
+*/

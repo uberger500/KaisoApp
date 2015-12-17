@@ -11,14 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by ursberger1 on 11/22/15.
@@ -42,7 +39,6 @@ public class SearchPagerActivity extends AppCompatActivity {
         return intent;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +46,6 @@ public class SearchPagerActivity extends AppCompatActivity {
 
         final String objectId = getIntent().getStringExtra(EXTRA_RELEASE_ID);
         final String artistName = getIntent().getStringExtra(EXTRA_ARTIST_NAME);
-
-//        Log.d(TAG, "releaseId is" + releaseId);
 
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 

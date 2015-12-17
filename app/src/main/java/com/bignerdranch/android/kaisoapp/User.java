@@ -3,8 +3,6 @@ package com.bignerdranch.android.kaisoapp;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
-import java.util.UUID;
-
 /**
  * Created by ursberger1 on 11/15/15.
  */
@@ -12,8 +10,7 @@ import java.util.UUID;
 @ParseClassName("User")
 public class User extends ParseObject {
 
-    public User() {
-    }
+    public User() { }
 
     public String getPassword() {
         return getString("mPassword");
@@ -47,50 +44,3 @@ public class User extends ParseObject {
         put("mPhone", phone);
     }
 }
-/*
-    private UUID mId;
-    private String mName;
-    private String mEmail;
-    private Integer mPhone;
-
-
-    public User() {
-        this(UUID.randomUUID());
-    }
-    public User(UUID id) {
-        mId = id;
-    }
-
-    public UUID getId() {
-        return mId;
-    }
-
-    public void setId(UUID id) {
-        mId = id;
-    }
-
-    public String getName() {
-        return mName;
-    }
-
-    public void setName(String name) {
-        mName = name;
-    }
-
-    public String getEmail() {
-        return mEmail;
-    }
-
-    public void setEmail(String email) {
-        mEmail = email;
-    }
-
-    public Integer getPhone() {
-        return mPhone;
-    }
-
-    public void setPhone(Integer phone) {
-        mPhone = phone;
-    }
-    */
-//}

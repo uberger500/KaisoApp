@@ -2,10 +2,8 @@ package com.bignerdranch.android.kaisoapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -18,7 +16,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by ursberger1 on 11/13/15.
@@ -48,7 +45,6 @@ public class ReleasePagerActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
-      //  query.fromLocalDatastore("releaseList");
         query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> queryList, ParseException e) {
@@ -59,7 +55,6 @@ public class ReleasePagerActivity extends AppCompatActivity {
                         @Override
                         public Fragment getItem(int position) {
                             ParseObject release = releaseList.get(position);
-                            Log.d(TAG, "in get Item");
                             return BrowseFragment.newInstance(release.getObjectId());
                         }
                         @Override

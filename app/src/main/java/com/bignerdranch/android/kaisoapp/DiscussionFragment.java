@@ -2,8 +2,6 @@ package com.bignerdranch.android.kaisoapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,31 +19,24 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by ursberger1 on 11/15/15.
  */
 public class DiscussionFragment extends Fragment {
 
-    private static final String TAG = "DiscuFragment";
+    private static final String TAG = "DiscFragment";
 
     private static final String ARG_DISCUSSION_ID = "discussion_id";
 
     private ParseObject mDiscussion;
-    private List<Discussion> mDiscussions;
-    private String mDiscussionTitle;
-    private List<String> mDiscussionPoints;
     private TextView mTitle;
     private TextView mDiscussionPoint;
     private Button mSubmit;
     ListView listView;
     public String mDiscussionId;
     private List<String> mPoints = new ArrayList<>();
-
-
 
     public static DiscussionFragment newInstance(String discussionId) {
         Bundle args = new Bundle();
@@ -60,10 +51,6 @@ public class DiscussionFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDiscussionId =  getArguments().getString(ARG_DISCUSSION_ID);
-
-        Log.d(TAG, "mdiscussionID is " + mDiscussionId);
-
-//        mDiscussionPoints = mDiscussion.getPoints();
 
         setHasOptionsMenu(true);
     }
@@ -83,8 +70,6 @@ public class DiscussionFragment extends Fragment {
 
                     mDiscussion = object;
                     mPoints = (List<String>) object.get("mDiscussionPoints");
-                    Log.d(TAG, "mPoints size is " + mPoints.size());
-                    Log.d(TAG, "context " + getContext());
 
                     if(getContext() != null) {
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
@@ -97,8 +82,6 @@ public class DiscussionFragment extends Fragment {
                         mSubmit.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Log.d(TAG, "mPoints size is2  " + mPoints.size());
-
                                 addPoint();
                             }
 
@@ -106,7 +89,7 @@ public class DiscussionFragment extends Fragment {
 
                     }
                 } else {
-                    Log.d("Discussion2", "Error: " + e.getMessage());
+                    Log.d(TAG, "Error: " + e.getMessage());
                 }
             }
         });

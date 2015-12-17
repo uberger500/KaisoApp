@@ -24,7 +24,7 @@ import java.util.UUID;
 
 /**
  * Created by ursberger1 on 11/13/15.
- */
+ *//*
 public class ReleaseFragment extends Fragment {
 
     private static final String ARG_RELEASE_ID = "release_id";
@@ -110,6 +110,7 @@ public class ReleaseFragment extends Fragment {
         return v;
     }
 }
+*/
         /*
         View v = inflater.inflate(R.layout.fragment_release, container, false);
 
