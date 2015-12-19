@@ -101,12 +101,11 @@ public class DiscussionFragment extends Fragment {
         String discussionPoint = mDiscussionPoint.getText().toString().trim();
 
         boolean validationError = false;
-        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        StringBuilder validationErrorMessage = new StringBuilder();
         if (discussionPoint.length() == 0) {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_discussion_point));
         }
-        validationErrorMessage.append(getString(R.string.error_end));
         if (validationError) {
             Toast.makeText(getActivity(), validationErrorMessage.toString(), Toast.LENGTH_LONG)
                     .show();

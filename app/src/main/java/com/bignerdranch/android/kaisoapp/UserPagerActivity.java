@@ -14,6 +14,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,15 +45,15 @@ public class UserPagerActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.activity_fragment_pager_view_pager);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(final List<ParseObject> userList, ParseException e) {
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.findInBackground(new FindCallback<ParseUser>() {
+            public void done(final List<ParseUser> userList, ParseException e) {
                 if (e == null) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
                         @Override
                         public Fragment getItem(int position) {
-                            ParseObject user = userList.get(position);
+                            ParseUser user = userList.get(position);
                             return UserFragment.newInstance(user.getObjectId());
                         }
 

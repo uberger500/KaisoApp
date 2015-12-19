@@ -12,6 +12,14 @@
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceLarge">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/user_title"
+        android:id="@+id/user_title"
+        android:textAlignment="center"
+        android:padding="20dp"/>
 
     <TextView
         android:layout_width="wrap_content"

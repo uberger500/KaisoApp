@@ -67,7 +67,7 @@ public class SearchActivity extends AppCompatActivity {
         String searchGenre = mGenre.getText().toString().trim();
 
         boolean validationError = false;
-        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        StringBuilder validationErrorMessage = new StringBuilder();
         if (searchArtist.length() == 0 &&
                 searchYear.length() == 0 &&
                 searchTitle.length() == 0 &&
@@ -77,8 +77,6 @@ public class SearchActivity extends AppCompatActivity {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_input));
         }
-
-        validationErrorMessage.append(getString(R.string.error_end));
 
         if (validationError) {
             Toast.makeText(SearchActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)

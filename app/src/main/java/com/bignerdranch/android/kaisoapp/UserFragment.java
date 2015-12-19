@@ -15,6 +15,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 /**
  * Created by ursberger1 on 11/15/15.
@@ -24,7 +25,7 @@ public class UserFragment extends Fragment {
 
     private static final String ARG_USER_ID = "user_id";
 
-    private ParseObject mUser;
+    private ParseUser mUser;
 
     private TextView mName;
     private TextView mEmailAddress;
@@ -54,15 +55,15 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_user, container, false);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
-        query.getInBackground(userId, new GetCallback<ParseObject>() {
-            public void done(ParseObject mUser, ParseException e) {
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.getInBackground(userId, new GetCallback<ParseUser>() {
+            public void done(ParseUser mUser, ParseException e) {
              if (e == null) {
                     mName = (TextView) v.findViewById(R.id.user_name);
-                    mName.setText(mUser.getString("mName"));
+                    mName.setText(mUser.getUsername());
 
                     mEmailAddress = (TextView) v.findViewById(R.id.user_email);
-                    mEmailAddress.setText(mUser.getString("mEmail"));
+                    mEmailAddress.setText(mUser.getEmail());
 
                     mEmailSubject = (EditText) v.findViewById(R.id.user_email_subject);
                     mEmailBody = (EditText) v.findViewById(R.id.user_email_body);

@@ -4,7 +4,16 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:padding="15dp"
-              android:background="#ffffcc">
+              android:background="#eeeeee">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/release_info"
+        android:id="@+id/release_text"
+        android:layout_gravity="bottom"
+        android:paddingBottom="20dp"/>
+
 
     <LinearLayout
         android:orientation="horizontal"
@@ -23,20 +32,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="@string/year_text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/year_text"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"/>
+            android:gravity="right"
+            android:paddingRight="20dp"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,11 +56,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:text="@string/arranger_text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/arranger_text"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"/>
+            android:gravity="right"
+            android:paddingRight="20dp"/>
+
     </LinearLayout>
 
 
@@ -64,6 +72,7 @@
         android:id="@+id/genre_text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,12 +81,25 @@
         android:id="@+id/label_text"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tracks_text"
+        android:textStyle="italic"/>
+
     <ListView
         android:id="@+id/list"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
     </ListView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/comments_text"
+        android:textStyle="italic"/>
     <ListView
         android:id="@+id/list_comment"
         android:layout_height="wrap_content"
@@ -114,6 +136,7 @@
             android:id="@+id/button_add_comment"
             />
     </LinearLayout>
+
 
 
 </LinearLayout>

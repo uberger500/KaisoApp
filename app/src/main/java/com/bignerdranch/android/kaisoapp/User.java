@@ -6,7 +6,7 @@ import com.parse.ParseObject;
 /**
  * Created by ursberger1 on 11/15/15.
  */
-
+/*
 @ParseClassName("User")
 public class User extends ParseObject {
 
@@ -44,3 +44,4 @@ public class User extends ParseObject {
         put("mPhone", phone);
     }
 }
+*/

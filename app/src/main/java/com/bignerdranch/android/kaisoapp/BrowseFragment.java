@@ -61,7 +61,7 @@ public class BrowseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mReleaseId =  getArguments().getString(ARG_RELEASE_ID);
 
-        setHasOptionsMenu(true);
+       // setHasOptionsMenu(true);
     }
 
     @Override
@@ -76,6 +76,7 @@ public class BrowseFragment extends Fragment {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
                     mObject = object;
+
                     mArtist = (TextView) v.findViewById(R.id.artist_text);
                     if (object.getString("mArtist") != null) {
                         mArtist.setText(object.getString("mArtist"));
@@ -141,13 +142,11 @@ public class BrowseFragment extends Fragment {
         String comment = mAddCommentEdit.getText().toString();
 
         boolean validationError = false;
-        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        StringBuilder validationErrorMessage = new StringBuilder();
         if (comment.length() == 0 ) {
             validationError = true;
-            validationErrorMessage.append(getString(R.string.error_blank_input));
+            validationErrorMessage.append(getString(R.string.error_blank_comment_input));
         }
-
-        validationErrorMessage.append(getString(R.string.error_end));
 
         if (validationError) {
             Toast.makeText(getContext(), validationErrorMessage.toString(), Toast.LENGTH_LONG)

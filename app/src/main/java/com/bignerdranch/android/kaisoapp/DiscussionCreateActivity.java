@@ -53,20 +53,24 @@ public class DiscussionCreateActivity extends AppCompatActivity {
             String discussionPoint = mDiscussionPoint.getText().toString().trim();
 
             boolean validationError = false;
-            StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+            StringBuilder validationErrorMessage = new StringBuilder();
             if (discussionTitle.length() == 0) {
                 validationError = true;
                 validationErrorMessage.append(getString(R.string.error_blank_title));
+                validationErrorMessage.append(" ");
+
             }
             if (discussionPoint.length() == 0) {
                 if (validationError) {
                     validationErrorMessage.append(getString(R.string.error_join));
+                    validationErrorMessage.append(" ");
+
                 }
                 validationError = true;
                 validationErrorMessage.append(getString(R.string.error_blank_discussion_point));
-            }
+                validationErrorMessage.append(" ");
 
-            validationErrorMessage.append(getString(R.string.error_end));
+            }
 
             if (validationError) {
                 Toast.makeText(DiscussionCreateActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)

@@ -88,7 +88,6 @@ public class SubmitActivity extends AppCompatActivity {
         mTracksSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
                 addTrack();
                 adapter.notifyDataSetChanged();
                 mPlusButton.setEnabled(false);
@@ -104,7 +103,7 @@ public class SubmitActivity extends AppCompatActivity {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
+                 Toast.makeText(SubmitActivity.this, R.string.submit_button_info, Toast.LENGTH_SHORT).show();
                 addRelease();
             }
         });
@@ -113,12 +112,12 @@ public class SubmitActivity extends AppCompatActivity {
     public void addTrack() {
         String track = mTrack.getText().toString().trim();
         boolean validationError = false;
-        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
-        if (track.length() == 0) {
+        StringBuilder validationErrorMessage = new StringBuilder();
+        if ((track.length() == 0) &&
+                mTracks.size() == 0){
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_track));
         }
-        validationErrorMessage.append(getString(R.string.error_end));
         if (validationError) {
             Toast.makeText(SubmitActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
                     .show();
@@ -140,49 +139,69 @@ public class SubmitActivity extends AppCompatActivity {
         String genre = mGenre.getText().toString().trim();
 
         boolean validationError = false;
-        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        StringBuilder validationErrorMessage = new StringBuilder();
         if (artist.length() == 0) {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_artist));
+            validationErrorMessage.append(" ");
+
         }
         if (year.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
+                validationErrorMessage.append(" ");
+
             }
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_year));
+            validationErrorMessage.append(" ");
+
         }
         if (title.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
+                validationErrorMessage.append(" ");
+
             }
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_title));
+            validationErrorMessage.append(" ");
+
         }
 
         if (arranger.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
+                validationErrorMessage.append(" ");
+
             }
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_arranger));
+            validationErrorMessage.append(" ");
+
         }
         if (label.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
+                validationErrorMessage.append(" ");
+
             }
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_label));
+            validationErrorMessage.append(" ");
+
         }
         if (genre.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
+                validationErrorMessage.append(" ");
+
             }
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_genre));
-        }
+            validationErrorMessage.append(" ");
 
-        validationErrorMessage.append(getString(R.string.error_end));
+        }
 
         if (validationError) {
             Toast.makeText(SubmitActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)

@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -46,20 +48,12 @@ public class UserListFragment extends Fragment {
 
         return view;
     }
-    /*
-        @Override
-        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            super.onCreateOptionsMenu(menu, inflater);
-            inflater.inflate(R.menu.fragment_user_list, menu);
-        }
-    */
-
 
     private void updateUI() {
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> userList, ParseException e) {
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.findInBackground(new FindCallback<ParseUser>() {
+            public void done(List<ParseUser> userList, ParseException e) {
                 if (e == null) {
                     mAdapter = new UserAdapter(userList);
                     mUserRecyclerView.setAdapter(mAdapter);
@@ -84,14 +78,15 @@ public class UserListFragment extends Fragment {
             mUserTitleTextView = (TextView) itemView.findViewById(R.id.list_item_user_title_text_view);
         }
 
-        public void bindUser(ParseObject user) {
+        public void bindUser(ParseUser user) {
 
             mUser = user;
-            mUserTitleTextView.setText(mUser.getString("mName"));
+            mUserTitleTextView.setText(mUser.getString("username"));
         }
 
         @Override
         public void onClick(View v) {
+            Log.d(TAG, "userid is " + mUser.getObjectId());
             Intent intent = UserPagerActivity.newIntent(getActivity(), mUser.getObjectId());
             startActivity(intent);
         }
@@ -99,9 +94,9 @@ public class UserListFragment extends Fragment {
 
     private class UserAdapter extends RecyclerView.Adapter<UserHolder> {
 
-        private List<ParseObject> mUsers;
+        private List<ParseUser> mUsers;
 
-        public UserAdapter(List<ParseObject> users) {
+        public UserAdapter(List<ParseUser> users) {
             mUsers = users;
         }
 
@@ -114,7 +109,7 @@ public class UserListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(UserHolder holder, int position) {
-            ParseObject user = mUsers.get(position);
+            ParseUser user = mUsers.get(position);
             holder.bindUser(user);
         }
 

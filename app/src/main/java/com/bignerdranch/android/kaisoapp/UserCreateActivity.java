@@ -24,7 +24,7 @@ public class UserCreateActivity extends AppCompatActivity {
     private EditText mPassword;
     private Button mSubmitbtn;
 
-    private User mUser = new User();
+   // private User mUser = new User();
 
     public static Intent newIntent(Context packageContext) {
         return new Intent(packageContext, UserCreateActivity.class);
@@ -50,13 +50,13 @@ public class UserCreateActivity extends AppCompatActivity {
 
     public void addUser() {
 
-        String name = mName.getText().toString().trim().toLowerCase();
-        String email = mEmail.getText().toString().trim().toLowerCase();
+        String name = mName.getText().toString().trim();
+        String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
 
         //this validation code is based on a website I can't remember...
         boolean validationError = false;
-        StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+        StringBuilder validationErrorMessage = new StringBuilder();
         if (name.length() == 0) {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_name));
@@ -77,8 +77,6 @@ public class UserCreateActivity extends AppCompatActivity {
             validationErrorMessage.append(getString(R.string.error_blank_password));
         }
 
-        validationErrorMessage.append(getString(R.string.error_end));
-
         if (validationError) {
             Toast.makeText(UserCreateActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
                     .show();
@@ -93,15 +91,15 @@ public class UserCreateActivity extends AppCompatActivity {
 
         //Since I was not able to access the user information for display, I am creating a separate
         //user object for later display in a list of users
-        mUser.setName(name);
-        mUser.setEmail(email);
+      //  parseUser.setName(name);
+      //  mUser.setEmail(email);
 
         parseUser.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
                     Toast.makeText(UserCreateActivity.this, "User is signed up", Toast.LENGTH_LONG)
                             .show();
-                    mUser.saveInBackground();
+               //     mUser.saveInBackground();
                     finish();
                 } else {
                     Log.d("parseUser", "Error: " + e.getMessage());

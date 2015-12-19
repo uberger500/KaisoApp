@@ -19,7 +19,6 @@ public class StarterApplication extends Application {
         super.onCreate();
 
         ParseObject.registerSubclass(Release.class);
-        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Discussion.class);
 
         Parse.enableLocalDatastore(this);
