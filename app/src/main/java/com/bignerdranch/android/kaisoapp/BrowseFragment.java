@@ -61,7 +61,6 @@ public class BrowseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mReleaseId =  getArguments().getString(ARG_RELEASE_ID);
 
-       // setHasOptionsMenu(true);
     }
 
     @Override

@@ -100,6 +100,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/comments_text"
         android:textStyle="italic"/>
+
     <ListView
         android:id="@+id/list_comment"
         android:layout_height="wrap_content"

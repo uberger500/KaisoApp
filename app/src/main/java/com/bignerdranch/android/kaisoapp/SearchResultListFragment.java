@@ -89,7 +89,6 @@ public class SearchResultListFragment extends Fragment {
         if (mArtistSearch.length() != 0) {
             query.whereEqualTo("mArtist", mArtistSearch);
         }
-
         if (mYearSearch.length() != 0) {
             query.whereEqualTo("mYear", mYearSearch);
         }

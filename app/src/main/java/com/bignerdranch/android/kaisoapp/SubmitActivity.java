@@ -237,7 +237,7 @@ public class SubmitActivity extends AppCompatActivity {
                             .show();
                     finish();
                 } else {
-                    Log.d("parseUser", "Error: " + e.getMessage());
+                    Log.d("ReleaseSubmission", "Error: " + e.getMessage());
                     Toast.makeText(SubmitActivity.this, e.getMessage(), Toast.LENGTH_LONG)
                             .show();
                 }
