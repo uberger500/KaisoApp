@@ -112,8 +112,8 @@ public class SearchResultListFragment extends Fragment {
                     if (releaseList.size() == 0) {
                         Toast.makeText(getActivity(), R.string.search_nothing_found, Toast.LENGTH_SHORT).show();
                     }
-                    //the search results are saved in local storage so that the doesn't have
-                    //to be repeated for the fragment
+                    //the search results are saved in local storage so that the search terms
+                    //don't have to be passed on
                     ParseObject.pinAllInBackground(releaseList);
 
                     if (mAdapter == null) {
@@ -143,10 +143,12 @@ public class SearchResultListFragment extends Fragment {
         public ReleaseHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            //the artist and title are shown, separated by comma
-            mReleaseArtistTextView = (TextView) itemView.findViewById(R.id.list_item_release_artist_text_view);
-            mReleaseConnectorTextView = (TextView) itemView.findViewById(R.id.list_item_release_connector_text_view);
-            mReleaseTitleTextView = (TextView) itemView.findViewById(R.id.list_item_release_title_text_view);
+            mReleaseArtistTextView = (TextView)
+                    itemView.findViewById(R.id.list_item_release_artist_text_view);
+            mReleaseConnectorTextView = (TextView)
+                    itemView.findViewById(R.id.list_item_release_connector_text_view);
+            mReleaseTitleTextView = (TextView)
+                    itemView.findViewById(R.id.list_item_release_title_text_view);
         }
 
         public void bindRelease(ParseObject release) {
@@ -159,7 +161,7 @@ public class SearchResultListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent = SearchPagerActivity.newIntent(getActivity(), mRelease.getObjectId(), mRelease.getString("mArtist"));
+            Intent intent = SearchPagerActivity.newIntent(getActivity(), mRelease.getObjectId());
             startActivity(intent);
         }
     }

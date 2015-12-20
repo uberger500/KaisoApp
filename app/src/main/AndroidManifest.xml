@@ -92,16 +92,7 @@
             android:label="@string/app_name"
             android:parentActivityName=".StartViewActivity">
         </activity>
-        <activity
-            android:name=".InitializeActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".StartViewActivity">
-        </activity>
-        <activity
-            android:name=".FormatReleasesActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".StartViewActivity">
-        </activity>
+
     </application>
 
 </manifest>
