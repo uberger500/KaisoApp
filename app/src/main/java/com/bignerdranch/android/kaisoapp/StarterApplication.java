@@ -19,6 +19,7 @@ public class StarterApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        //Two subclass that developed out of earlier versions
         ParseObject.registerSubclass(Release.class);
         ParseObject.registerSubclass(Discussion.class);
 

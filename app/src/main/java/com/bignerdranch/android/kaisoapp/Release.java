@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/13/15.
  */
-//The release class object
+//The release subclass object
 @ParseClassName("Release")
 public class Release extends ParseObject {
 
@@ -34,7 +34,7 @@ public class Release extends ParseObject {
         return getString("mYear");
     }
 
-    public void setYear(String year) {
+    public void setYear(Integer year) {
         put("mYear", year);
     }
 

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.SaveCallback;
+import com.parse.SignUpCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +30,11 @@ import java.util.List;
 //The submit a new release activity
 public class SubmitActivity extends AppCompatActivity {
 
-    private static final String EXTRA_NEW_RELEASE = "com.bignerdranch.android.kaisoapp.new_release";
-
     private Release mRelease = new Release();
     private List<String> mTracks = new ArrayList<>();
+    private List<String> mComments = new ArrayList<>();
+    private List<String> mUsers = new ArrayList<>();
+    private List<String> mDates = new ArrayList<>();
 
     ListView listView;
 
@@ -168,7 +175,9 @@ public class SubmitActivity extends AppCompatActivity {
 
         }
 
-        if (arranger.length() == 0) {
+
+        //I decided to not check for arranger or label input, since that is not always not
+       /* if (arranger.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
                 validationErrorMessage.append(" ");
@@ -189,7 +198,7 @@ public class SubmitActivity extends AppCompatActivity {
             validationErrorMessage.append(getString(R.string.error_blank_label));
             validationErrorMessage.append(" ");
 
-        }
+        }*/
         if (genre.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
@@ -209,14 +218,32 @@ public class SubmitActivity extends AppCompatActivity {
         }
 
         mRelease.setArtist(artist);
-        mRelease.setYear(year);
+        mRelease.setYear(Integer.parseInt(year));
         mRelease.setTitle(title);
         mRelease.setTracks(mTracks);
         mRelease.setArranger(arranger);
         mRelease.setLabel(label);
         mRelease.setGenre(genre);
+        //these three fields are for later when I figure out how to design a custom arrayadapter
+        //for three text fields
+        mRelease.put("mComments", mComments);
+        mRelease.put("mUsers", mUsers);
+        mRelease.put("mDates", mDates);
 
-        mRelease.saveInBackground();
+        mRelease.saveInBackground(new SaveCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    Toast.makeText(SubmitActivity.this, "Release info has been added", Toast.LENGTH_LONG)
+                            .show();
+                    finish();
+                } else {
+                    Log.d("parseUser", "Error: " + e.getMessage());
+                    Toast.makeText(SubmitActivity.this, e.getMessage(), Toast.LENGTH_LONG)
+                            .show();
+                }
+            }
+        });
+
         finish();
     }
 }

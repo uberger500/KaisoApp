@@ -33,9 +33,9 @@
             android:layout_height="wrap_content"
             android:text="@string/submit_disc_btn"
             android:id="@+id/submit_disc_btn"
-            android:layout_gravity="right"
             android:padding="16dp"
-            android:enabled="true"/>
+            android:enabled="true"
+            android:layout_gravity="center_horizontal"/>
 
 
     </LinearLayout>

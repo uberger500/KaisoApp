@@ -56,7 +56,7 @@ public class DiscussionListFragment extends Fragment {
         mOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), R.string.submit_button_info, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(getActivity(), R.string.submit_button_info, Toast.LENGTH_SHORT).show();
                 createDiscussion();
             }
         });
