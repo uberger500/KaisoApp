@@ -8,6 +8,8 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/15/15.
  */
+
+//The discussion object that is transformed to a ParseObject for the database
 @ParseClassName("Discussion")
 public class Discussion extends ParseObject{
 

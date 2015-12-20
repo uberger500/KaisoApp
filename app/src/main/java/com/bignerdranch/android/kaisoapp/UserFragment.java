@@ -13,14 +13,13 @@ import android.widget.TextView;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 /**
  * Created by ursberger1 on 11/15/15.
  */
-
+//The fragment for the user pagerview
 public class UserFragment extends Fragment {
 
     private static final String ARG_USER_ID = "user_id";
@@ -75,11 +74,15 @@ public class UserFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-                            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{mEmailAddress.getText().toString()});
-                            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, mEmailSubject.getText().toString());
+                            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
+                                    new String[]{mEmailAddress.getText().toString()});
+                            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                                    mEmailSubject.getText().toString());
                             emailIntent.setType("plain/text");
-                            emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, mEmailBody.getText());
-                            getContext().startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                            emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+                                    mEmailBody.getText());
+                            getContext().startActivity(Intent.createChooser(emailIntent,
+                                    "Send mail..."));
                             getActivity().finish();
                         }
                     });

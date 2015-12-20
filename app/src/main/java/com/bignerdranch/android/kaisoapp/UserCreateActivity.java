@@ -17,14 +17,13 @@ import com.parse.SignUpCallback;
 /**
  * Created by ursberger1 on 11/16/15.
  */
+//The screen to create a new user
 public class UserCreateActivity extends AppCompatActivity {
 
     private EditText mName;
     private EditText mEmail;
     private EditText mPassword;
     private Button mSubmitbtn;
-
-   // private User mUser = new User();
 
     public static Intent newIntent(Context packageContext) {
         return new Intent(packageContext, UserCreateActivity.class);
@@ -89,17 +88,11 @@ public class UserCreateActivity extends AppCompatActivity {
         parseUser.setPassword(password);
         parseUser.setEmail(email);
 
-        //Since I was not able to access the user information for display, I am creating a separate
-        //user object for later display in a list of users
-      //  parseUser.setName(name);
-      //  mUser.setEmail(email);
-
         parseUser.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
                     Toast.makeText(UserCreateActivity.this, "User is signed up", Toast.LENGTH_LONG)
                             .show();
-               //     mUser.saveInBackground();
                     finish();
                 } else {
                     Log.d("parseUser", "Error: " + e.getMessage());

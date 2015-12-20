@@ -16,11 +16,11 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by ursberger1 on 11/15/15.
  */
+//The second discussion screen showing a pagerview for the discussions
 public class DiscussionPagerActivity extends AppCompatActivity {
     private static final String TAG = "DiscPagerActivity";
 

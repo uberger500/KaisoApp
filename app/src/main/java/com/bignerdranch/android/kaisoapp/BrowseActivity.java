@@ -17,14 +17,13 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import org.xml.sax.helpers.ParserFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by ursberger1 on 11/18/15.
  */
+//The first screen in the browse activity, downloads a list of artists and displays alphabetically
 public class BrowseActivity extends AppCompatActivity {
 
     private static final String TAG = "BrowseActivity";
@@ -76,6 +75,7 @@ public class BrowseActivity extends AppCompatActivity {
         });
     }
 
+    //function to create a list of unique artist names from all downloaded releases
     protected List<String> createArtistList(List<ParseObject> releases) {
 
         List<String> artistList = new ArrayList<>();

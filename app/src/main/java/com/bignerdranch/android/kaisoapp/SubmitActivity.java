@@ -21,13 +21,12 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/15/15.
  */
-
+//The submit a new release activity
 public class SubmitActivity extends AppCompatActivity {
 
     private static final String EXTRA_NEW_RELEASE = "com.bignerdranch.android.kaisoapp.new_release";
 
     private Release mRelease = new Release();
-    private String mTempTrack;
     private List<String> mTracks = new ArrayList<>();
 
     ListView listView;
@@ -210,7 +209,6 @@ public class SubmitActivity extends AppCompatActivity {
         }
 
         mRelease.setArtist(artist);
-        mRelease.setArtistLowercase(artist);
         mRelease.setYear(year);
         mRelease.setTitle(title);
         mRelease.setTracks(mTracks);
@@ -222,24 +220,3 @@ public class SubmitActivity extends AppCompatActivity {
         finish();
     }
 }
-
-/*
- <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/link_edit_text"
-        tools:text="link_edit_text"
-        android:editable="true"
-        android:hint="Link"/>
- */
-
-
-/*
- <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/num_tracks_edit_text"
-        tools:text="num_tracks_edit_text"
-        android:editable="true"
-        android:hint="Number of tracks"/>
- */

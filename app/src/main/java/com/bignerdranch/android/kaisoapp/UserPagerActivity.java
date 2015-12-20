@@ -22,13 +22,12 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/15/15.
  */
-
+//The pagerview for users
 public class UserPagerActivity extends AppCompatActivity {
 
     private static final String TAG = "UserPagerActivity";
     private static final String EXTRA_USER_ID = "com.bignerdranch.android.kaisoapp.user_id";
     private ViewPager mViewPager;
-    private final List<ParseObject> mUsers = new ArrayList<>();
 
     public static Intent newIntent(Context packageContext, String userId) {
         Intent intent = new Intent(packageContext, UserPagerActivity.class);

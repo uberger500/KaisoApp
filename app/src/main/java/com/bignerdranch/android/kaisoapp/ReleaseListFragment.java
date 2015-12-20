@@ -21,7 +21,8 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/13/15.
  */
-
+//The first screen of the new release activity that displays the most recent addition to the
+    //database
 public class ReleaseListFragment extends Fragment {
     private static final String TAG = "ReleaseListActivity";
     private RecyclerView mReleaseRecyclerView;
@@ -48,30 +49,15 @@ public class ReleaseListFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> releaseList, ParseException e) {
                 if (e == null) {
-                 //   if (mAdapter == null) {
                         mAdapter = new ReleaseAdapter(releaseList);
                         mReleaseRecyclerView.setAdapter(mAdapter);
-                //    } else {
-                //        mAdapter.setReleases(releaseList);
-                //        mAdapter.notifyDataSetChanged();
-                //    }
-                //    ParseObject.pinAllInBackground("releaseList", releaseList);
-
                 } else {
                     Log.d("release", "Error: " + e.getMessage());
                 }
             }
         });
     }
-/*
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("f", " 6");
-        updateUI();
 
-    }
-*/
     private class ReleaseHolder extends RecyclerView.ViewHolder
            implements View.OnClickListener {
 
@@ -127,10 +113,6 @@ public class ReleaseListFragment extends Fragment {
             @Override
             public int getItemCount() {
                 return mReleases.size();
-            }
-
-            public  void setReleases(List<ParseObject> releases) {
-                mReleases = releases;
             }
         }
 }

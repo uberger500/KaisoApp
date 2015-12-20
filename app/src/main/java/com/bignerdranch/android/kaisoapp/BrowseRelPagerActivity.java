@@ -20,7 +20,8 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/18/15.
  */
-
+//The second screen for the browse activity shows a pagerview for all the releases for the
+    //chosen artist
 public class BrowseRelPagerActivity extends AppCompatActivity {
 
     private static final String TAG = "BrowseReleaseActivity";

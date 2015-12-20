@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
+
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/15/15.
  */
-
+//The recyclerview screen to show users
 public class UserListFragment extends Fragment {
     private static final String TAG = "UserListFrag";
 

@@ -1,7 +1,6 @@
 package com.bignerdranch.android.kaisoapp;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -9,6 +8,8 @@ import com.parse.ParseObject;
 /**
  * Created by urs on 12/10/15.
  */
+
+//this class provides the linkage to the Parse database
 public class StarterApplication extends Application {
 
     public StarterApplication() {

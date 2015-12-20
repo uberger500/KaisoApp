@@ -3,25 +3,17 @@ package com.bignerdranch.android.kaisoapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-/*
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
-import com.amazonaws.mobileconnectors.cognito.Dataset;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.dynamodbv2.*;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
-*/
 
 /**
  * Created by ursberger1 on 11/13/15.
  */
+
+//This class provides the splash screen plus the sign-up in the menubar
 public class StartViewActivity extends AppCompatActivity {
 
     private static final String EXTRA_NEW_RELEASES = "new_releases";

@@ -3,7 +3,6 @@ package com.bignerdranch.android.kaisoapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +13,7 @@ import com.parse.ParseObject;
 /**
  * Created by ursberger1 on 11/15/15.
  */
-
+//This class shows the search screen
 public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
 
@@ -25,8 +24,6 @@ public class SearchActivity extends AppCompatActivity {
     private EditText mTrack;
     private EditText mArranger;
     private EditText mGenre;
-
-    private String mArtistSearch;
 
     private Button mSearchSubmitButton;
 
@@ -66,6 +63,7 @@ public class SearchActivity extends AppCompatActivity {
         String searchArranger = mArranger.getText().toString().trim();
         String searchGenre = mGenre.getText().toString().trim();
 
+        //test for input
         boolean validationError = false;
         StringBuilder validationErrorMessage = new StringBuilder();
         if (searchArtist.length() == 0 &&

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/13/15.
  */
-
+//The release class object
 @ParseClassName("Release")
 public class Release extends ParseObject {
 
@@ -28,10 +28,6 @@ public class Release extends ParseObject {
 
     public void setArtist(String artist) {
         put("mArtist", artist);
-    }
-
-    public void setArtistLowercase(String artist) {
-        put("mArtistLowercase", artist.toLowerCase());
     }
 
     public String getYear() {

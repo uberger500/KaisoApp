@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/13/15.
  */
-
+//The second screen of the new release activity displaying a pagerview for the releases
 public class ReleasePagerActivity extends AppCompatActivity {
 
     private static final String TAG = "ReleasePagerActivity";

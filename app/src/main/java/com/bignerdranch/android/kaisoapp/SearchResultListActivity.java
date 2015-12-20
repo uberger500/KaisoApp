@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 /**
  * Created by ursberger1 on 11/18/15.
  */
-
+//the second activity in the search process, search terms are added to the intent
 public class SearchResultListActivity extends SingleFragmentActivity {
 
     private static final String EXTRA_ARTIST_SEARCH =

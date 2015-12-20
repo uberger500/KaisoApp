@@ -24,6 +24,7 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/15/15.
  */
+//The fragment for the discussion pagerview
 public class DiscussionFragment extends Fragment {
 
     private static final String TAG = "DiscFragment";
@@ -113,7 +114,6 @@ public class DiscussionFragment extends Fragment {
         }
         // Set up a new Discussion
         mPoints.add(discussionPoint);
-        Log.d(TAG, "mPoints size3 is " + mPoints.size());
         mDiscussion.put("mDiscussionPoints", mPoints);
         mDiscussion.saveInBackground();
 

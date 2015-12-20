@@ -27,15 +27,14 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/15/15.
  */
+//The first screen of the discussion activity, a recyclerview that shows the list of
+    //already created discussion topics, or a GO button when the list is empty
 public class DiscussionListFragment extends Fragment {
 
     private static final String TAG = "DiscListActivity";
 
     private RecyclerView mDiscussionRecyclerView;
     private DiscussionAdapter mAdapter;
-    private Discussion mDiscussion;
-
-    private String mDiscussionTitle;
 
     LinearLayout mNoDiscussionLayout;
     private Button mOkButton;
@@ -118,7 +117,6 @@ public class DiscussionListFragment extends Fragment {
     private class DiscussionHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-
         private TextView mDiscussionTitleTextView;
         private ParseObject mDiscussion;
 
@@ -126,7 +124,8 @@ public class DiscussionListFragment extends Fragment {
             super(itemView);
             itemView.setOnClickListener(this);
 
-            mDiscussionTitleTextView = (TextView) itemView.findViewById(R.id.list_item_discussion_title_text_view);
+            mDiscussionTitleTextView = (TextView)
+                    itemView.findViewById(R.id.list_item_discussion_title_text_view);
         }
 
         public void bindDiscussion(ParseObject discussion) {

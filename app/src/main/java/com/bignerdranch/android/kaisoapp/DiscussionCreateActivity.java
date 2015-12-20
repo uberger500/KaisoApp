@@ -15,6 +15,8 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/23/15.
  */
+//The screen to create a discussion topic, this is activated by the go button when the list is
+    //empty or by the button in the menubar
 public class DiscussionCreateActivity extends AppCompatActivity {
 
     private static final String TAG = "DiscCreateActivity";

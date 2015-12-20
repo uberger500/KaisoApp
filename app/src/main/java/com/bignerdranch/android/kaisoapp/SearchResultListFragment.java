@@ -23,7 +23,8 @@ import java.util.List;
 /**
  * Created by ursberger1 on 11/18/15.
  */
-
+//The second screen of the search showing a recyclerview of the search results
+    //results are listed alphabetically
 public class SearchResultListFragment extends Fragment {
 
     private static final String EXTRA_ARTIST_SEARCH =
@@ -70,28 +71,24 @@ public class SearchResultListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-        ParseObject.unpinAllInBackground();
         mReleaseRecyclerView = (RecyclerView) view.findViewById(R.id.item_recycler_view);
         mReleaseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        updateUI();
+        //after view is initialized, local storage is cleared
+        ParseObject.unpinAllInBackground();
+
+        search();
 
         return view;
     }
 
 
-    private void updateUI() {
-        ParseQuery<ParseObject> query1 = ParseQuery.getQuery("Release");
+    private void search() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
 
-        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Release");
         if (mArtistSearch.length() != 0) {
-            query1.whereEqualTo("mArtist", mArtistSearch);
-            query2.whereEqualTo("mArtistLowercase", mArtistSearch.toLowerCase());
+            query.whereEqualTo("mArtist", mArtistSearch);
         }
-        List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
-        queries.add(query1);
-        queries.add(query2);
-        ParseQuery<ParseObject> query = ParseQuery.or(queries);
 
         if (mYearSearch.length() != 0) {
             query.whereEqualTo("mYear", mYearSearch);
@@ -115,6 +112,8 @@ public class SearchResultListFragment extends Fragment {
                     if (releaseList.size() == 0) {
                         Toast.makeText(getActivity(), R.string.search_nothing_found, Toast.LENGTH_SHORT).show();
                     }
+                    //the search results are saved in local storage so that the doesn't have
+                    //to be repeated for the fragment
                     ParseObject.pinAllInBackground(releaseList);
 
                     if (mAdapter == null) {
@@ -144,6 +143,7 @@ public class SearchResultListFragment extends Fragment {
         public ReleaseHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
+            //the artist and title are shown, separated by comma
             mReleaseArtistTextView = (TextView) itemView.findViewById(R.id.list_item_release_artist_text_view);
             mReleaseConnectorTextView = (TextView) itemView.findViewById(R.id.list_item_release_connector_text_view);
             mReleaseTitleTextView = (TextView) itemView.findViewById(R.id.list_item_release_title_text_view);
