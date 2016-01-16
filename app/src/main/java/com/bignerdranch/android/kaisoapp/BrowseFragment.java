@@ -65,7 +65,7 @@ public class BrowseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.fragment_release, container, false);
+        final View v = inflater.inflate(R.layout.fragment_release2, container, false);
 
         listViewTracks  = (ListView) v.findViewById(R.id.list);
         listViewComments  = (ListView) v.findViewById(R.id.list_comment);
