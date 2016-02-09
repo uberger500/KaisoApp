@@ -11,7 +11,7 @@
     <string name="button_search">Search</string>
     <string name="button_contact">Contact Kaiso Lovers</string>
     <string name="button_submit">Submit Release Info</string>
-    <string name="button_test">Button works</string>
+    <string name="button_youtube">Video List</string>
 
     <string name="show_subtitle">Show Release Number</string>
     <string name="hide_subtitle">Hide Release Number</string>
@@ -106,5 +106,7 @@
 
     <string name="submit_comment_button">submit comment</string>
 
+    <string name="error_thumbnail_view">There was an error initializing the YouTubeThumbnailView (%1$s)</string>
+    <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 
 </resources>

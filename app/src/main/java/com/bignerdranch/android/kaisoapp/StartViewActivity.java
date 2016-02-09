@@ -24,6 +24,7 @@ public class StartViewActivity extends AppCompatActivity {
     private Button mDiscussionButton;
     private Button mContactButton;
     private Button mSubmitButton;
+    private Button mYoutubeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,15 @@ public class StartViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(StartViewActivity.this, SubmitActivity.class);
+                startActivity(i);
+            }
+        });
+
+        mYoutubeButton = (Button) findViewById(R.id.button_youtube);
+        mYoutubeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(StartViewActivity.this, VideoListActivity.class);
                 startActivity(i);
             }
         });
