@@ -13,6 +13,10 @@ import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailLoader.ErrorReason;
 import com.google.android.youtube.player.YouTubeThumbnailView;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -24,6 +28,10 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +71,8 @@ public class VideoListActivity extends Activity implements OnFullscreenListener 
 
     private boolean isFullscreen;
 
+ //   private List<ParseObject> releaseList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +87,9 @@ public class VideoListActivity extends Activity implements OnFullscreenListener 
         closeButton = findViewById(R.id.close_button);
 
         videoBox.setVisibility(View.INVISIBLE);
+
+
+
 
         layout();
 
@@ -179,13 +192,15 @@ public class VideoListActivity extends Activity implements OnFullscreenListener 
         }
     }
 
+
     /**
      * A fragment that shows a static list of videos.
      */
     public static final class VideoListFragment extends ListFragment {
 
-        private static final List<VideoEntry> VIDEO_LIST;
-        static {
+        private  List<VideoEntry> VIDEO_LIST;
+
+       /* static {
             List<VideoEntry> list = new ArrayList<VideoEntry>();
             list.add(new VideoEntry("YouTube Collection", "Y_UmWdcTrrc"));
             list.add(new VideoEntry("GMail Tap", "1KhZKNZO8mQ"));
@@ -195,15 +210,45 @@ public class VideoListActivity extends Activity implements OnFullscreenListener 
             list.add(new VideoEntry("GMail Motion", "Bu927_ul_X0"));
             list.add(new VideoEntry("Translate for Animals", "A9fp56gu_a4"));//3I24bSteJpw"));
             VIDEO_LIST = Collections.unmodifiableList(list);
-        }
+        }*/
 
         private PageAdapter adapter;
         private View videoBox;
+        private List<ParseObject> releaseList;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            adapter = new PageAdapter(getActivity(), VIDEO_LIST);
+
+            adapter = new PageAdapter(getActivity(), new ArrayList<VideoEntry>());
+
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
+            query.orderByDescending("createdAt");
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> queryList, ParseException e) {
+                    if (e == null) {
+                        releaseList = queryList;
+                        {
+                            List<VideoEntry> list = new ArrayList<VideoEntry>();
+                            for (ParseObject object : releaseList) {
+                                list.add(new VideoEntry(object.getString("mArtist"),
+                                        object.getString("mYoutubeId")));
+                            }
+
+                            VIDEO_LIST = Collections.unmodifiableList(list);
+                        }
+
+                        adapter.setEntries(VIDEO_LIST);
+                        
+                        adapter.notifyDataSetChanged();
+
+                    } else {
+                        Log.d("browse", "Error: " + e.getMessage());
+                    }
+                }
+            });
+
+           // adapter = new PageAdapter(getActivity(), VIDEO_LIST);
         }
 
         @Override
@@ -258,7 +303,7 @@ public class VideoListActivity extends Activity implements OnFullscreenListener 
      */
     private static final class PageAdapter extends BaseAdapter {
 
-        private final List<VideoEntry> entries;
+        private List<VideoEntry> entries;
         private final List<View> entryViews;
         private final Map<YouTubeThumbnailView, YouTubeThumbnailLoader> thumbnailViewToLoaderMap;
         private final LayoutInflater inflater;
@@ -367,6 +412,9 @@ public class VideoListActivity extends Activity implements OnFullscreenListener 
             }
         }
 
+        public void setEntries(List<VideoEntry> entries) {
+            this.entries = entries;
+        }
     }
 
     public static final class VideoFragment extends YouTubePlayerFragment
