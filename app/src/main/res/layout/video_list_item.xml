@@ -13,13 +13,15 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
+
+  android:background="?android:attr/activatedBackgroundIndicator"
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="95dp"
     android:orientation="horizontal"
     android:gravity="center"
-    android:background="?android:attr/activatedBackgroundIndicator">
+              android:background="@android:color/black">
 
   <com.google.android.youtube.player.YouTubeThumbnailView
       android:id="@+id/thumbnail"

@@ -71,8 +71,6 @@ public class VideoListActivity extends Activity implements OnFullscreenListener 
 
     private boolean isFullscreen;
 
- //   private List<ParseObject> releaseList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,9 +85,6 @@ public class VideoListActivity extends Activity implements OnFullscreenListener 
         closeButton = findViewById(R.id.close_button);
 
         videoBox.setVisibility(View.INVISIBLE);
-
-
-
 
         layout();
 
@@ -131,7 +126,7 @@ public class VideoListActivity extends Activity implements OnFullscreenListener 
     }
 
     /**
-     * Sets up the layout programatically for the three different states. Portrait, landscape or
+     * Sets up the layout programmatically for the three different states. Portrait, landscape or
      * fullscreen+landscape. This has to be done programmatically because we handle the orientation
      * changes ourselves in order to get fluent fullscreen transitions, so the xml layout resources
      * do not get reloaded.
@@ -224,6 +219,7 @@ public class VideoListActivity extends Activity implements OnFullscreenListener 
 
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Release");
             query.orderByDescending("createdAt");
+            query.whereNotEqualTo("mYoutubeId", "None");
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> queryList, ParseException e) {
                     if (e == null) {
@@ -231,15 +227,17 @@ public class VideoListActivity extends Activity implements OnFullscreenListener 
                         {
                             List<VideoEntry> list = new ArrayList<VideoEntry>();
                             for (ParseObject object : releaseList) {
-                                list.add(new VideoEntry(object.getString("mArtist"),
-                                        object.getString("mYoutubeId")));
+                             //   if (object.getString("mYoutubeId") != "None") {
+                                    list.add(new VideoEntry(object.getString("mArtist"),
+                                            object.getString("mYoutubeId")));
+                             //   }
                             }
 
                             VIDEO_LIST = Collections.unmodifiableList(list);
                         }
 
                         adapter.setEntries(VIDEO_LIST);
-                        
+
                         adapter.notifyDataSetChanged();
 
                     } else {

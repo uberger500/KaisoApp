@@ -3,7 +3,8 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:weightSum="7">
+             android:weightSum="7"
+             android:background="@android:color/black">
 
 
     <Button
