@@ -11,6 +11,8 @@ import android.widget.Button;
 
 /**
  * Created by ursberger1 on 11/13/15.
+ * and edited 1/26/17
+ * 
  */
 
 //This class provides the splash screen plus the sign-up in the menubar
